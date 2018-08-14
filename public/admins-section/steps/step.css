@@ -1,0 +1,25 @@
+
+.delete_location{
+    cursor: pointer;
+}
+
+#add_location_ico{
+    cursor: pointer;
+}
+
+#add_department_ico{
+    cursor: pointer;
+}
+
+.add_hod{
+    cursor: pointer;
+}
+
+.remove-user{
+    cursor: pointer;
+}
+
+.padding-sides{
+    padding-left:20px;
+    padding-right:20px;
+}
