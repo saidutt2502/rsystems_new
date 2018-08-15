@@ -7,8 +7,6 @@
       <!--Import materialize.css-->
       <link rel="stylesheet" href="{{ asset('core/css/materialize.min.css') }}" />
       <link rel="stylesheet" href="{{ asset('core/css/initalize.css') }}" />
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.min.css">
-      
       @yield('css-files')
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -35,6 +33,10 @@
                 </div>
             </nav>
 
+            <?php
+            $user_type=DB::table('admins')->where('id',session('user_id'))->value('user_type');
+            ?>
+
              <ul id="slide-out" class="sidenav sidenav-fixed ">
                     <li><div class="user-view">
                     <div>
@@ -43,14 +45,18 @@
                    
                     </div></li>
                     <li><div class="divider"></div></li>
+                    @if($user_type=='1')
                     <li><a href="/admin/step-1"><i class="material-icons">add_to_queue</i>Location -> Department</a></li>
                     <li><a href="/admin/step-2"><i class="material-icons">all_inclusive</i>Users -> Location</a></li>
                     <li><a href="/admin/step-3"><i class="material-icons">portrait</i>Hod -> Department</a></li>
-
+                    @endif
+                    @if($user_type=='2')
+                    <li><a href="/admin/hod_cc"><i class="material-icons">add_to_queue</i>Cost Center Information</a></li>
+                    @endif
                     <!-- Logout Functionality -->
-                      <li>
+                      <!-- <li>
                         <a href="{{ route('logout') }}" class="waves-effect"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="material-icons">arrow_back</i>Logout</a><form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
-                    </li>
+                    </li> -->
                 </ul>
         </header>
 
@@ -70,7 +76,6 @@
       <script src="{{ asset('core/js/jquery.min.js') }}" defer></script>
       <script src="{{ asset('core/js/materialize.min.js') }}" defer></script>
       <script src="{{ asset('core/js/initalize.js') }}" defer></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
       @yield('js-files')
     </body>
   </html>

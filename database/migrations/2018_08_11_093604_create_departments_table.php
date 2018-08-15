@@ -18,6 +18,7 @@ class CreateDepartmentsTable extends Migration
         Schema::create('rs_departments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->integer('hod_id');
             $table->integer('last_edited')->default(Auth::id());
             $table->timestamps();
         });

@@ -50,10 +50,20 @@ class StepController extends Controller
             ->join('rs_location2department', 'rs_departments.id', '=', 'rs_location2department.department')
             ->where('rs_location2department.location',$id)
             ->get();
+    $users = DB::table('users')->get();        
 
-    return view('admin.department_hod')->withId($id)->withName($location)->withDepartments($departments);
+    return view('admin.department_hod')->withId($id)->withName($location)->withDepartments($departments)->withUsers($users);
   }
 
+  //HOD Admin Functions
+
+  public function hod_cc()
+  {
+    $admins = DB::table('admins')->where('id',session('user_id'))->value('email');
+    $users = DB::table('users')->where('email',$admins)->value('id');
+    $department = DB::table('rs_departments')->where('hod_id',$users)->get();
+    return view('admin.hod_cc')->withDepartments($department);
+  }
 
   // Ajax Calls 
   public function ajax_step_controller(Request $request)
@@ -106,23 +116,33 @@ class StepController extends Controller
                   $data['data'] = $dept2location;
                   break;
 
-            case 'check_user_details':
-                    $email_check = DB::table('users')->where('email', $request->email)->exists();
-                    $epm_id = DB::table('users')->where('emp_id', $request->emp_id)->exists();
+            // case 'check_user_details':
+            //         $email_check = DB::table('users')->where('email', $request->email)->exists();
+            //         $epm_id = DB::table('users')->where('emp_id', $request->emp_id)->exists();
 
-                    if($email_check &&  $epm_id){
-                        $data['success'] = 'false';
-                        $data['msg'] = 'Email Address and Employee Code already Exists';
-                    }else if(!$email_check &&  $epm_id){
-                      $data['success'] = 'false';
-                      $data['msg'] = 'Employee Code already Exists';
-                    }else if($email_check &&  !$epm_id){
-                      $data['success'] = 'false';
-                      $data['msg'] = 'Email Address already Exists';
-                    }else{
-                      $data['success'] = 'true';
-                    }
+            //         if($email_check &&  $epm_id){
+            //             $data['success'] = 'false';
+            //             $data['msg'] = 'Email Address and Employee Code already Exists';
+            //         }else if(!$email_check &&  $epm_id){
+            //           $data['success'] = 'false';
+            //           $data['msg'] = 'Employee Code already Exists';
+            //         }else if($email_check &&  !$epm_id){
+            //           $data['success'] = 'false';
+            //           $data['msg'] = 'Email Address already Exists';
+            //         }else{
+            //           $data['success'] = 'true';
+            //         }
 
+            //       break;
+            
+              case 'get_list_user':
+                  $users=DB::table('users')->get();
+                  return $users;
+                  break;
+
+              case 'autocomplete_user':
+                  $users=DB::table('users')->where('emp_id',$request->emp_id)->get();
+                  return $users;
                   break;
 
             case 'delete_user':
@@ -130,6 +150,15 @@ class StepController extends Controller
                   break;
 
             case 'add_user':
+                   $check=DB::table('users')->where('emp_id',$request->emp_id)->first();
+                   if($check)
+                   {
+                       $inserted_user = $check->id;
+                       DB::table('rs_location2users')->insert(
+                        ['user_id' => $inserted_user, 'location_id' => $request->loc_id,'last_edited' => session('user_id') ]
+                     );
+                   }
+                   else{
                    $inserted_user = DB::table('users')->insertGetId([
 
                             'name' => $request->name, 
@@ -138,24 +167,56 @@ class StepController extends Controller
                             'emp_id' => $request->emp_id 
 
                       ]);
-
+                    
                       DB::table('rs_location2users')->insert(
                            ['user_id' => $inserted_user, 'location_id' => $request->loc_id,'last_edited' => session('user_id') ]
                         );
+                      }
 
                         $data['insert_id'] = $inserted_user;
                   break;
             
-            case 'get_user_list':
-                  $users=DB::table('users')->get();
-                  return $users;
+           case 'assign_hod':
+                  DB::table('rs_departments')->where('id', $request->dept_id) ->update(['hod_id' => $request->user_id]);
+                  DB::table('users')->where('id',$request->user_id)->update(['user_type' => '1']);
+                  $user=DB::table('users')->where('id',$request->user_id)->first();
+                  $check=DB::table('admins')->where('email',$user->email)->count();
+                  if($check=='0')
+                  {
+                  DB::table('admins')->insert(
+                    ['name' => $user->name, 'email' => $user->email, 'job_title'=>'hod', 'password'=> $user->password, 'user_type'=> '2']
+                  );
+                  }
                   break;
-          
-            case 'assign_hod':
-                  $dept=DB::table('rs_departments')->where('id', $request->dept_id)->first();
+
+           case 'delete_hod':
+                  DB::table('rs_departments')->where('id', $request->dept_id) ->update(['hod_id' => NULL]);
+                  DB::table('users')->where('id',$request->user_id)->update(['user_type' => NULL]);
+                  $user=DB::table('users')->where('id',$request->user_id)->first();
+                  $check=DB::table('rs_departments')->where('hod_id',$request->user_id)->count();
+                  if($check=='0')
+                  {
+                  DB::table('admins')->where('email', $user->email)->delete();
+                  }
+                  break;
                   
+                  //HOD Admin Functions
+
+          case 'get_list_cc':
+                  $cc_list = DB::table('rs_costcenters')->get();
+                  return $cc_list;
+                  break;        
+            
+          case 'add_cc':
+                  $added_cc = DB::table('rs_costcenters')->insertGetId(
+                  ['number' => $request->number, 'department' => $request->dept_id]
+                  );
+                  $data['added_id'] = $added_cc;
+                  break; 
+          
+          case 'delete_cc':
+                  DB::table('rs_costcenters')->where('id',$request->cc_id)->delete();
                   break;
-                     
 
           default:
               $data['success'] = 'false';

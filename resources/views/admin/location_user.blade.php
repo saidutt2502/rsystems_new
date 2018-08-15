@@ -12,21 +12,21 @@
 
     <div class="row hide-on-small-only">
         <div class="row">
+        <div class="input-field col s2">
+            <i class="material-icons prefix">card_membership</i>
+            <input id="emp_id" placeholder="Employee Id" type="text" >
+            </div>
             <div class="input-field col s3">
             <i class="material-icons prefix">mood</i>
-            <input id="name" placeholder="Name" type="text" class="validate">
-            </div>
-            <div class="input-field col s2">
-            <i class="material-icons prefix">card_membership</i>
-            <input id="emp_id" placeholder="Employee Id" type="text" class="validate">
+            <input id="name" placeholder="Name" type="text" >
             </div>
             <div class="input-field col s4">
             <i class="material-icons prefix">email</i>
-            <input id="email" placeholder="Email Address" type="text" class="validate">
+            <input id="email" placeholder="Email Address" type="text">
             </div>
             <div class="input-field col s3">
             <i class="material-icons prefix">lock_outline</i>
-            <input id="password" placeholder="Password" type="text" class="validate">
+            <input id="password" placeholder="Password" type="password">
             </div>
         </div>
     </div>

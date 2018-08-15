@@ -24,7 +24,7 @@
                             <li class="collection-item avatar ">
                                 <i remove-id="{{$e_location->id}}" class="material-icons circle red delete_location">remove</i>
                                 <span class="title">{{$e_location->name}}</span>
-                                <p>First Line</p>
+                                <!-- <p>First Line</p> -->
                                 <a href="#!" open-id="{{$e_location->id}}" class="secondary-content  add_dept2location"><i class="material-icons">send</i></a>
                             </li>
                         @endforeach

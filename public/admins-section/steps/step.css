@@ -11,11 +11,19 @@
     cursor: pointer;
 }
 
-.add_hod{
+.remove-user{
     cursor: pointer;
 }
 
-.remove-user{
+.delete_hod{
+    cursor: pointer;
+}
+
+.add_cc{
+    cursor: pointer;
+}
+
+.remove-cc{
     cursor: pointer;
 }
 

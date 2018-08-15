@@ -16,21 +16,37 @@
                 <tr>
                     <th>Department Name</th>
                     <th>HOD Name</th>
+                    <th></th>
                 </tr>
                 </thead>
 
-                <tbody id="user_list_table">
+                <tbody>
                     @if($departments)
                         @foreach($departments as $each_department)
                             <tr id="{{$each_department->id}}">
                                 <td>{{$each_department->name}}</td>
-                                <td>
-                                <div class="input-field col s1">
-                                <i  data-deptid="{{$each_department->id}}" class="material-icons prefix add_hod">add</i>
-                                </div>
-                                <div class="input-field col s11">
-                                <input type="text" id="autocomplete-input" class="autocomplete">
-                                </div>
+                                     @if($each_department->hod_id==NULL)
+                                    <td colspan='2'>
+                                    <div class="input-field col s12">
+                                    <select class="add_hod" dept-id="{{$each_department->id}}">
+                                    <option value="" disabled selected>Select HOD</option>
+                                    @foreach($users as $user)
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                    @endforeach
+                                    </select>
+                                    </div>
+                                    </td>
+                                    @else
+                                    <?php
+                                    $name=DB::table('users')->where('id',$each_department->hod_id)->value('name');
+                                    ?>
+                                    <td>
+                                    {{$name}}
+                                    </td>
+                                    <td>
+                                    <center><i class="material-icons prefix delete_hod" dept-id="{{$each_department->id}}" user-id="{{$each_department->hod_id}}">close</i></center>
+                                    </td>
+                                @endif
                                 </td>
                             </tr>
                         @endforeach
