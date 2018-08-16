@@ -19,6 +19,7 @@ class CreateDepartmentsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('hod_id');
+            $table->integer('oc_levels')->default('0');
             $table->integer('last_edited')->default(Auth::id());
             $table->timestamps();
         });

@@ -52,6 +52,7 @@
                     @endif
                     @if($user_type=='2')
                     <li><a href="/admin/hod_cc"><i class="material-icons">add_to_queue</i>Cost Center Information</a></li>
+                    <li><a href="/admin/oc"><i class="material-icons">account_box</i>Organisation Chart</a></li>
                     @endif
                     <!-- Logout Functionality -->
                       <!-- <li>

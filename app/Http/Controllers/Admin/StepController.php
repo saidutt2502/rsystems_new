@@ -65,6 +65,22 @@ class StepController extends Controller
     return view('admin.hod_cc')->withDepartments($department);
   }
 
+  public function oc()
+  {
+    $admins = DB::table('admins')->where('id',session('user_id'))->value('email');
+    $users = DB::table('users')->where('email',$admins)->value('id');
+    $department = DB::table('rs_departments')->where('hod_id',$users)->get();
+    return view('admin.oc_details')->withDepartments($department);
+  }
+
+  public function oc_structure()
+  {
+    $admins = DB::table('admins')->where('id',session('user_id'))->value('email');
+    $users = DB::table('users')->where('email',$admins)->value('id');
+    $department = DB::table('rs_departments')->where('hod_id',$users)->get();
+    return view('admin.oc_structure')->withDepartments($department)->withHodid($users);
+  }
+
   // Ajax Calls 
   public function ajax_step_controller(Request $request)
   {
@@ -178,7 +194,7 @@ class StepController extends Controller
             
            case 'assign_hod':
                   DB::table('rs_departments')->where('id', $request->dept_id) ->update(['hod_id' => $request->user_id]);
-                  DB::table('users')->where('id',$request->user_id)->update(['user_type' => '1']);
+                  // DB::table('users')->where('id',$request->user_id)->update(['user_type' => '1']);
                   $user=DB::table('users')->where('id',$request->user_id)->first();
                   $check=DB::table('admins')->where('email',$user->email)->count();
                   if($check=='0')
@@ -190,8 +206,8 @@ class StepController extends Controller
                   break;
 
            case 'delete_hod':
-                  DB::table('rs_departments')->where('id', $request->dept_id) ->update(['hod_id' => NULL]);
-                  DB::table('users')->where('id',$request->user_id)->update(['user_type' => NULL]);
+                  DB::table('rs_departments')->where('id', $request->dept_id)->update(['hod_id' => NULL]);
+                  // DB::table('users')->where('id',$request->user_id)->update(['user_type' => NULL]);
                   $user=DB::table('users')->where('id',$request->user_id)->first();
                   $check=DB::table('rs_departments')->where('hod_id',$request->user_id)->count();
                   if($check=='0')
@@ -217,7 +233,18 @@ class StepController extends Controller
           case 'delete_cc':
                   DB::table('rs_costcenters')->where('id',$request->cc_id)->delete();
                   break;
-
+          case 'store_levels':
+                  DB::table('rs_departments')->where('id',$request->dept_id)->update(['oc_levels' => $request->levels]);
+                  break;
+          case 'retrieve_levels':
+                  $levels = DB::table('rs_departments')->where('id',$request->dept_id)->get();
+                  return $levels;
+                  break;
+          case 'add_reporting':
+                  DB::table('rs_reporting')->insert(
+                  ['department' => $request->dept_id, 'level' => $request->level, 'reporter' => $request->reporter, 'reportee' => $request->reportee]
+                  );
+                  break;                
           default:
               $data['success'] = 'false';
         }

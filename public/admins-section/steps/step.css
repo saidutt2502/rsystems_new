@@ -11,6 +11,10 @@
     cursor: pointer;
 }
 
+#oc_details{
+    cursor: pointer;
+}
+
 .remove-user{
     cursor: pointer;
 }
@@ -24,6 +28,9 @@
 }
 
 .remove-cc{
+    cursor: pointer;
+}
+.add_emp{
     cursor: pointer;
 }
 
