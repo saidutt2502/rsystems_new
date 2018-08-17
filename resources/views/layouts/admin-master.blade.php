@@ -7,6 +7,8 @@
       <!--Import materialize.css-->
       <link rel="stylesheet" href="{{ asset('core/css/materialize.min.css') }}" />
       <link rel="stylesheet" href="{{ asset('core/css/initalize.css') }}" />
+      <link rel="stylesheet" href="{{ asset('core/css/chosen.min.css') }}" />
+
       @yield('css-files')
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -77,6 +79,7 @@
       <script src="{{ asset('core/js/jquery.min.js') }}" defer></script>
       <script src="{{ asset('core/js/materialize.min.js') }}" defer></script>
       <script src="{{ asset('core/js/initalize.js') }}" defer></script>
+      <script src="{{ asset('core/js/chosen.jquery.min.js') }}" defer></script>
       @yield('js-files')
     </body>
   </html>

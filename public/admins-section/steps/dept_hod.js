@@ -1,5 +1,16 @@
 $(document).ready(function () {
 
+
+    //All chosen initialization
+    $(".chosen-select").each(function(){
+        $(".chosen-select").chosen({width: "100%"});
+        if($(this).val($(this).attr('data-hod')) !== 'NULL'){
+            $(this).val($(this).attr('data-hod'));
+            $(this).trigger("chosen:updated");
+        }
+
+    });
+
   $('select').formSelect();
 
   $('.add_hod').on("change",function(){

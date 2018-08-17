@@ -12,4 +12,11 @@ document.addEventListener('DOMContentLoaded', function() {
       if($('#page-title')){
         $('.brand-logo').text($('#page-title').val());
       }
+
+      //Scam Code for Chosen
+      setTimeout(function(){
+        $('.select-wrapper').hide();
+        $('.chosen-search-input').css("width", "95%");
+      }, 1);
+
   });
