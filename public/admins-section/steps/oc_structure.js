@@ -186,75 +186,17 @@ $(document).ready(function(){
                 '_token': $('input[name=_token]').val()
             },
             success: function (data) {
-                form =' <div class="container to_clear" align="center"><div class="row"><div class = "col m6"><ul class="collection with-header" id="location_collection"><li class="collection-header"><h4>Line '+title_1+'</h4></li>'+previous_line+'</ul></div></div></div>'
-    
+                form ='<div class="row"><table class="to_clear"><tbody><tr><td><select  id="user_id" class="chosen-select refresh " disabled><option value="" disabled selected>Select User</option>'
+                for(i=0;i<data.length;i++)
+                {
+                    form+='<option value="'+data[i].id+'">'+data[i].name+'</option>';
+                }
+                form+='</select></td><td><i class="material-icons prefix add_emp">add</i></td></tr></tbody></table><div class="container to_clear" align="center"><div class = "col m6"><ul class="collection with-header" id="location_collection"><li class="collection-header"><h4>Line '+title_1+'</h4></li>'+previous_line+'</ul></div></div></div>';
                 
                 $('#add_table').append(form);
                 $(".chosen-select").each(function(){
                     $(".chosen-select").chosen({width: "100%"}); 
                 });
-
-                $('.add_emp').click(function(){
-                        
-                       
-                    $.ajax({
-                     type: 'post',
-                     url: $('#url_ajax').val(),
-                     data: {
-                         function_name: 'add_reporting',
-                         dept_id: $('#dept').val(),
-                         reportee: $('#user_id').val(),
-                         level:  $('#levels').val(),
-                         reporter:  $('#hod_id').val(),
-                         '_token': $('input[name=_token]').val()
-                     },
-                     success: function (data) {
-                         $('.refresh').val("");
-                         $('.refresh').trigger("chosen:updated");
-                         $('#added_employees').append('<tr id="'+data[0].id+'"><td>'+data[0].emp_id+'</td><td>'+data[0].name+'</td><td><i class="material-icons prefix del_emp" user-id="'+data[0].id+'">close</i></td></tr>');
-                         
-                         $('.del_emp').click(function(){
-                        
-                            var user_id=$(this).attr('user-id');
-                            $.ajax({
-                             type: 'post',
-                             url: $('#url_ajax').val(),
-                             data: {
-                                 function_name: 'del_reporting',
-                                 dept_id: $('#dept').val(),
-                                 reportee: $(this).attr('user-id'),
-                                 level:  $('#levels').val(),
-                                 '_token': $('input[name=_token]').val()
-                             },
-                             success: function (data) {
-                                $('#'+user_id).fadeOut();  
-                             }
-                         });
-                         });
-                         
-                     }
-                 });
-                 });
-
-                 $('.del_emp').click(function(){
-                        
-                    var user_id=$(this).attr('user-id');
-                    $.ajax({
-                     type: 'post',
-                     url: $('#url_ajax').val(),
-                     data: {
-                         function_name: 'del_reporting',
-                         dept_id: $('#dept').val(),
-                         reportee: $(this).attr('user-id'),
-                         level:  $('#levels').val(),
-                         '_token': $('input[name=_token]').val()
-                     },
-                     success: function (data) {
-                        $('#'+user_id).fadeOut();  
-                     }
-                 });
-                 });
-
                               
             }
 
