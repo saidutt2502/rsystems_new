@@ -197,7 +197,7 @@ $(document).ready(function(){
                 $(".chosen-select").each(function(){
                     $(".chosen-select").chosen({width: "100%"}); 
                 });
-                              
+                               
             } 
 
             
