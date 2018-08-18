@@ -32,6 +32,7 @@ Route::prefix('admin')->group(function() {
   Route::get('step-3', 'Admin\StepController@step_3');
   Route::get('/loc/{id}', 'Admin\StepController@location_user');
   Route::get('/loc_1/{id}', 'Admin\StepController@location_user1');
+  Route::get('hod_cc', 'Admin\StepController@hod_cc');
   Route::get('oc', 'Admin\StepController@oc');
   Route::get('oc_structure', 'Admin\StepController@oc_structure');
 });

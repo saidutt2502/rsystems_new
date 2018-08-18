@@ -14,7 +14,7 @@
     <div class="row hide-on-small-only">
         <div class="row">
              <div class="input-field col s6">
-             <select id ="dept">
+             <select id ="dept" class="chosen-select">
              <option value="" disabled selected>Select Department</option>
              @if($departments)
                 @foreach($departments as $department)
@@ -26,13 +26,11 @@
                 @endforeach
             @endif
              </select>
-            <label>Department</label>
             </div>
             <div class="input-field col s6">
-             <select id="levels">
-             <option class="to_remove" value="" disabled selected>Select Line</option>
+             <select id="levels" class="chosen-select">
+             <option class="to_remove" value="" disabled selected>Select Line to Initialize</option>
              </select>
-            <label>Line to Initialize</label>
             </div>
         </div>
     </div>

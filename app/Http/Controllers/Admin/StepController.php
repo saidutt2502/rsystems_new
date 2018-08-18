@@ -205,16 +205,6 @@ class StepController extends Controller
                   }
                   break;
 
-           case 'delete_hod':
-                  DB::table('rs_departments')->where('id', $request->dept_id)->update(['hod_id' => NULL]);
-                  // DB::table('users')->where('id',$request->user_id)->update(['user_type' => NULL]);
-                  $user=DB::table('users')->where('id',$request->user_id)->first();
-                  $check=DB::table('rs_departments')->where('hod_id',$request->user_id)->count();
-                  if($check=='0')
-                  {
-                  DB::table('admins')->where('email', $user->email)->delete();
-                  }
-                  break;
                   
                   //HOD Admin Functions
 
@@ -244,7 +234,21 @@ class StepController extends Controller
                   DB::table('rs_reporting')->insert(
                   ['department' => $request->dept_id, 'level' => $request->level, 'reporter' => $request->reporter, 'reportee' => $request->reportee]
                   );
-                  break;                
+                  $reportee_details = DB::table('users')->where('id',$request->reportee)->get();
+                  return $reportee_details;
+                  break; 
+          case 'retrieve_hierarchy':
+                  $hierarchy = DB::table('rs_reporting')
+                  ->join('users','users.id','=','rs_reporting.reportee')
+                  ->where('rs_reporting.department',$request->dept_id)
+                  ->where('rs_reporting.level',$request->level)
+                  ->select('users.name','users.emp_id','users.id')
+                  ->get();
+                  return $hierarchy;
+                  break;
+          case 'del_reporting':
+                  DB::table('rs_reporting')->where('department',$request->dept_id)->where('level',$request->level)->where('reportee',$request->reportee)->delete();
+                  break;                              
           default:
               $data['success'] = 'false';
         }

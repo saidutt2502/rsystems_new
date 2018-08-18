@@ -37,7 +37,7 @@
     <div class="divider"></div>
     <div class="modal-content">
         <div class="input-field">
-            <select id="dept">
+            <select id="dept" class="chosen-select">
                     <option value="" disabled selected>Select Department</option>
                         @if($departments)
                             @foreach($departments as $department)
@@ -49,12 +49,11 @@
                             @endforeach
                         @endif   
             </select>
-            <label>Department</label>
+            
             <br>
         </div>
         <div class="input-field">
-        <input type="text" id="levels">
-        <label for="levels">Number of Levels</label>
+        <input type="text" id="levels" placeholder="Number of Levels">
         <br>
         </div>
     </div>

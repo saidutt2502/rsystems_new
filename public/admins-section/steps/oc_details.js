@@ -1,4 +1,12 @@
 $(document).ready(function(){
+
+    
+    
+    $(".chosen-select").each(function(){
+        $(".chosen-select").chosen({width: "100%"}); 
+    });
+
+
     $('select').formSelect();
     $('.modal').modal();
 
@@ -17,7 +25,8 @@ $(document).ready(function(){
                 '_token': $('input[name=_token]').val()
             },
             success: function (data) {
-                // location.reload();
+                $('.chosen-select').val("");
+                $('.chosen-select').trigger("chosen:updated");
                 $('#levels').val('');
             }
         });

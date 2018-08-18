@@ -28,13 +28,12 @@
                                     <td colspan='2'>
                                     <div class="input-field col s12">
                                         <select data-hod="{{$each_department->hod_id}}" class="add_hod chosen-select" dept-id="{{$each_department->id}}">
-                                            <option value="0">Select HOD</option>
+                                        <option value="" disabled selected>Select HOD</option>
                                             @foreach($users as $user)
                                             <option value="{{$user->id}}">{{$user->name}}</option>
                                             @endforeach
                                         </select>
                                         </div>
-                                    </td>
                                 </td>
                             </tr>
                         @endforeach

@@ -30,7 +30,12 @@
 .remove-cc{
     cursor: pointer;
 }
+
 .add_emp{
+    cursor: pointer;
+}
+
+.del_emp{
     cursor: pointer;
 }
 

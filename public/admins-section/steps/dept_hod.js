@@ -25,26 +25,8 @@ $(document).ready(function () {
             '_token': $('input[name=_token]').val()
         },
         success: function (data) {
-           location.reload();
         }
     });
 
  });
-
- $('.delete_hod').click(function(){
-    $.ajax({
-        type: 'post',
-        url: $('#url_ajax').val(),
-        data: {
-            function_name: 'delete_hod',
-            user_id: $(this).attr('user-id'),
-            dept_id: $(this).attr('dept-id'),
-            '_token': $('input[name=_token]').val()
-        },
-        success: function (data) {
-           location.reload();
-        }
-    });
- });
-
 });
