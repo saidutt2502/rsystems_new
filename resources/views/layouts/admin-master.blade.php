@@ -1,86 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title> Admin | Rsystems </title>
 
-  <!DOCTYPE html>
-  <html>
-    <head>
-      <!--Import Google Icon Font-->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link rel="stylesheet" href="{{ asset('core/css/materialize.min.css') }}" />
-      <link rel="stylesheet" href="{{ asset('core/css/initalize.css') }}" />
-      <link rel="stylesheet" href="{{ asset('core/css/chosen.min.css') }}" />
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-      @yield('css-files')
-      <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      <title>Admin | R-System</title>
-    </head>
+		<!-- bootstrap & fontawesome -->
+		<link rel="stylesheet" href="/core/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/core/font-awesome/4.5.0/css/font-awesome.min.css" />
 
+		<!-- page specific plugin styles -->
 
-    <body>
-        <!-- Header section -->
-        <header>
-            <nav>
-                <div class="nav-wrapper">
-                    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                    <a class="brand-logo" style="padding-left:20px"><strong>Admin - Page</strong></a>
-                    <ul class="right">
-                            <li class="hide-on-small-only"><a href="sass.html"><i class="material-icons">search</i></a></li>
-                            <li class="hide-on-small-only"><a href="badges.html"><i class="material-icons">view_module</i></a></li>
-                            <li class="hide-on-small-only"><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
-                            <!-- Logout Functionality -->
-                            <li>
-                            <a href="{{ route('logout') }}" class="waves-effect"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="material-icons">arrow_back</i></a><form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
-                            </li>
-                    </ul>
-                </div>
-            </nav>
+		<!-- text fonts -->
+		<link rel="stylesheet" href="/core/css/fonts.googleapis.com.css" />
 
-            <?php
-            $user_type=DB::table('admins')->where('id',session('user_id'))->value('user_type');
-            ?>
+		<!-- ace styles -->
+		<link rel="stylesheet" href="/core/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
 
-             <ul id="slide-out" class="sidenav sidenav-fixed ">
-                    <li><div class="user-view">
-                    <div>
-                        <img src="/core/images/logo.png">
+		<!--[if lte IE 9]>
+			<link rel="stylesheet" href="/core/css/ace-part2.min.css" class="ace-main-stylesheet" />
+		<![endif]-->
+		<link rel="stylesheet" href="/core/css/ace-skins.min.css" />
+		<link rel="stylesheet" href="/core/css/ace-rtl.min.css" />
+
+		<!--[if lte IE 9]>
+		  <link rel="stylesheet" href="/core/css/ace-ie.min.css" />
+		<![endif]-->
+
+		<!-- inline styles related to this page -->
+         @yield('css-files')
+
+		<!-- ace settings handler -->
+		<script src="/core/js/ace-extra.min.js"></script>
+
+		<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+		<!--[if lte IE 8]>
+		<script src="/core/js/html5shiv.min.js"></script>
+		<script src="/core/js/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+	<body class="skin-1">
+		<div id="navbar" class="navbar navbar-default ace-save-state">
+			<div class="navbar-container ace-save-state" id="navbar-container">
+				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
+					<span class="sr-only">Toggle sidebar</span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+				</button>
+
+				<div class="navbar-header pull-left">
+					<a href="index.html" class="navbar-brand">
+						<small>
+							<i class="fa fa-leaf"></i>
+							Rsystems
+						</small>
+					</a>
+				</div>
+
+				<div class="navbar-buttons navbar-header pull-right" role="navigation">
+				</div>
+			</div><!-- /.navbar-container -->
+		</div>
+
+		<div class="main-container ace-save-state" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.loadState('main-container')}catch(e){}
+			</script>
+
+			<div id="sidebar" class="sidebar responsive ace-save-state">
+				<script type="text/javascript">
+					try{ace.settings.loadState('sidebar')}catch(e){}
+				</script>
+
+				<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+					<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+						<h3>Welcome User</h3>
+					</div>
+
+					<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+						<span class="btn btn-success"></span>
+
+						<span class="btn btn-info"></span>
+
+						<span class="btn btn-warning"></span>
+
+						<span class="btn btn-danger"></span>
+					</div>
+				</div><!-- /.sidebar-shortcuts -->
+
+				<ul class="nav nav-list">
+					<li class="">
+						<a href="index.html">
+							<i class="menu-icon fa fa-tachometer"></i>
+							<span class="menu-text"> Dashboard </span>
+						</a>
+
+						<b class="arrow"></b>
+					</li>
+					<li class="">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-list"></i>
+							<span class="menu-text"> Inception </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							<li class="">
+								<a href="/admin/step-1">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Step - 1
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							<li class="">
+								<a href="/admin/step-2">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Step - 2
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							<li class="">
+								<a href="/admin/step-3">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Step - 3
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+						</ul>
+                    </li>
+                    <li class="">
+                            <a href="{{ route('logout') }}" class="waves-effect"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="menu-icon fa fa-power-off"></i>
+							<span class="menu-text">Logout </span></a><form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
+						<b class="arrow"></b>
+					</li>
+				</ul><!-- /.nav-list -->
+
+				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+					<i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+				</div>
+			</div>
+
+			<div class="main-content">
+				<div class="main-content-inner">
+					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+						<ul class="breadcrumb">
+                        <li>
+                            <i class="ace-icon fa fa-home home-icon"></i><a href="/admin">Home</a>
+                        </li>
+                           @yield('breadcrumb')
+						</ul><!-- /.breadcrumb -->
                     </div>
-                   
-                    </div></li>
-                    <li><div class="divider"></div></li>
-                    @if($user_type=='1')
-                    <li><a href="/admin/step-1"><i class="material-icons">add_to_queue</i>Location -> Department</a></li>
-                    <li><a href="/admin/step-2"><i class="material-icons">all_inclusive</i>Users -> Location</a></li>
-                    <li><a href="/admin/step-3"><i class="material-icons">portrait</i>Hod -> Department</a></li>
-                    @endif
-                    @if($user_type=='2')
-                    <li><a href="/admin/hod_cc"><i class="material-icons">add_to_queue</i>Cost Center Information</a></li>
-                    <li><a href="/admin/oc"><i class="material-icons">account_box</i>Organisation Chart</a></li>
-                    @endif
-                    <!-- Logout Functionality -->
-                      <!-- <li>
-                        <a href="{{ route('logout') }}" class="waves-effect"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="material-icons">arrow_back</i>Logout</a><form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
-                    </li> -->
-                </ul>
-        </header>
+                    
+                    
+					<div class="page-content">
 
+                        <div class="page-header">
+                                @yield('page-header')
+                        </div>
 
-        <!-- Main Section -->
-        <main>
-            @yield('main-content')
-        </main>
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+                                        @yield('main-content')
+								<!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div>
+			</div><!-- /.main-content -->
 
-        <!-- Footer Section -->
-        <footer>
+			<div class="footer">
+				<div class="footer-inner">
+					<div class="footer-content">
+						<span class="bigger-120">
+							<b>Development Phase</b> &copy; 2018-2020
+						</span>
+					</div>
+				</div>
+			</div>
 
-        </footer>
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
 
+		<!-- basic scripts -->
 
-      <!--JavaScript at end of body for optimized loading-->
-      <script src="{{ asset('core/js/jquery.min.js') }}" defer></script>
-      <script src="{{ asset('core/js/materialize.min.js') }}" defer></script>
-      <script src="{{ asset('core/js/initalize.js') }}" defer></script>
-      <script src="{{ asset('core/js/chosen.jquery.min.js') }}" defer></script>
-      @yield('js-files')
-    </body>
-  </html>
-        
+		<!--[if !IE]> -->
+		<script src="/core/js/jquery-2.1.4.min.js"></script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script src="/core/js/jquery-1.11.3.min.js"></script>
+<![endif]-->
+		<script type="text/javascript">
+			if('ontouchstart' in document.documentElement) document.write("<script src='/core/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+		</script>
+		<script src="/core/js/bootstrap.min.js"></script>
+
+		<!-- ace scripts -->
+		<script src="/core/js/ace-elements.min.js"></script>
+		<script src="/core/js/ace.min.js"></script>
+
+		<!-- inline scripts related to this page -->
+            @yield('js-files')
+	</body>
+</html>

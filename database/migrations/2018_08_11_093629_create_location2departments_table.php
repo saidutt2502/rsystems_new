@@ -19,8 +19,8 @@ class CreateLocation2departmentsTable extends Migration
             $table->increments('id');
             $table->integer('location');
             $table->integer('department');
-            $table->integer('last_edited')->default(Auth::id());
-            $table->timestamps();
+            $table->integer('last_edited')->default(session('user_id'));
+            $table->date('updated_at')->default(date("Y-m-d"));
         });
     }
 

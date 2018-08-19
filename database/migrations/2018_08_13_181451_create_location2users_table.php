@@ -18,7 +18,7 @@ class CreateLocation2usersTable extends Migration
             $table->integer('user_id');
             $table->integer('location_id');
             $table->integer('last_edited')->default(session('user_id'));
-            $table->timestamps();
+            $table->date('updated_at')->default(date("Y-m-d"));
         });
     }
 

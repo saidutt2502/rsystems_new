@@ -21,7 +21,7 @@ class CreateAdminsTable extends Migration
             $table->string('password');
             $table->integer('user_type');
             $table->rememberToken();
-            $table->timestamps();
+            $table->date('updated_at')->default(date("Y-m-d"));
         });
     }
 

@@ -13,20 +13,49 @@ class StepController extends Controller
 
   public function step_1()
   {
-     $location = DB::table('rs_locations')->get();
-    return view('admin.step_1')->withLocation($location);
+     $location = DB::table('rs_locations')
+     ->leftJoin('rs_location2department', 'rs_location2department.location', '=', 'rs_locations.id')
+     ->select('rs_locations.*', DB::raw("count(rs_location2department.location) as count"))
+     ->groupBy('rs_locations.id')
+     ->get();
+
+     $dept2location = DB::table('rs_departments')->select('rs_departments.name as name','rs_departments.id as id','rs_location2department.location as location_id') 
+                  ->join('rs_location2department', 'rs_location2department.department', '=', 'rs_departments.id')
+                  ->get();
+
+    return view('admin.step_1')->withLocation($location)->withDeptlocation($dept2location);
   }
 
   public function step_2()
   {
-     $location = DB::table('rs_locations')->get();
+    $location = DB::table('rs_locations')
+    ->leftJoin('rs_location2users', 'rs_location2users.location_id', '=', 'rs_locations.id')
+    ->select('rs_locations.*', DB::raw("count(DISTINCT rs_location2users.user_id) as count"))
+    ->groupBy('rs_locations.id')
+    ->get();
     return view('admin.step_2')->withLocation($location);
   }
 
   public function step_3()
   {
-     $location = DB::table('rs_locations')->get();
-    return view('admin.step_3')->withLocation($location);
+    $location = DB::table('rs_locations')
+    ->leftJoin('rs_location2department', 'rs_location2department.location', '=', 'rs_locations.id')
+    ->select('rs_locations.*', DB::raw("count(rs_location2department.location) as count"))
+    ->groupBy('rs_locations.id')
+    ->get();
+
+    $dept2location = DB::table('rs_departments')->select('rs_departments.name as name','rs_departments.id as id','rs_location2department.location as location_id','rs_departments.hod_id as hod_id') 
+                 ->join('rs_location2department', 'rs_location2department.department', '=', 'rs_departments.id')
+                 ->get();
+
+    $users = DB::table('users')
+              ->select('id','name')
+              ->get();
+
+  
+
+
+   return view('admin.step_3')->withLocation($location)->withDeptlocation($dept2location)->withUsers($users);
   }
 
   public function location_user($id)
@@ -37,6 +66,7 @@ class StepController extends Controller
             ->join('rs_location2users', 'users.id', '=', 'rs_location2users.user_id')
             ->join('rs_locations', 'rs_locations.id', '=', 'rs_location2users.location_id')
             ->where('rs_location2users.location_id',$id)
+            ->distinct()
             ->get();
 
     return view('admin.location_user')->withId($id)->withName($location)->withUsers($users);
@@ -100,14 +130,16 @@ class StepController extends Controller
 
           case 'del_location':
                 DB::table('rs_locations')->where('id', '=', $request->id)->delete();
+                DB::table('rs_location2department')->where('location', '=', $request->id)->delete();
                  break;
                  
           case 'add_department':
-                  //Adding entry to Departments table
-                 $id = DB::table('rs_departments')->insertGetId([
-                   'name' => $request->name,
-                   'last_edited' => session('user_id')
-                   ]);
+          
+          //Adding entry to Departments table
+          $id = DB::table('rs_departments')->insertGetId([
+            'name' => $request->name,
+            'last_edited' => session('user_id')
+            ]);
 
                 //Adding entry to rs_location2department
                  DB::table('rs_location2department')->insert([
@@ -121,6 +153,7 @@ class StepController extends Controller
 
             case 'del_department':
                   DB::table('rs_departments')->where('id', '=', $request->id)->delete();
+                  DB::table('rs_location2department')->where('department', '=', $request->id)->delete();
                   break;
 
             case 'list_departments':
@@ -131,25 +164,6 @@ class StepController extends Controller
 
                   $data['data'] = $dept2location;
                   break;
-
-            // case 'check_user_details':
-            //         $email_check = DB::table('users')->where('email', $request->email)->exists();
-            //         $epm_id = DB::table('users')->where('emp_id', $request->emp_id)->exists();
-
-            //         if($email_check &&  $epm_id){
-            //             $data['success'] = 'false';
-            //             $data['msg'] = 'Email Address and Employee Code already Exists';
-            //         }else if(!$email_check &&  $epm_id){
-            //           $data['success'] = 'false';
-            //           $data['msg'] = 'Employee Code already Exists';
-            //         }else if($email_check &&  !$epm_id){
-            //           $data['success'] = 'false';
-            //           $data['msg'] = 'Email Address already Exists';
-            //         }else{
-            //           $data['success'] = 'true';
-            //         }
-
-            //       break;
             
               case 'get_list_user':
                   $users=DB::table('users')->get();
@@ -162,7 +176,7 @@ class StepController extends Controller
                   break;
 
             case 'delete_user':
-                  DB::table('users')->where('id', $request->user_id)->delete();
+                  DB::table('rs_location2users')->where('user_id', $request->user_id)->delete();
                   break;
 
             case 'add_user':

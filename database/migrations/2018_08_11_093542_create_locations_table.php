@@ -17,7 +17,7 @@ class CreateLocationsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('last_edited')->default(session('user_id'));
-            $table->timestamps();
+            $table->date('updated_at')->default(date("Y-m-d"));
         });
     }
 

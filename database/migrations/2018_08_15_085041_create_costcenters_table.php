@@ -17,7 +17,8 @@ class CreateCostcentersTable extends Migration
             $table->increments('id');
             $table->string('number');
             $table->integer('department');
-            $table->timestamps();
+            $table->integer('last_edited')->default(session('user_id'));
+            $table->date('updated_at')->default(date("Y-m-d"));
         });
     }
 

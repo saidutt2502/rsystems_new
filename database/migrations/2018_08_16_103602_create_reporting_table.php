@@ -19,7 +19,8 @@ class CreateReportingTable extends Migration
             $table->integer('level');
             $table->integer('reporter');
             $table->integer('reportee');
-            $table->timestamps();
+            $table->integer('last_edited')->default(session('user_id'));
+            $table->date('updated_at')->default(date("Y-m-d"));
         });
     }
 

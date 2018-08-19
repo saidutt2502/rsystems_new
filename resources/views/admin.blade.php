@@ -1,5 +1,9 @@
 @extends('layouts.admin-master')
 
+@section('breadcrumb')
+    <li class="active">Dashboard</li>
+@endsection
+
 @section('main-content')
 <div class="row">
     <ul class="collection">

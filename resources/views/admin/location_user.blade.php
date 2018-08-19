@@ -1,97 +1,161 @@
 @extends('layouts.admin-master')
 
-@section('css-files')
-    <link rel="stylesheet" href="{{ asset('admins-section/steps/step.css') }}" />
+@section('breadcrumb')
+    <li class="active">Step-2</li>
+@endsection
+
+
+@section('page-header')
+    <h1>{{ $name }}
+        <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Users</small>
+    </h1>
 @endsection
 
 @section('main-content')
-    <!-- page title hidden input type       -->
-    <input type="hidden" value="{{ $name }} -> Users" id="page-title">
+    <div class="widget-box hidden-480">
+            <div class="widget-header">
+                <h4 class="widget-title">Add Users</h4>
+            </div>
 
-<div class="padding-sides">
-
-    <div class="row hide-on-small-only">
-        <div class="row">
-        <div class="input-field col s2">
-            <i class="material-icons prefix">card_membership</i>
-            <input id="emp_id" placeholder="Employee Id" type="text" >
+            <div class="widget-body">
+                <div class="widget-main">
+                    <form class="form-inline">
+                        <span class="input-icon">
+                            <input id="emp_id" placeholder="Employee Code" type="text">
+                            <i class="ace-icon fa fa-key blue"></i>
+                        </span>
+                        <span class="input-icon">
+                            <input id="name" placeholder="Name" type="text">
+                            <i class="ace-icon fa fa-users blue"></i>
+                        </span>
+                        <span class="input-icon">
+                            <input id="email" placeholder="Email" type="text">
+                            <i class="ace-icon fa fa-briefcase blue"></i>
+                        </span>
+                        <span class="input-icon">
+                            <input id="password" placeholder="Password" type="text">
+                            <i class="ace-icon fa  fa-eye  red"></i>
+                        </span>
+                      
+                        <button type="button" id="add_user" class="btn btn-info btn-sm">
+                            <i class="ace-icon fa fa-check bigger-110"></i>Add
+                        </button>
+                        <button type="button" id="reset" class="btn btn-danger btn-sm">
+                            <i class="ace-icon fa fa-stop bigger-110"></i>Reset
+                        </button>
+                    </form>
+                </div>
             </div>
-            <div class="input-field col s3">
-            <i class="material-icons prefix">mood</i>
-            <input id="name" placeholder="Name" type="text" >
-            </div>
-            <div class="input-field col s4">
-            <i class="material-icons prefix">email</i>
-            <input id="email" placeholder="Email Address" type="text">
-            </div>
-            <div class="input-field col s3">
-            <i class="material-icons prefix">lock_outline</i>
-            <input id="password" placeholder="Password" type="password">
-            </div>
+    </div>
+    <br>
+        <div class="clearfix">
+            <div class="pull-right tableTools-container"></div>
         </div>
-    </div>
-
-    <div class="row center-align hide-on-small-only">
-        <a id="add_user" class="waves-effect waves-light green darken-2 btn"><i class="material-icons left">send</i>Submit</a>
-        <a id="reset" class="waves-effect waves-light red darken-2  btn"><i class="material-icons right">cloud</i>Reset</a>
-    </div>
-
-    <div class="divider"></div>
-
-        <div class="row">
-            <table class="striped responsive-table">
+        <div>
+            <table id="dynamic-table" class="table table-striped table-bordered table-hover">
                 <thead>
-                <tr>
-                    <th>Employee ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th class="center hidden-480">
+                            <label class="pos-rel">
+                                <input type="checkbox" class="ace" />
+                                <span class="lbl"></span>
+                            </label>
+                        </th>
+                        <th>Empoyee Code</th>
+                        <th class="hidden-480">Name</th>
+                        <th class="hidden-480">Email</th>
+                        <th class="hidden-480">
+                            <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
+                            Updated
+                        </th>
+                        <th class="hidden-480">Status</th>
+                        <th class="hidden-480"></th>
+                    </tr>
                 </thead>
 
-                <tbody id="user_list_table">
+                <tbody>
                     @if($users)
                         @foreach($users as $each_user)
-                            <tr id="{{$each_user->id}}">
-                                <td>{{$each_user->emp_id}}</td>
-                                <td>{{$each_user->name}}</td>
-                                <td>{{$each_user->email}}</td>
-                                <td><i data-userid="{{$each_user->id}}"  class="material-icons remove-user">close</i></td>
-                            </tr>
-                        @endforeach
-                    @endif
+                    <tr>
+                        <td class="center hidden-480">
+                            <label class="pos-rel">
+                                <input type="checkbox" class="ace" />
+                                <span class="lbl"></span>
+                            </label>
+                        </td>
+
+                        <td>
+                            <a href="#">{{$each_user->emp_id}}</a>
+                        </td>
+                        <td class="hidden-480">{{$each_user->name}}</td>
+                        <td class="hidden-480">{{$each_user->email}}</td>
+                        <td class="hidden-480">@if($each_user->updated_at){{ date("D, d F Y",strtotime($each_user->updated_at))}}@endif</td>
+
+                        <td class="hidden-480">
+                            <span class="label label-sm label-success">Active</span>
+                        </td>
+
+                        <td class="hidden-480">
+                            <div class="hidden-sm hidden-xs action-buttons">
+                                <a class="green" href="#">
+                                    <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                </a>
+
+                                <a class="red remove-user" href="#" data-userid="{{$each_user->id}}">
+                                    <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                @endif
                 </tbody>
             </table>
-        </div> 
-    </div>
+        </div>
 
-<!-- Ajax call url       -->
-<input type="hidden" value="{{URL::to('step')}}" id="url_ajax">
-
-<!-- More hidden values -->
-<input type="hidden" value="{{ $id }}" id="location_id">
-
-
- <!-- Error Modal -->
- <div id="error_modal" class="modal red darken-1">
+    <!-- Modal -->
+<div id="confirm_delete_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
     <div class="modal-content">
-      <h4 class="center-align"><strong id="error_msg">Please Enter all Details !</strong></h4>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Confirm delete User?</h4>
+      </div>
+      <div class="modal-body">
+        <p>Deleting this User will only delete this user from this departments.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="confirm_delete">Confirm</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
+
+  </div>
 </div>
 
-<!-- Confirm Action Modal -->
- <div id="confirm_modal" class="modal">
-    <div class="modal-content">
-      <h4 class="center-align">Delete user?</h4>
-    </div>
-    <div class="modal-footer">
-      <a id="confirm_delete" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-      <a id="close" class="modal-close waves-effect waves-green btn-flat">Disagree</a>
-    </div>
-  </div>
+        <!-- Location Id -->
+        <input type="hidden" value="{{ $id }}" id="location_id">
+
+    <!-- Ajax call url       -->
+    <input type="hidden" value="{{URL::to('step')}}" id="url_ajax">
 
 @endsection
 
 @section('js-files')
+    <!-- Custom File -->
+    <script src="{{ asset('admins-section/steps/initialize_datatables.js') }}" defer></script>
     <script src="{{ asset('admins-section/steps/loc_user.js') }}" defer></script>
+
+    <script src="/core/js/jquery-ui.min.js"></script>
+    <script src="/core/js/jquery.ui.touch-punch.min.js"></script>
+
+    <script src="/core/js/jquery.dataTables.min.js"></script>
+    <script src="/core/js/jquery.dataTables.bootstrap.min.js"></script>
+    <script src="/core/js/dataTables.buttons.min.js"></script>
+    <script src="/core/js/buttons.flash.min.js"></script>
+    <script src="/core/js/buttons.html5.min.js"></script>
+    <script src="/core/js/buttons.print.min.js"></script>
+    <script src="/core/js/buttons.colVis.min.js"></script>
+    <script src="/core/js/dataTables.select.min.js"></script>
 @endsection
