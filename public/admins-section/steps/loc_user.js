@@ -1,5 +1,12 @@
 $(document).ready(function () {
 
+    //Setting Menu items to active
+    $('li').removeClass('active');
+    $('#step2-menu-nav').addClass('active');
+    $('#inception-nav-menu').css("display","block");
+    $('#inception-nav-menu').removeClass('nav-hide');
+    $('#inception-nav-menu').addClass('nav-show');
+
     var availableTags = [];
 
     $.ajax({
