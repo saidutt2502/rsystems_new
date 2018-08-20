@@ -1,20 +1,13 @@
 $(document).ready(function(){
 
-    
-    
-    $(".chosen-select").each(function(){
-        $(".chosen-select").chosen({width: "100%"}); 
+    $('.nav-tabs a:first').tab('show') 
+
+    $('.edit-modal').click(function(){
+        $('#dept').val($(this).attr('dept-id'));
+        $('#myModal').modal();
     });
 
-
-    $('select').formSelect();
-    $('.modal').modal();
-
-    $('#oc_details').click(function(){
-        $('#modal1').modal('open');
-    });
-
-    $('#submit').click(function(){
+    $('#confirm_delete').click(function(){
         $.ajax({
             type: 'post',
             url: $('#url_ajax').val(),
@@ -25,9 +18,7 @@ $(document).ready(function(){
                 '_token': $('input[name=_token]').val()
             },
             success: function (data) {
-                $('.chosen-select').val("");
-                $('.chosen-select').trigger("chosen:updated");
-                $('#levels').val('');
+                location.reload();
             }
         });
     });

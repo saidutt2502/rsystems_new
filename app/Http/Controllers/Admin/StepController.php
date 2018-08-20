@@ -111,6 +111,54 @@ class StepController extends Controller
     return view('admin.oc_structure')->withDepartments($department)->withHodid($users);
   }
 
+  public function oc_structure_1(Request $request)
+  {
+     $d_name = DB::table('rs_departments')->where('id',$request->dept_id)->value('name');
+     $l_name = DB::table('rs_location2department')
+     ->join('rs_locations','rs_locations.id','=','rs_location2department.location')
+     ->where('rs_location2department.department',$request->dept_id)
+     ->select('rs_locations.name')
+     ->first();
+     $user_list = DB::table('users')->get();
+
+     if($request->level_selected=='2')
+     {
+      $hierarchy = DB::table('rs_reporting')
+      ->join('users','users.id','=','rs_reporting.reportee')
+      ->where('rs_reporting.department',$request->dept_id)
+      ->where('rs_reporting.level',$request->level_selected)
+      ->select('users.name','users.emp_id','users.id')
+      ->get();
+      $admins = DB::table('admins')->where('id',session('user_id'))->value('email');
+      $users = DB::table('users')->where('email',$admins)->value('id');
+
+      return view('admin.oc_structure_line2')->withDepartments($request->dept_id)
+      ->withDeptname($d_name)->withHodid($users)->withHierarchies($hierarchy)
+      ->withLevel($request->level_selected)->withUsers($user_list)->withLocation($l_name);
+     }
+     else
+     {
+      $previous_line = DB::table('rs_reporting')
+      ->join('users','users.id','=','rs_reporting.reportee')
+      ->where('rs_reporting.department',$request->dept_id)
+      ->where('rs_reporting.level',$request->level_selected-1)
+      ->select('users.name','users.emp_id','users.id')
+      ->get();
+
+      $hierarchy = DB::table('rs_reporting')
+      ->join('users','users.id','=','rs_reporting.reportee')
+      ->where('rs_reporting.department',$request->dept_id)
+      ->where('rs_reporting.level',$request->level_selected)
+      ->select('users.name','users.emp_id','users.id')
+      ->get();
+
+
+      return view('admin.oc_structure_lines')->withDepartments($request->dept_id)
+      ->withDeptname($d_name)->withPreviouslines($previous_line)->withHierarchies($hierarchy)
+      ->withLevel($request->level_selected)->withUsers($user_list)->withLocation($l_name);
+     }
+  }
+
   // Ajax Calls 
   public function ajax_step_controller(Request $request)
   {
@@ -229,7 +277,7 @@ class StepController extends Controller
             
           case 'add_cc':
                   $added_cc = DB::table('rs_costcenters')->insertGetId(
-                  ['number' => $request->number, 'department' => $request->dept_id]
+                  ['number' => $request->number, 'department' => $request->dept_id, 'last_edited' => session('user_id')]
                   );
                   $data['added_id'] = $added_cc;
                   break; 
@@ -246,20 +294,11 @@ class StepController extends Controller
                   break;
           case 'add_reporting':
                   DB::table('rs_reporting')->insert(
-                  ['department' => $request->dept_id, 'level' => $request->level, 'reporter' => $request->reporter, 'reportee' => $request->reportee]
+                  ['department' => $request->dept_id, 'level' => $request->level, 'reporter' => $request->reporter, 'reportee' => $request->reportee,'last_edited' => session('user_id')]
                   );
                   $reportee_details = DB::table('users')->where('id',$request->reportee)->get();
                   return $reportee_details;
                   break; 
-          case 'retrieve_hierarchy':
-                  $hierarchy = DB::table('rs_reporting')
-                  ->join('users','users.id','=','rs_reporting.reportee')
-                  ->where('rs_reporting.department',$request->dept_id)
-                  ->where('rs_reporting.level',$request->level)
-                  ->select('users.name','users.emp_id','users.id')
-                  ->get();
-                  return $hierarchy;
-                  break;
           case 'del_reporting':
                   DB::table('rs_reporting')->where('department',$request->dept_id)->where('level',$request->level)->where('reportee',$request->reportee)->delete();
                   break;                              

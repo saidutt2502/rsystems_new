@@ -1,27 +1,11 @@
 $(document).ready(function(){
-    $('.collapsible').collapsible();
-    var cc_no;
 
-    $.ajax({
-        type: 'post',
-        url: $('#url_ajax').val(),
-        data: {
-            function_name: 'get_list_cc',
-            '_token': $('input[name=_token]').val()
-        },
-        success: function (data) {
-            var cc_list = {};
-            for (var i = 0; i < data.length; i++) {
-              cc_list[data[i].number] = null; //countryArray[i].flag or null
-            }
-            
-            $('.cc_no').autocomplete({
-                data: cc_list,
-                limit: 5, // The max amount of results that can be shown at once. Default: Infinity.
-              });
-           
-        }
+    $('.show-details-btn').on('click', function(e) {
+        e.preventDefault();
+        $(this).closest('tr').next().toggleClass('open');
+        $(this).find(ace.vars['.icon']).toggleClass('fa-angle-double-down').toggleClass('fa-angle-double-up');
     });
+    var cc_no;
 
     $('.cc_no').on("change",function(){
         cc_no = $(this).val();
@@ -38,27 +22,7 @@ $(document).ready(function(){
                 '_token': $('input[name=_token]').val()
             },
             success: function (data) {
-              
-                $('#cc_list_table_'+dept).append('<tr id='+data.added_id+'><td>'+cc_no+'</td><td><i cc-id='+data.added_id+' class="material-icons remove-cc">close</i></td></tr>');
-                $(".cc_no").val('');
-
-                $(".remove-cc").click(function () {
-                    var cc_id=$(this).attr('cc-id');
-                    $.ajax({
-                        type: 'post',
-                        url: $('#url_ajax').val(),
-                        data: {
-                            function_name: 'delete_cc',
-                            cc_id:  cc_id ,
-                            '_token': $('input[name=_token]').val()
-                        },
-                        success: function (data) {
-                            $('#'+cc_id).fadeOut();
-                           
-                        }
-                    });
-                });
-               
+              location.reload(); 
             }
         });
     });
@@ -74,9 +38,7 @@ $(document).ready(function(){
                 '_token': $('input[name=_token]').val()
             },
             success: function (data) {
-                if (data.success) {
-                    $('#'+cc_id).fadeOut();
-              }
+                location.reload();
                
             }
         });

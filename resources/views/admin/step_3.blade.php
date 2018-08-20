@@ -1,8 +1,6 @@
 @extends('layouts.admin-master')
 
 @section('css-files')
-<link rel="stylesheet" href="/core/css/jquery-ui.custom.min.css" />
-<link rel="stylesheet" href="/core/css/chosen.min.css" />
 <link rel="stylesheet" href="{{ asset('admins-section/steps/step.css') }}" />
 @endsection
 
@@ -121,7 +119,6 @@
 
 @section('js-files')
 
-        <script src="/core/js/chosen.jquery.min.js"></script>
     <!-- Custom File -->
         <script src="{{ asset('admins-section/steps/dept_hod.js') }}" defer></script>
 @endsection

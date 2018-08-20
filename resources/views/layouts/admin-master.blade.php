@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+	<?php
+	$user=DB::table('admins')->where('id',session('user_id'))->first();
+	?>
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
@@ -29,6 +32,10 @@
 		<!--[if lte IE 9]>
 		  <link rel="stylesheet" href="/core/css/ace-ie.min.css" />
 		<![endif]-->
+
+        <!-- chosen css -->
+		<link rel="stylesheet" href="/core/css/jquery-ui.custom.min.css" />
+        <link rel="stylesheet" href="/core/css/chosen.min.css" />
 
 		<!-- inline styles related to this page -->
          @yield('css-files')
@@ -274,6 +281,7 @@
 
 						<b class="arrow"></b>
 					</li>
+					@if($user->user_type=='1')
 					<li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-list"></i>
@@ -310,12 +318,43 @@
 								<b class="arrow"></b>
 							</li>
 						</ul>
-                    </li>
-                    <li class="">
+					</li>
+					@else
+					<li class="">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-list"></i>
+							<span class="menu-text"> Department Details </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu" id="inception-nav-menu">
+							<li class="">
+								<a href="/admin/oc">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Organisation Chart
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							<li class="" id="step2-menu-nav">
+								<a href="/admin/hod_cc">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Cost Centers
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+						</ul>
+					</li>
+					@endif
+                    <!-- <li class="">
                             <a href="{{ route('logout') }}" class="waves-effect"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="menu-icon fa fa-power-off"></i>
 							<span class="menu-text">Logout </span></a><form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
 						<b class="arrow"></b>
-					</li>
+					</li> -->
 				</ul><!-- /.nav-list -->
 
 				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
@@ -384,6 +423,9 @@
 		<script src="/core/js/ace.min.js"></script>
 
 		<script src="/core/js/menu.js"></script>
+
+        <!-- chosen scripts -->
+		<script src="/core/js/chosen.jquery.min.js"></script>
 
 		<!-- inline scripts related to this page -->
             @yield('js-files')
