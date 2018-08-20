@@ -187,7 +187,7 @@
 
 						<li class="light-blue dropdown-modal">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="/core/images/avatars/user.jpg" alt="Jason's Photo" />
+								<img class="nav-user-photo" src="/core/images/avatars/avatar2.png" alt="Jason's Photo" />
 								<span class="user-info">
 									<small>Welcome,</small>
 									<!-- Logged in user's Name -->
@@ -266,7 +266,7 @@
 				</div><!-- /.sidebar-shortcuts -->
 
 				<ul class="nav nav-list">
-					<li class="">
+					<li id="dashboard" class="">
 						<a href="/admin">
 							<i class="menu-icon fa fa-tachometer"></i>
 							<span class="menu-text"> Dashboard </span>
@@ -286,7 +286,7 @@
 
 						<ul class="submenu" id="inception-nav-menu">
 							<li class="">
-								<a href="/admin/step-1">
+								<a href="">
 									<i class="menu-icon fa fa-caret-right"></i>
 									Step - 1
 								</a>
@@ -294,7 +294,7 @@
 								<b class="arrow"></b>
 							</li>
 							<li class="" id="step2-menu-nav">
-								<a href="/admin/step-2">
+								<a href="">
 									<i class="menu-icon fa fa-caret-right"></i>
 									Step - 2
 								</a>
@@ -302,7 +302,7 @@
 								<b class="arrow"></b>
 							</li>
 							<li class="">
-								<a href="/admin/step-3">
+								<a href="">
 									<i class="menu-icon fa fa-caret-right"></i>
 									Step - 3
 								</a>
