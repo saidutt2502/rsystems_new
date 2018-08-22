@@ -80,6 +80,17 @@
 														</span>
 													</label>
 
+		@php $locations = DB::table('rs_locations')->get(); @endphp
+
+													<label class="block clearfix">
+														<select name="location" class="form-control" id="form-field-select-1">
+																<option value="0">Select Department</option>
+															@foreach($locations as $each_location)
+																<option value="{{$each_location->id}}">{{$each_location->name}}</option>
+															@endforeach
+														</select>
+													</label>
+
 													<div class="space"></div>
 
 													<div class="clearfix">
