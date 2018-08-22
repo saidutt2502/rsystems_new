@@ -36,6 +36,7 @@ Route::prefix('admin')->group(function() {
   Route::get('oc', 'Admin\StepController@oc');
   Route::get('oc_structure', 'Admin\StepController@oc_structure');
   Route::post('oc_structure_1', 'Admin\StepController@oc_structure_1');
+  Route::get('hod_cc_allocation', 'Admin\StepController@hod_cc_allocation');
 });
 
 

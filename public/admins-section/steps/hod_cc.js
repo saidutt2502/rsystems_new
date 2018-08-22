@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+    $('.nav-tabs a:first').tab('show') 
+
     $('.show-details-btn').on('click', function(e) {
         e.preventDefault();
         $(this).closest('tr').next().toggleClass('open');

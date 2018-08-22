@@ -10,11 +10,14 @@
 
 
 @section('page-header')
-<ul class="nav nav-tabs">
+<!-- <ul class="nav nav-tabs">
   <li><a href="oc">OC Details</a></li>
   <li class="active"><a href="oc_structure">OC Structure</a></li>
   
-</ul>
+</ul> -->
+<h1>Organisation Chart
+        <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Initialization</small>
+</h1>
 @endsection
 
 @section('main-content')
@@ -24,7 +27,7 @@
 <input type="hidden" id="hod_id" value="{{$hodid}}">
 
 <span class="label label-inverse">{{$deptname}} ({{$location->name}})</span>
-<span class="label label-inverse">Line {{$level}}</span>
+<span class="label label-inverse">2nd Line</span>
 
 <br><br>
   
@@ -68,7 +71,7 @@
     <tbody>
     @if($hierarchies)
         @foreach($hierarchies as $hierarchy) 
-        <tr id="{{$hierarchy->id}}">
+        <tr id="{{$hierarchy->r_id}}">
             <td>
                 <a href="#!">{{$hierarchy->emp_id}}</a>
             </td>
@@ -76,7 +79,7 @@
             <td class="hidden-480">
                 <center>
                     <div class="btn-group">
-                        <button class="btn btn-sm btn-danger del_emp" user-id="{{$hierarchy->id}}">
+                        <button class="btn btn-sm btn-danger del_emp" entry-id="{{$hierarchy->r_id}}">
                             <i class="ace-icon fa fa-trash-o bigger-120"></i>
                         </button>
                     </div>

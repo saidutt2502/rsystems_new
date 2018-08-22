@@ -10,11 +10,14 @@
 
 
 @section('page-header')
-<ul class="nav nav-tabs">
+<!-- <ul class="nav nav-tabs">
   <li><a href="oc">OC Details</a></li>
   <li class="active"><a href="oc_structure">OC Structure</a></li>
   
-</ul>
+</ul> -->
+<h1>Organisation Chart
+        <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Initialization</small>
+</h1>
 @endsection
 
 @section('main-content')
@@ -22,7 +25,10 @@
  
   <br>
   <span class="label label-inverse">{{$deptname}} ({{$location->name}})</span>
-  <span class="label label-inverse">Line {{$level}}</span>
+  <span class="label label-inverse">3rd Line</span>
+
+  <input type="hidden" id="dept" value="{{$departments}}">
+  <input type="hidden" id="levels" value="{{$level}}">
 
   <br><br>
 
@@ -54,8 +60,7 @@
         </tr>
         <tr class="detail-row">
             <td colspan="8">
-            <input type="hidden" id="dept" value="{{$departments}}">
-            <input type="hidden" id="levels" value="{{$level}}">
+            
 
   <div class="widget-box hidden-480">
             <div class="widget-header">
@@ -65,7 +70,7 @@
             <div class="widget-body">
                 <div class="widget-main">
                     <form class="form-inline">
-                    <select class="chosen-select form-control user_id">
+                    <select class="chosen-select form-control" id="{{$previousline->id}}_get">
                         <option value="" disabled selected>Select User</option>
                              @if($users)
                                 @foreach($users as $user)
@@ -86,24 +91,38 @@
     </div>
             <br>
 
-            <div id="{{$previousline->id}}_add"></div>
+    <table id="{{$previousline->id}}_table" class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>Employee Id</th>
+        <th>Employee Name</th>
+        <th class="hidden-480"></th>
+    </tr>
+    </thead>
+    <tbody>
+    @if($entries)
+        @foreach($entries as $entry)
+        <tr id="{{$entry->r_id}}_entries">
+            <td>
+            <a href="#!">{{$entry->emp_id}}</a>
+            </td>
+            <td><a href="#!">{{$entry->name}}</a></td>
+            <td class="hidden-480">
+                <center>
+                    <div class="btn-group">
+                        <button class="btn btn-sm btn-danger delete_allocation" entry-id="{{$entry->r_id}}">
+                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                        </button>
+                    </div>
+                </center>
+            </td>
+        </tr>
+        @endforeach
+    @endif
+    </tbody>
+    </table>
 
-         @if($hierarchies)
-                        @foreach($hierarchies as $hierarchy)
-                                    <div class="col-xs-12 col-sm-7 col-sm-offset-2 " id="remove_{{$hierarchy->id}}">
-                                        <div class="col-xs-12 col-sm-12 col-md-12 widget-container-col ui-sortable" id="widget-container-col-3">
-                                            <div class="widget-box collapsed ui-sortable-handle" id="widget-box-3">
-                                                <div class="widget-header widget-header-small">
-                                                    <h6 class="widget-title each_dept_name">{{$hierarchy->name}} (Emp Id: {{$hierarchy->emp_id}})</h6>
-                                                    <div class="widget-toolbar hidden-480">
-                                                        <a href="#"><i class="ace-icon fa fa-times red2 del_emp1" user-id="{{$hierarchy->id}}"></i></a>
-                                                    </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                        @endforeach
-                     @endif
+
                      
             </td>
         </tr>

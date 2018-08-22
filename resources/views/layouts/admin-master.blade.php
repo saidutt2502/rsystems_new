@@ -332,7 +332,7 @@
 
 						<ul class="submenu" id="inception-nav-menu">
 							<li class="">
-								<a href="/admin/oc">
+								<a href="/admin/oc_structure">
 									<i class="menu-icon fa fa-caret-right"></i>
 									Organisation Chart
 								</a>

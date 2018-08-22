@@ -87,14 +87,8 @@ class StepController extends Controller
 
   //HOD Admin Functions
 
-  public function hod_cc()
-  {
-    $admins = DB::table('admins')->where('id',session('user_id'))->value('email');
-    $users = DB::table('users')->where('email',$admins)->value('id');
-    $department = DB::table('rs_departments')->where('hod_id',$users)->get();
-    return view('admin.hod_cc')->withDepartments($department);
-  }
 
+  //OC
   public function oc()
   {
     $admins = DB::table('admins')->where('id',session('user_id'))->value('email');
@@ -117,9 +111,14 @@ class StepController extends Controller
      $l_name = DB::table('rs_location2department')
      ->join('rs_locations','rs_locations.id','=','rs_location2department.location')
      ->where('rs_location2department.department',$request->dept_id)
-     ->select('rs_locations.name')
+     ->select('rs_locations.name','rs_locations.id as l_id')
      ->first();
-     $user_list = DB::table('users')->get();
+    
+     $user_list = DB::table('users')
+     ->join('rs_location2users','rs_location2users.user_id','=','users.id')
+     ->where('rs_location2users.location_id',$l_name->l_id)
+     ->select('users.name','users.id','users.emp_id')
+     ->get();
 
      if($request->level_selected=='2')
      {
@@ -127,7 +126,7 @@ class StepController extends Controller
       ->join('users','users.id','=','rs_reporting.reportee')
       ->where('rs_reporting.department',$request->dept_id)
       ->where('rs_reporting.level',$request->level_selected)
-      ->select('users.name','users.emp_id','users.id')
+      ->select('users.name','users.emp_id','users.id','rs_reporting.id as r_id')
       ->get();
       $admins = DB::table('admins')->where('id',session('user_id'))->value('email');
       $users = DB::table('users')->where('email',$admins)->value('id');
@@ -149,14 +148,39 @@ class StepController extends Controller
       ->join('users','users.id','=','rs_reporting.reportee')
       ->where('rs_reporting.department',$request->dept_id)
       ->where('rs_reporting.level',$request->level_selected)
-      ->select('users.name','users.emp_id','users.id')
+      ->select('users.name','users.emp_id','users.id','rs_reporting.id as r_id')
       ->get();
 
 
       return view('admin.oc_structure_lines')->withDepartments($request->dept_id)
-      ->withDeptname($d_name)->withPreviouslines($previous_line)->withHierarchies($hierarchy)
+      ->withDeptname($d_name)->withPreviouslines($previous_line)->withEntries($hierarchy)
       ->withLevel($request->level_selected)->withUsers($user_list)->withLocation($l_name);
      }
+  }
+
+  //Cost Center
+
+  public function hod_cc()
+  {
+    $admins = DB::table('admins')->where('id',session('user_id'))->value('email');
+    $users = DB::table('users')->where('email',$admins)->value('id');
+    $department = DB::table('rs_departments')->where('hod_id',$users)->get();
+    return view('admin.hod_cc')->withDepartments($department);
+  }
+
+  public function hod_cc_allocation()
+  {
+    $admins = DB::table('admins')->where('id',session('user_id'))->value('email');
+    $users = DB::table('users')->where('email',$admins)->value('id');
+
+    $user_list = DB::table('rs_reporting')
+    ->join('users','users.id','=','rs_reporting.reportee')
+    ->join('rs_location2users','rs_location2users.user_id','=','users.id')
+    ->where('reporter',$users)
+    ->select('users.name','users.emp_id','users.id','rs_location2users.location_id as location')
+    ->get();
+               
+    return view('admin.hod_cc_allocation')->withUsers($user_list)->withHod($users);
   }
 
   // Ajax Calls 
@@ -293,15 +317,48 @@ class StepController extends Controller
                   return $levels;
                   break;
           case 'add_reporting':
-                  DB::table('rs_reporting')->insert(
+                  $reporting_id = DB::table('rs_reporting')->insertGetId(
                   ['department' => $request->dept_id, 'level' => $request->level, 'reporter' => $request->reporter, 'reportee' => $request->reportee,'last_edited' => session('user_id')]
                   );
-                  $reportee_details = DB::table('users')->where('id',$request->reportee)->get();
+                  $reportee_details = DB::table('rs_reporting')
+                  ->join('users','users.id','=','rs_reporting.reportee')
+                  ->where('rs_reporting.id',$reporting_id)
+                  ->select('users.name','users.emp_id','users.id','rs_reporting.id as r_id')
+                  ->get();
                   return $reportee_details;
                   break; 
           case 'del_reporting':
-                  DB::table('rs_reporting')->where('department',$request->dept_id)->where('level',$request->level)->where('reportee',$request->reportee)->delete();
-                  break;                              
+                  // $reporter_id = DB::table('rs_reporting')->where('department',$request->dept_id)->where('level',$request->level)->where('reportee',$request->reportee)->first();
+                  // $changes = DB::table('rs_reporting')->where('department',$request->dept_id)->where('level',$request->level+1)->where('reporter',$request->reportee)->get();
+                  // foreach($changes as $change)
+                  // {
+                  //   DB::table('rs_reporting')->insert(
+                  //     ['department' => $request->dept_id, 'level' => $request->level, 'reporter' => $reporter_id->reporter, 'reportee' => $change->reportee,'last_edited' => session('user_id')]
+                  //     );
+
+                  //   DB::table('rs_reporting')->where('department',$request->dept_id)->where('level',$request->level+1)->where('reporter',$request->reportee)->where('reportee',$change->reportee)->delete();
+                      
+                  // }
+                  DB::table('rs_reporting')->where('id',$request->entry_id)->delete();
+                  break;
+          case 'allocate_cc':
+                  $entry_id = DB::table('rs_cc2modules')->insertGetId(
+                  ['user' => $request->user_id, 'costcenter' => $request->cc_id, 'module' => $request->module_id, 'budget' => $request->budget, 'last_edited' => session('user_id')]
+                  );
+                  $entries=DB::table('rs_cc2modules')
+                  ->join('rs_costcenters','rs_costcenters.id','=','rs_cc2modules.costcenter')
+                  ->join('rs_modules','rs_modules.id','=','rs_cc2modules.module')
+                  ->where('rs_cc2modules.id',$entry_id)
+                  ->select('rs_costcenters.number','rs_costcenters.id','rs_cc2modules.budget','rs_cc2modules.actual','rs_modules.name as m_name','rs_modules.id as m_id','rs_cc2modules.id as cc2m_id')
+                  ->get();
+                  return $entries;
+                  break;
+          case 'del_allocate_cc':
+                  DB::table('rs_cc2modules')->where('id',$request->entry_id)->delete();
+                  break;
+          case 'edit_budget':
+                  DB::table('rs_cc2modules')->where('id',$request->entry_id)->update(['budget' => $request->content]);
+                  break;                                                
           default:
               $data['success'] = 'false';
         }

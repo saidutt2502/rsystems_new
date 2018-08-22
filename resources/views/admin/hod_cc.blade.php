@@ -10,9 +10,11 @@
 
 
 @section('page-header')
-    <h1>Department
-        <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Cost Centers</small>
-    </h1>
+<ul class="nav nav-tabs">
+  <li class="active"><a href="hod_cc">Cost Center Details</a></li>
+  <li><a href="hod_cc_allocation">Cost Center Allocation</a></li>
+  
+</ul>
 @endsection
 
 @section('main-content')

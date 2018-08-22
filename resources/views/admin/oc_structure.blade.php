@@ -10,11 +10,14 @@
 
 
 @section('page-header')
-<ul class="nav nav-tabs">
+<!-- <ul class="nav nav-tabs">
   <li><a href="oc">OC Details</a></li>
   <li class="active"><a href="oc_structure">OC Structure</a></li>
   
-</ul>
+</ul> -->
+<h1>Organisation Chart
+        <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Initialization</small>
+</h1>
 @endsection
 
 @section('main-content')
@@ -57,6 +60,8 @@
 
 											<select class="chosen-select form-control" id="levels" name="level_selected">
                                             <option class="to_remove" value="" disabled selected>Select Line</option>
+                                            <option value="2">2nd Line</option>
+                                            <option value="3">3rd Line</option>
                                             </select>
 									</div>
 
