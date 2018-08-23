@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
 
+use Session;
+
 class LoginController extends Controller
 {
     /*
@@ -26,8 +28,6 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
-
     /**
      * Create a new controller instance.
      *
@@ -36,6 +36,19 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => ['logout', 'userLogout']]);
+    }
+
+    protected function authenticated($request, $user)
+    {
+
+        $user = Auth::user();
+        $user_id=$user->id;
+
+        session(['user_id' => Auth::id()]); 
+        session(['location' => $request->location]); 
+
+        return redirect()->intended('/home');
+
     }
 
     public function userLogout()
