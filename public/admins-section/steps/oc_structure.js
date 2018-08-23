@@ -133,23 +133,21 @@ $(document).ready(function(){
                  success: function (data) {
                     $('.user_id').val("");
                     $('.user_id').trigger("chosen:updated");
-                     $('#'+reporter_id+'_table').append('<tr id="'+data[0].r_id+'_entries"><td><a href="#!">'+data[0].emp_id+'</a></td><td><a href="#!">'+data[0].name+'</a></td><td class="hidden-480"><center><div class="btn-group"><button class="btn btn-sm btn-danger delete_allocation" entry-id="'+data[0].r_id+'"><i class="ace-icon fa fa-trash-o bigger-120"></i></button></div></center></td></tr>');   
+                     $('#'+reporter_id+'_table').append('<tr id="'+data[0].r_id+'_entries"><td><a href="#!">'+data[0].emp_id+'</a></td><td><a href="#!">'+data[0].name+'</a></td><td class="hidden-480"><center><div class="btn-group"><button class="btn btn-sm btn-danger del_emp1" entry-id="'+data[0].r_id+'"><i class="ace-icon fa fa-trash-o bigger-120"></i></button></div></center></td></tr>');   
                  
                      $('.del_emp1').click(function(){
             
-                        var user_id=$(this).attr('user-id');
+                        var entry_id=$(this).attr('entry-id');
                         $.ajax({
                          type: 'post',
                          url: $('#url_ajax').val(),
                          data: {
                              function_name: 'del_reporting',
-                             dept_id: $('#dept').val(),
-                             reportee: $(this).attr('user-id'),
-                             level:  $('#levels').val(),
+                             entry_id: entry_id,
                              '_token': $('input[name=_token]').val()
                          },
                          success: function (data) {
-                            $('#remove_'+user_id).fadeOut();  
+                            $('#'+entry_id+'_entries').fadeOut();  
                          }
                      });
                      });
@@ -170,7 +168,7 @@ $(document).ready(function(){
                      '_token': $('input[name=_token]').val()
                  },
                  success: function (data) {
-                    $('#remove_'+entry_id).fadeOut();  
+                    $('#'+entry_id+'_entries').fadeOut();  
                  }
              });
              });

@@ -42,7 +42,16 @@
     </thead>
     <tbody>
     @if($previouslines)
-        @foreach($previouslines as $previousline)  
+        @foreach($previouslines as $previousline)
+        <?php
+         $entries = DB::table('rs_reporting')
+         ->join('users','users.id','=','rs_reporting.reportee')
+         ->where('rs_reporting.department',$departments)
+         ->where('rs_reporting.level',$level)
+         ->where('rs_reporting.reporter',$previousline->id)
+         ->select('users.name','users.emp_id','users.id','rs_reporting.id as r_id')
+         ->get();
+        ?>  
         <tr>
             <td class="center">
                 <div class="action-buttons">
@@ -110,7 +119,7 @@
             <td class="hidden-480">
                 <center>
                     <div class="btn-group">
-                        <button class="btn btn-sm btn-danger delete_allocation" entry-id="{{$entry->r_id}}">
+                        <button class="btn btn-sm btn-danger del_emp1" entry-id="{{$entry->r_id}}">
                             <i class="ace-icon fa fa-trash-o bigger-120"></i>
                         </button>
                     </div>

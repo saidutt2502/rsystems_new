@@ -144,17 +144,11 @@ class StepController extends Controller
       ->select('users.name','users.emp_id','users.id')
       ->get();
 
-      $hierarchy = DB::table('rs_reporting')
-      ->join('users','users.id','=','rs_reporting.reportee')
-      ->where('rs_reporting.department',$request->dept_id)
-      ->where('rs_reporting.level',$request->level_selected)
-      ->select('users.name','users.emp_id','users.id','rs_reporting.id as r_id')
-      ->get();
+     
 
 
       return view('admin.oc_structure_lines')->withDepartments($request->dept_id)
-      ->withDeptname($d_name)->withPreviouslines($previous_line)->withEntries($hierarchy)
-      ->withLevel($request->level_selected)->withUsers($user_list)->withLocation($l_name);
+      ->withDeptname($d_name)->withPreviouslines($previous_line)->withLevel($request->level_selected)->withUsers($user_list)->withLocation($l_name);
      }
   }
 
