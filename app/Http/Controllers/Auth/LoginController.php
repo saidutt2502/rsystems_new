@@ -46,7 +46,6 @@ class LoginController extends Controller
 
         session(['user_id' => Auth::id()]); 
         session(['location' => $request->location]); 
-
         return redirect()->intended('/home');
 
     }

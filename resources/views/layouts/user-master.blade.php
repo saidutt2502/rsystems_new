@@ -29,6 +29,10 @@
 		<!--[if lte IE 9]>
 		  <link rel="stylesheet" href="/core/css/ace-ie.min.css" />
 		<![endif]-->
+		
+        <!-- chosen css -->
+		<link rel="stylesheet" href="/core/css/jquery-ui.custom.min.css" />
+        <link rel="stylesheet" href="/core/css/chosen.min.css" />
 
 		<!-- inline styles related to this page -->
          @yield('css-files')
@@ -191,7 +195,7 @@
 								<span class="user-info">
 									<small>Welcome,</small>
 									<!-- Logged in user's Name -->
-										<?php $name = DB::table('admins')->where('id', session('user_id'))->value('name'); ?>
+										<?php $name = DB::table('users')->where('id', session('user_id'))->value('name'); ?>
 									{{$name}}
 								</span>
 
@@ -267,9 +271,17 @@
 
 				<ul class="nav nav-list">
 					<li id="dashboard" class="">
-						<a href="/admin">
+						<a href="/">
 							<i class="menu-icon fa fa-tachometer"></i>
 							<span class="menu-text"> Dashboard </span>
+						</a>
+
+						<b class="arrow"></b>
+					</li>
+					<li id="approvals_menu_id" class="">
+						<a href="/approvals">
+							<i class="menu-icon fa fa-pencil-square-o "></i>
+							<span class="menu-text"> Approvals </span>
 						</a>
 
 						<b class="arrow"></b>
@@ -277,34 +289,26 @@
 					<li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-list"></i>
-							<span class="menu-text"> Inception </span>
+							<span class="menu-text"> Stationary </span>
 
 							<b class="arrow fa fa-angle-down"></b>
 						</a>
 
 						<b class="arrow"></b>
 
-						<ul class="submenu" id="inception-nav-menu">
+						<ul class="submenu" id="item-nav-menu">
 							<li class="">
-								<a href="">
+								<a href="/items">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Step - 1
+									Items
 								</a>
 
 								<b class="arrow"></b>
 							</li>
-							<li class="" id="step2-menu-nav">
-								<a href="">
+							<li class="" id="stationary_request_li_to_be">
+								<a href="/my-request">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Step - 2
-								</a>
-
-								<b class="arrow"></b>
-							</li>
-							<li class="">
-								<a href="">
-									<i class="menu-icon fa fa-caret-right"></i>
-									Step - 3
+									Stationary Request
 								</a>
 
 								<b class="arrow"></b>
@@ -383,6 +387,10 @@
 		<script src="/core/js/ace-elements.min.js"></script>
 		<script src="/core/js/ace.min.js"></script>
 
+
+		<!-- chosen scripts -->
+		<script src="/core/js/chosen.jquery.min.js"></script>
+		
 		<script src="/core/js/menu.js"></script>
 
 		<!-- inline scripts related to this page -->

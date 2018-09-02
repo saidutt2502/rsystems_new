@@ -21,7 +21,7 @@ class CreateDepartmentsTable extends Migration
             $table->integer('hod_id')->default('0');;
             $table->integer('oc_levels')->default('0');
             $table->integer('last_edited')->default(session('user_id'));
-            $table->date('updated_at')->default(date("Y-m-d"));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 

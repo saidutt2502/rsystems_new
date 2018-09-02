@@ -91,7 +91,7 @@ class StepController extends Controller
   //OC
   public function oc()
   {
-    $admins = DB::table('admins')->where('id',session('user_id'))->value('email');
+    $admins = DB::table('admins')->where('id',session('admin_id'))->value('email');
     $users = DB::table('users')->where('email',$admins)->value('id');
     $department = DB::table('rs_departments')->where('hod_id',$users)->get();
     return view('admin.oc_details')->withDepartments($department);
@@ -99,7 +99,7 @@ class StepController extends Controller
 
   public function oc_structure()
   {
-    $admins = DB::table('admins')->where('id',session('user_id'))->value('email');
+    $admins = DB::table('admins')->where('id',session('admin_id'))->value('email');
     $users = DB::table('users')->where('email',$admins)->value('id');
     $department = DB::table('rs_departments')->where('hod_id',$users)->get();
     return view('admin.oc_structure')->withDepartments($department)->withHodid($users);
@@ -128,7 +128,7 @@ class StepController extends Controller
       ->where('rs_reporting.level',$request->level_selected)
       ->select('users.name','users.emp_id','users.id','rs_reporting.id as r_id')
       ->get();
-      $admins = DB::table('admins')->where('id',session('user_id'))->value('email');
+      $admins = DB::table('admins')->where('id',session('admin_id'))->value('email');
       $users = DB::table('users')->where('email',$admins)->value('id');
 
       return view('admin.oc_structure_line2')->withDepartments($request->dept_id)
@@ -156,7 +156,7 @@ class StepController extends Controller
 
   public function hod_cc()
   {
-    $admins = DB::table('admins')->where('id',session('user_id'))->value('email');
+    $admins = DB::table('admins')->where('id',session('admin_id'))->value('email');
     $users = DB::table('users')->where('email',$admins)->value('id');
     $department = DB::table('rs_departments')->where('hod_id',$users)->get();
     return view('admin.hod_cc')->withDepartments($department);
@@ -164,7 +164,7 @@ class StepController extends Controller
 
   public function hod_cc_allocation()
   {
-    $admins = DB::table('admins')->where('id',session('user_id'))->value('email');
+    $admins = DB::table('admins')->where('id',session('admin_id'))->value('email');
     $users = DB::table('users')->where('email',$admins)->value('id');
 
     $user_list = DB::table('rs_reporting')
@@ -189,7 +189,7 @@ class StepController extends Controller
           case 'add_location':
                 $id = DB::table('rs_locations')->insertGetId([
                     'name' =>  $request->name,
-                     'last_edited' => session('user_id'),
+                     'last_edited' => session('admin_id'),
                  ]);
                  $data['insert_id'] = $id;
                  break;
@@ -204,14 +204,14 @@ class StepController extends Controller
           //Adding entry to Departments table
           $id = DB::table('rs_departments')->insertGetId([
             'name' => $request->name,
-            'last_edited' => session('user_id')
+            'last_edited' => session('admin_id')
             ]);
 
                 //Adding entry to rs_location2department
                  DB::table('rs_location2department')->insert([
                    'department' => $id,
                    'location' => $request->location_id,
-                   'last_edited' => session('user_id')
+                   'last_edited' => session('admin_id')
                    ]);
 
                    $data['insert_id'] = $id;
@@ -251,7 +251,7 @@ class StepController extends Controller
                    {
                        $inserted_user = $check->id;
                        DB::table('rs_location2users')->insert(
-                        ['user_id' => $inserted_user, 'location_id' => $request->loc_id,'last_edited' => session('user_id') ]
+                        ['user_id' => $inserted_user, 'location_id' => $request->loc_id,'last_edited' => session('admin_id') ]
                      );
                    }
                    else{
@@ -265,7 +265,7 @@ class StepController extends Controller
                       ]);
                     
                       DB::table('rs_location2users')->insert(
-                           ['user_id' => $inserted_user, 'location_id' => $request->loc_id,'last_edited' => session('user_id') ]
+                           ['user_id' => $inserted_user, 'location_id' => $request->loc_id,'last_edited' => session('admin_id') ]
                         );
                       }
 
@@ -295,7 +295,7 @@ class StepController extends Controller
             
           case 'add_cc':
                   $added_cc = DB::table('rs_costcenters')->insertGetId(
-                  ['number' => $request->number, 'department' => $request->dept_id, 'last_edited' => session('user_id')]
+                  ['number' => $request->number, 'department' => $request->dept_id, 'last_edited' => session('admin_id')]
                   );
                   $data['added_id'] = $added_cc;
                   break; 
@@ -312,7 +312,7 @@ class StepController extends Controller
                   break;
           case 'add_reporting':
                   $reporting_id = DB::table('rs_reporting')->insertGetId(
-                  ['department' => $request->dept_id, 'level' => $request->level, 'reporter' => $request->reporter, 'reportee' => $request->reportee,'last_edited' => session('user_id')]
+                  ['department' => $request->dept_id, 'level' => $request->level, 'reporter' => $request->reporter, 'reportee' => $request->reportee,'last_edited' => session('admin_id')]
                   );
                   $reportee_details = DB::table('rs_reporting')
                   ->join('users','users.id','=','rs_reporting.reportee')
@@ -327,7 +327,7 @@ class StepController extends Controller
                   // foreach($changes as $change)
                   // {
                   //   DB::table('rs_reporting')->insert(
-                  //     ['department' => $request->dept_id, 'level' => $request->level, 'reporter' => $reporter_id->reporter, 'reportee' => $change->reportee,'last_edited' => session('user_id')]
+                  //     ['department' => $request->dept_id, 'level' => $request->level, 'reporter' => $reporter_id->reporter, 'reportee' => $change->reportee,'last_edited' => session('admin_id')]
                   //     );
 
                   //   DB::table('rs_reporting')->where('department',$request->dept_id)->where('level',$request->level+1)->where('reporter',$request->reportee)->where('reportee',$change->reportee)->delete();
@@ -337,7 +337,7 @@ class StepController extends Controller
                   break;
           case 'allocate_cc':
                   $entry_id = DB::table('rs_cc2modules')->insertGetId(
-                  ['user' => $request->user_id, 'costcenter' => $request->cc_id, 'module' => $request->module_id, 'budget' => $request->budget, 'last_edited' => session('user_id')]
+                  ['user' => $request->user_id, 'costcenter' => $request->cc_id, 'module' => $request->module_id, 'budget' => $request->budget, 'last_edited' => session('admin_id')]
                   );
                   $entries=DB::table('rs_cc2modules')
                   ->join('rs_costcenters','rs_costcenters.id','=','rs_cc2modules.costcenter')

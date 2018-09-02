@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<?php
-	$user=DB::table('admins')->where('id',session('user_id'))->first();
+	$user=DB::table('admins')->where('id',session('admin_id'))->first();
 	?>
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -198,7 +198,7 @@
 								<span class="user-info">
 									<small>Welcome,</small>
 									<!-- Logged in user's Name -->
-										<?php $name = DB::table('admins')->where('id', session('user_id'))->value('name'); ?>
+										<?php $name = DB::table('admins')->where('id', session('admin_id'))->value('name'); ?>
 									{{$name}}
 								</span>
 
@@ -350,12 +350,12 @@
 						</ul>
 					</li>
 					@endif
-                    <!-- <li class="">
+                    <li class="">
                             <a href="{{ route('logout') }}" class="waves-effect"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="menu-icon fa fa-power-off"></i>
 							<span class="menu-text">Logout </span></a><form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
 						<b class="arrow"></b>
-					</li> -->
-				</ul><!-- /.nav-list -->
+					</li>
+				</ul>
 
 				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
 					<i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>

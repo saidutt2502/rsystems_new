@@ -62,7 +62,11 @@
 											</h4>
 
 											<div class="space-6"></div>
-
+											@if (session('status'))
+												<div class="alert alert-success">
+													{{ session('status') }}
+												</div>
+											@endif
 											<form method="POST" action="{{ route('login') }}" autocomplete="off">
                                                 @csrf
 												<fieldset>
@@ -139,19 +143,24 @@
 											<div class="space-6"></div>
 											<p>
 												Enter your email and to receive instructions
+												@if (session('status'))
+													<div class="alert alert-success" role="alert">
+														{{ session('status') }}
+													</div>
+												@endif
 											</p>
-
-											<form>
+											<form method="POST" action="{{ route('password.email') }}" aria-label="{{ __('Reset Password') }}">
+                       							 @csrf
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="Email" />
+															<input type="email" class="form-control" placeholder="Email" name="email" />
 															<i class="ace-icon fa fa-envelope"></i>
 														</span>
 													</label>
 
 													<div class="clearfix">
-														<button type="button" class="width-35 pull-right btn btn-sm btn-danger">
+														<button type="submit" class="width-35 pull-right btn btn-sm btn-danger">
 															<i class="ace-icon fa fa-lightbulb-o"></i>
 															<span class="bigger-110">Send Me!</span>
 														</button>

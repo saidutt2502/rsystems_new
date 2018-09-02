@@ -21,7 +21,7 @@ class CreateCc2modulesTable extends Migration
             $table->integer('budget');
             $table->integer('actual')->default('0');
             $table->integer('last_edited');
-            $table->timestamps();
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 

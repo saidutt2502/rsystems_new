@@ -20,7 +20,7 @@ class CreateReportingTable extends Migration
             $table->integer('reporter');
             $table->integer('reportee');
             $table->integer('last_edited')->default(session('user_id'));
-            $table->date('updated_at')->default(date("Y-m-d"));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 

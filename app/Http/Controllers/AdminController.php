@@ -28,7 +28,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        session(['user_id' => Auth::id()]); 
+        session(['admin_id' => Auth::id()]); 
 
         $location = DB::table('rs_locations')
         ->leftJoin('rs_location2department', 'rs_location2department.location', '=', 'rs_locations.id')

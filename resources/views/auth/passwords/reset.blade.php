@@ -1,65 +1,134 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>Rsystems | Admin Login</title>
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+		<meta name="description" content="User login page" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.request') }}" aria-label="{{ __('Reset Password') }}">
-                        @csrf
+		<!-- bootstrap & fontawesome -->
+		<link rel="stylesheet" href="/core/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/core/font-awesome/4.5.0/css/font-awesome.min.css" />
 
-                        <input type="hidden" name="token" value="{{ $token }}">
+		<!-- text fonts -->
+		<link rel="stylesheet" href="/core/css/fonts.googleapis.com.css" />
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+		<!-- ace styles -->
+		<link rel="stylesheet" href="/core/css/ace.min.css" />
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $email ?? old('email') }}" required autofocus>
+		<!--[if lte IE 9]>
+			<link rel="stylesheet" href="/core/css/ace-part2.min.css" />
+		<![endif]-->
+		<link rel="stylesheet" href="/core/css/ace-rtl.min.css" />
 
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+		<!--[if lte IE 9]>
+		  <link rel="stylesheet" href="/core/css/ace-ie.min.css" />
+		<![endif]-->
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+		<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+		<!--[if lte IE 8]>
+		<script src="/core/js/html5shiv.min.js"></script>
+		<script src="/core/js/respond.min.js"></script>
+		<![endif]-->
+	</head>
 
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+	<body class="login-layout light-login ">
+		<div class="main-container">
+			<div class="main-content">
+				<div class="row">
+					<div class="col-sm-10 col-sm-offset-1">
+						<div class="login-container">
+							<div class="center">
+								<h1>
+									<i class="ace-icon fa fa-leaf green"></i>
+									<span class="red">User</span>
+									<span class="white grey" id="id-text2">RSystems</span>
+								</h1>
+								<h4 class="blue" id="id-company-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Rosenberger | India</h4>
+							</div>
 
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+							<div class="space-6"></div>
 
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
+							<div class="position-relative">
+								<div id="login-box" class="login-box visible widget-box no-border">
+									<div class="widget-body">
+										<div class="widget-main">
+											<h4 class="header red lighter bigger">
+												<i class="ace-icon fa fa-key"></i>
+												Reset Password
+											</h4>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
+											<div class="space-6"></div>
+											<p>
+												Enter your email and new password
+											</p>
+                                            <form method="POST" action="{{ route('password.request') }}" aria-label="{{ __('Reset Password') }}">
+                                                @csrf
+                                                <input type="hidden" name="token" value="{{ $token }}">
+												<fieldset>
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="email" class="form-control" placeholder="Email" name="email" />
+															<i class="ace-icon fa fa-envelope"></i>
+														</span>
+													</label>
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="password" class="form-control" placeholder="Password" name="password" />
+															<i class="ace-icon fa fa-key"></i>
+														</span>
+													</label>
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="password" class="form-control" placeholder="Confirm Password" name="password_confirmation" />
+														</span>
+													</label>
+
+													<div class="clearfix">
+														<button type="submit" class="width-35 pull-right btn btn-sm btn-danger">
+															<i class="ace-icon fa fa-lightbulb-o"></i>
+															<span class="bigger-110">Login!</span>
+														</button>
+													</div>
+												</fieldset>
+											</form>
+										</div><!-- /.widget-main -->
+									</div><!-- /.widget-body -->
+								</div><!-- /.forgot-box -->
+							</div><!-- /.position-relative -->
+						</div>
+					</div><!-- /.col -->
+				</div><!-- /.row -->
+			</div><!-- /.main-content -->
+		</div><!-- /.main-container -->
+
+		<!-- basic scripts -->
+
+		<!--[if !IE]> -->
+		<script src="/core/js/jquery-2.1.4.min.js"></script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script src="/core/js/jquery-1.11.3.min.js"></script>
+<![endif]-->
+		<script type="text/javascript">
+			if('ontouchstart' in document.documentElement) document.write("<script src='/core/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+		</script>
+
+		<!-- inline scripts related to this page -->
+		<script type="text/javascript">
+                jQuery(function($) {
+                        $(document).on('click', '.toolbar a[data-target]', function(e) {
+                            e.preventDefault();
+                            var target = $(this).data('target');
+                            $('.widget-box.visible').removeClass('visible');//hide others
+                            $(target).addClass('visible');//show target
+                        });
+                    });
+		</script>
+	</body>
+</html>
