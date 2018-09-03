@@ -53,6 +53,20 @@
                         <div class="col-xs-12">
                             @if($approve)
                                 @foreach($approve as $each_approval)
+
+ <?php
+        $details = DB::table('rs_stationaryrequests')
+        ->join('users', 'users.id', '=', 'rs_stationaryrequests.user_id')
+        ->join('rs_items', 'rs_items.id', '=', 'rs_stationaryrequests.item_id')
+        ->join('rs_locations', 'rs_locations.id', '=', 'rs_stationaryrequests.location_id')
+        ->join('rs_costcenters', 'rs_costcenters.id', '=', 'rs_stationaryrequests.costcenter_id')
+        ->select('users.name as name','users.emp_id as emp_id', 'rs_items.name as item_name', 'rs_locations.name as loc_name','rs_costcenters.number as cost_center','rs_stationaryrequests.quantity as quantity','rs_stationaryrequests.remarks as remarks',
+        'rs_stationaryrequests.pickup_date as p_date',
+        'rs_stationaryrequests.time_slot as time_slot')
+        ->where('rs_stationaryrequests.id',$each_approval->src_id)
+        ->first();
+    ?>
+
                             <div class="media search-media">
                                 <div class="media-left">
                                     <a href="#">
@@ -63,33 +77,17 @@
                                 <div class="media-body">
                                     <div>
                                         <h4 class="media-heading">
-											<a href="#" class="blue">{{$each_approval->module_name}}</a>
+											<a href="#" class="blue">{{$each_approval->module_name}}&nbsp;&nbsp;|&nbsp;&nbsp;{{$details->loc_name}}</a>
 										</h4>
                                     </div>
-
-@switch($each_approval->src_table)
-    @case('rs_stationaryrequests')
-    <?php
-        $details = DB::table('rs_stationaryrequests')
-        ->join('users', 'users.id', '=', 'rs_stationaryrequests.user_id')
-        ->join('rs_items', 'rs_items.id', '=', 'rs_stationaryrequests.item_id')
-        ->join('rs_locations', 'rs_locations.id', '=', 'rs_stationaryrequests.location_id')
-        ->join('rs_costcenters', 'rs_costcenters.id', '=', 'rs_stationaryrequests.costcenter_id')
-        ->select('users.name as name', 'rs_items.name as item_name', 'rs_locations.name as loc_name','rs_costcenters.number as cost_center','rs_stationaryrequests.quantity as quantity','rs_stationaryrequests.remarks as remarks',
-        'rs_stationaryrequests.pickup_date as p_date',
-        'rs_stationaryrequests.time_slot as time_slot')
-        ->where('rs_stationaryrequests.id',$each_approval->src_id)
-        ->first();
-    ?>
-            <p>
-                User:&nbsp;<b>{{$details->name}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Requested:&nbsp;<b>{{$details->quantity}} {{$details->item_name}}</b>&nbsp;&nbsp;|&nbsp;&nbsp; Remarks:&nbsp;<b>{{$details->remarks}}</b><br>
-               Time slot:<b>{{$details->time_slot}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Pickup Date:&nbsp;<b>{{$details->p_date}}</b><br>
-                Location:&nbsp;&nbsp;<b>{{$details->loc_name}}</b>
-
-             </p>
-        @break
-@endswitch
-
+                                        @switch($each_approval->src_table)
+                                            @case('rs_stationaryrequests')
+                                                    <p>
+                                                        User:&nbsp;<b>{{$details->name}}&nbsp;(Employee Code:&nbsp;{{$details->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;Requested:&nbsp;<b>{{$details->quantity}} {{$details->item_name}}</b>&nbsp;&nbsp;|&nbsp;&nbsp; Remarks:&nbsp;<b>{{$details->remarks}}</b><br>
+                                                    Time slot:<b>{{$details->time_slot}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Pickup Date:&nbsp;<b>{{ date("D, d F Y",strtotime($details->p_date))}}</b>
+                                                    </p>
+                                                @break
+                                        @endswitch
                                     <div class="search-actions text-center">
                                         <a class="btn btn-sm btn-block btn-info">Approve!</a>
                                         <a class="btn btn-sm btn-block btn-danger">Reject!</a>
