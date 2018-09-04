@@ -43,7 +43,7 @@
                             <td class="hidden-480">{{$each_request->quantity}}</td>
                             <td class="hidden-480">{{$each_request->cc_number}}</td>
                             <td class="hidden-480">{{$each_request->remarks}}</td>
-                            <td class="hidden-480">{{$each_request->status}}</td>
+                            <td class="hidden-480">{!!html_entity_decode($each_request->html_status)!!}</td>
                         </tr>
                     @endforeach
                 @endif

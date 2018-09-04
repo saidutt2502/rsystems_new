@@ -30,8 +30,10 @@
 		  <link rel="stylesheet" href="/core/css/ace-ie.min.css" />
 		<![endif]-->
 		
-        <!-- chosen css -->
 		<link rel="stylesheet" href="/core/css/jquery-ui.custom.min.css" />
+		<link rel="stylesheet" href="/core/css/jquery.gritter.min.css" />
+		
+        <!-- chosen css -->
         <link rel="stylesheet" href="/core/css/chosen.min.css" />
 
 		<!-- inline styles related to this page -->
@@ -386,6 +388,7 @@
 		<!-- ace scripts -->
 		<script src="/core/js/ace-elements.min.js"></script>
 		<script src="/core/js/ace.min.js"></script>
+		<script src="/core/js/jquery.gritter.min.js"></script>
 
 
 		<!-- chosen scripts -->

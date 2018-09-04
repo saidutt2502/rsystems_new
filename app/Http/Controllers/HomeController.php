@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Traits\ApprovalTraits;
 
 class HomeController extends Controller
 {
@@ -11,6 +12,10 @@ class HomeController extends Controller
      *
      * @return void
      */
+
+    // Included to Get the Higher Up person to send for approval
+            use ApprovalTraits;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -23,6 +28,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        $count = $this->get_approval_notifications();
+        return view('home')->withCount($count);
     }
 }

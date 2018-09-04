@@ -79,20 +79,13 @@
         </button>
     </div>
 </div> 
+
+<!-- Approval count -->
+<input value="{{$count}}" id="count" type="hidden">
            
 @endsection
 
 @section('js-files')
-<script>
-$(document).ready(function () {
-
-//Setting Menu items to active
-$('li').removeClass('active');
-$('#dashboard').addClass('active');
-$('#inception-nav-menu').css("display","none");
-$('#inception-nav-menu').addClass('nav-hide');
-
-});
-</script>
+    <script src="{{ asset('home.js') }}" defer></script>
 
 @endsection
