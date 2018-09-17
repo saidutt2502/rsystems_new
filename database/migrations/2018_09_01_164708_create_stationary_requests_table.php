@@ -24,6 +24,9 @@ class CreateStationaryRequestsTable extends Migration
             $table->date('pickup_date');
             $table->string('time_slot');
             $table->integer('status')->default(1);
+            $table->integer('issue_status')->default(5);
+            $table->integer('issued_by')->nullable();
+            $table->timestamp('issued_date')->nullable();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }

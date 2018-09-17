@@ -347,6 +347,14 @@
 
 								<b class="arrow"></b>
 							</li>
+							<li class="" id="step2-menu-nav">
+								<a href="/admin/assign-admins">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Assign Modules
+								</a>
+
+								<b class="arrow"></b>
+							</li>
 						</ul>
 					</li>
 					@endif

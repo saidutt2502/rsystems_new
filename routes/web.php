@@ -37,6 +37,7 @@ Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logou
       Route::get('oc_structure', 'Admin\StepController@oc_structure');
       Route::post('oc_structure_1', 'Admin\StepController@oc_structure_1');
       Route::get('hod_cc_allocation', 'Admin\StepController@hod_cc_allocation');
+      Route::get('assign-admins', 'Admin\StepController@assign_module_admins');
     });
     //Admin-Step Ajax Calls
     Route::post('step', 'Admin\StepController@ajax_step_controller');
@@ -54,3 +55,6 @@ Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logou
 
  /* ----------------------------------------Approvals Routes------------------------------------ */
     Route::get('approvals', 'ApprovalController@index');
+     //Ajax Call 
+     Route::post('approval_ajax', 'ApprovalController@ajax_approval_controller');
+     Route::get('issues-approvals', 'ApprovalController@issues_approvals');

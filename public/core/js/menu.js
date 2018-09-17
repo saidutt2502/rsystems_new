@@ -10,13 +10,7 @@ $(function () {
         .on('resize.chosen', function() {
             $('.chosen-select').each(function() {
                  var $this = $(this);
-                 $this.next().css({'width': '100%'});
-
-                 if($(this).val($(this).attr('data-hod')) !== 'NULL'){
-                    $(this).val($(this).attr('data-hod'));
-                    $(this).trigger("chosen:updated");
-                }
-                 
+                 $this.next().css({'width': '100%'});                 
             })
         }).trigger('resize.chosen');
         //resize chosen on sidebar collapse/expand
@@ -27,6 +21,7 @@ $(function () {
                  $this.next().css({'width': $this.parent().width()});
             })
         });
+
     }
 
 });

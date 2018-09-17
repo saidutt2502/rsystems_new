@@ -273,7 +273,7 @@
 
 				<ul class="nav nav-list">
 					<li id="dashboard" class="">
-						<a href="/">
+						<a href="/home">
 							<i class="menu-icon fa fa-tachometer"></i>
 							<span class="menu-text"> Dashboard </span>
 						</a>
@@ -284,6 +284,14 @@
 						<a href="/approvals">
 							<i class="menu-icon fa fa-pencil-square-o "></i>
 							<span class="menu-text"> Approvals </span>
+						</a>
+
+						<b class="arrow"></b>
+					</li>
+					<li id="approvals_menu_id" class="">
+						<a href="/issues-approvals">
+							<i class="menu-icon fa fa-pencil-square-o "></i>
+							<span class="menu-text"> Issues </span>
 						</a>
 
 						<b class="arrow"></b>

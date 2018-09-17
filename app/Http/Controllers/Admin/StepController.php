@@ -177,6 +177,19 @@ class StepController extends Controller
     return view('admin.hod_cc_allocation')->withUsers($user_list)->withHod($users);
   }
 
+  public function assign_module_admins()
+  {
+    $admins = DB::table('admins')->where('id',session('admin_id'))->value('email');
+    $users = DB::table('users')->where('email',$admins)->value('id');
+    $department = DB::table('rs_departments')->where('hod_id',$users)->get();
+
+    $users = DB::table('users')->select('id','name')->get();
+
+    $assigned_admins = DB::table('rs_admin2modules')->get();
+
+    return view('admin.admin_module_assign')->withDepartments($department)->withUsers($users)->withAdmins($assigned_admins);
+  }
+
   // Ajax Calls 
   public function ajax_step_controller(Request $request)
   {
@@ -303,13 +316,16 @@ class StepController extends Controller
           case 'delete_cc':
                   DB::table('rs_costcenters')->where('id',$request->cc_id)->delete();
                   break;
+
           case 'store_levels':
                   DB::table('rs_departments')->where('id',$request->dept_id)->update(['oc_levels' => $request->levels]);
                   break;
+
           case 'retrieve_levels':
                   $levels = DB::table('rs_departments')->where('id',$request->dept_id)->get();
                   return $levels;
                   break;
+
           case 'add_reporting':
                   $reporting_id = DB::table('rs_reporting')->insertGetId(
                   ['department' => $request->dept_id, 'level' => $request->level, 'reporter' => $request->reporter, 'reportee' => $request->reportee,'last_edited' => session('admin_id')]
@@ -321,6 +337,7 @@ class StepController extends Controller
                   ->get();
                   return $reportee_details;
                   break; 
+
           case 'del_reporting':
                   // $reporter_id = DB::table('rs_reporting')->where('department',$request->dept_id)->where('level',$request->level)->where('reportee',$request->reportee)->first();
                   // $changes = DB::table('rs_reporting')->where('department',$request->dept_id)->where('level',$request->level+1)->where('reporter',$request->reportee)->get();
@@ -335,6 +352,7 @@ class StepController extends Controller
                   // }
                   DB::table('rs_reporting')->where('id',$request->entry_id)->delete();
                   break;
+
           case 'allocate_cc':
                   $entry_id = DB::table('rs_cc2modules')->insertGetId(
                   ['user' => $request->user_id, 'costcenter' => $request->cc_id, 'module' => $request->module_id, 'budget' => $request->budget, 'last_edited' => session('admin_id')]
@@ -347,12 +365,37 @@ class StepController extends Controller
                   ->get();
                   return $entries;
                   break;
+
           case 'del_allocate_cc':
                   DB::table('rs_cc2modules')->where('id',$request->entry_id)->delete();
                   break;
+
           case 'edit_budget':
                   DB::table('rs_cc2modules')->where('id',$request->entry_id)->update(['budget' => $request->content]);
-                  break;                                                
+                  break;  
+
+          case 'assign_admin2module':
+                  if($request->tbl_id){
+                    DB::table('rs_admin2modules')
+                        ->where('id', $request->tbl_id)
+                        ->update(['user_id' => $request->user_id]);
+                  }else{
+                      DB::table('rs_admin2modules')->insert([
+                        'user_id' => $request->user_id, 
+                        'module_id' => $request->module_id,
+                        'last_edited' => session('admin_id')
+                      ]);
+                  }
+                  break;     
+
+          case 'add_modules':
+                DB::table('rs_modules')->insert([
+                  'name' => $request->module_name, 
+                  'department' => $request->dept_id
+                  ]);
+                  
+                  break; 
+
           default:
               $data['success'] = 'false';
         }

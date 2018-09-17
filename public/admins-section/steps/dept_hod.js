@@ -1,5 +1,15 @@
 $(document).ready(function () {
 
+    $('.chosen-select').each(function() {
+        var $this = $(this);
+        $this.next().css({'width': '100%'});
+
+        if($(this).val($(this).attr('data-hod')) !== 'NULL'){
+           $(this).val($(this).attr('data-hod'));
+           $(this).trigger("chosen:updated");
+       }
+   })
+
     $('.show-details-btn').on('click', function(e) {
         e.preventDefault();
         $(this).closest('tr').next().toggleClass('open');
