@@ -5,6 +5,31 @@ $(document).ready(function () {
         $(this).val('');
     });
 
+
+    //Update stock Functionality
+    $('#update_item').click(function(){
+        $('#update_item_modal').modal();
+    });
+
+    $('#confirm_update').click(function(){
+        $.ajax({
+            type: 'post',
+            url: $('#url_ajax').val(),
+            data: {
+                function_name: 'update_stock',
+                id: $('#item_update_id').val(),
+                qty: $('#update_qty').val(),
+                '_token': $('input[name=_token]').val()
+            },
+            success: function (data) {
+                if (data.success) {
+                        location.reload();
+                }
+            }
+        });
+    });
+
+
     //Add Item functionality
     $('#add_item').click(function(){
         $.ajax({

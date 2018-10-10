@@ -107,6 +107,20 @@ class StationaryController extends Controller
 
                  break;
 
+          case 'update_stock':
+                    DB::table('rs_items')
+                            ->where('id', $request->id)
+                            ->increment('available',$request->qty,['last_edited' =>session('user_id'),'updated_at'=> DB::raw('CURRENT_TIMESTAMP')]);
+                    
+                    DB::table('rs_stockUpdateStationary')->insertGetId([
+                                'item_id' => $request->id, 
+                                'user_id' => session('user_id'),
+                                'quantity_updated'=> $request->qty,
+                                'updated_at' =>  DB::raw('CURRENT_TIMESTAMP')
+                          ]);
+
+                 break;
+
           case 'delete_item':
                 DB::table('rs_items')->where('id', $request->id)->delete();
                  break;

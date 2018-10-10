@@ -36,7 +36,7 @@ class ApprovalController extends Controller
         ->join('rs_items', 'rs_items.id', '=', 'rs_stationaryrequests.item_id')
         ->join('rs_locations', 'rs_locations.id', '=', 'rs_stationaryrequests.location_id')
         ->join('rs_costcenters', 'rs_costcenters.id', '=', 'rs_stationaryrequests.costcenter_id')
-        ->select('rs_stationaryrequests.id as main_id','users.name as name','users.emp_id as emp_id', 'rs_items.name as item_name', 'rs_locations.name as loc_name','rs_costcenters.number as cost_center','rs_stationaryrequests.quantity as quantity','rs_stationaryrequests.remarks as remarks',
+        ->select('rs_stationaryrequests.id as main_id','users.name as name','users.emp_id as emp_id', 'rs_items.name as item_name', 'rs_items.id as item_id', 'rs_locations.name as loc_name','rs_costcenters.number as cost_center','rs_stationaryrequests.quantity as quantity','rs_stationaryrequests.remarks as remarks',
         'rs_stationaryrequests.pickup_date as p_date','rs_stationaryrequests.updated_at as updt_date',
         'rs_stationaryrequests.time_slot as time_slot')
         ->where('rs_stationaryrequests.status','5')
@@ -101,6 +101,10 @@ class ApprovalController extends Controller
                             'issued_by' => session('user_id'),
                             'issued_date' => DB::raw('CURRENT_TIMESTAMP')
                         ]);
+            
+            DB::table('rs_items')
+                        ->where('id', $request->item_id)
+                        ->decrement('available',$request->item_qty);
 
             break;
 

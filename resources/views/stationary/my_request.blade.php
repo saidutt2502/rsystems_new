@@ -9,14 +9,13 @@
     <h1>Stationary
         <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;History</small>
     </h1>
+    <div class="input-field pull-right">
+        <a href="/item-request"><button class="btn btn-danger pull-right">Request Item<i class="ace-icon fa fa-arrow-right icon-on-right"></i></button></a>
+    </div>
 @endsection
 
 @section('main-content')
-
-    <div class="input-field">
-            <a href="/item-request"><button class="btn btn-danger">Request Item<i class="ace-icon fa fa-arrow-right icon-on-right"></i></button></a>
-    </div>
-        <br>
+<br><br>
     <div class="clearfix">
         <div class="pull-right tableTools-container"></div>
     </div>

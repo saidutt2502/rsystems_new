@@ -48,7 +48,7 @@
                                         Time slot:<b>{{$each_issues->time_slot}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Pickup Date:&nbsp;<b>{{ date("D, d F Y",strtotime($each_issues->p_date))}}</b>
                                         </p>
                                     <div class="search-actions text-center">
-                                        <a data-uniqueID="{{$each_issues->main_id}}" class="btn btn-sm btn-block btn-info issue-btn">Issue!</a>
+                                        <a data-uniqueID="{{$each_issues->main_id}}" data-item_id="{{$each_issues->item_id}}" data-item_qty="{{$each_issues->quantity}}" class="btn btn-sm btn-block btn-info issue-btn">Issue!</a>
                                     </div>
                                 </div>
                             </div>

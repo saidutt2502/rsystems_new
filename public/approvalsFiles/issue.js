@@ -9,6 +9,8 @@ $(document).ready(function () {
             data: {
                 function_name: 'issue_request',
                 id: $(this).attr('data-uniqueID'),
+                item_id: $(this).attr('data-item_id'),
+                item_qty: $(this).attr('data-item_qty'),
                 '_token': $('input[name=_token]').val()
             },
             success: function (data) {

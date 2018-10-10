@@ -15,6 +15,9 @@
     <div class="widget-box hidden-480">
             <div class="widget-header">
                 <h4 class="widget-title">Add Items</h4>
+                <button type="button" id="update_item" class="btn btn-default btn pull-right">
+                            <i class="ace-icon fa fa-stop bigger-110"></i>Update Item
+                </button>
             </div>
 
             <div class="widget-body">
@@ -116,6 +119,41 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" id="confirm_delete">Confirm</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+    <!-- Update items Modal -->
+    <div id="update_item_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Update Item</h4>
+      </div>
+      <div class="modal-body">
+                <div class="col-sm-5">
+                    <select id="item_update_id" class="chosen-container chosen-container-single chosen-select">
+                        <option value="" disabled selected>Select Item</option>
+                            @foreach($item as $each_item)
+                            <option value="{{$each_item->id}}">{{$each_item->name}}</option>
+                            @endforeach
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                  <span class="input-icon">
+                            <input id="update_qty" placeholder="Quantity" type="text">
+                            <i class="ace-icon fa fa-envelope blue"></i>
+                    </span>
+                </div>
+                <br><br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="confirm_update">Update</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
