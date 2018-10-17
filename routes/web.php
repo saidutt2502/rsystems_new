@@ -46,7 +46,7 @@ Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logou
 
   /* ----------------------------------------Stationary Routes------------------------------------ */
         Route::get('items', 'StationaryController@index');
-        Route::get('my-request', 'StationaryController@my_request');
+        Route::get('my-request_st', 'StationaryController@my_request');
         Route::get('item-request', 'StationaryController@item_request');
     //Ajax Call 
         Route::post('stationary_ajax', 'StationaryController@ajax_stationary_controller');
@@ -61,9 +61,18 @@ Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logou
      Route::get('issues-approvals', 'ApprovalController@issues_approvals');
 
 
-
-
   /* ----------------------------------------Taxi Routes------------------------------------ */
      Route::get('taxi-settings', 'ModuleSettingsController@taxi_settings');
      //Module-Settings AJAX Calls
     Route::post('taxi-ajax', 'ModuleSettingsController@ajax_moduleSettings_controller');
+
+/* ----------------------------------------Gatepass Routes------------------------------------ */
+     Route::get('gp_settings', 'GatepassController@index');
+     Route::get('my-request_gp', 'GatepassController@my_request');
+     Route::get('gp-request', 'GatepassController@gp_request');
+     //Ajax Call 
+     Route::post('gatepass_ajax', 'GatepassController@ajax_gatepass_controller');
+     //Forms Submit
+     Route::post('gatepass_settings', 'GatepassController@settings');
+     
+    

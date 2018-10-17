@@ -30,7 +30,7 @@ trait ApprovalTraits
                         ->value('hod_id');
         
 
-        if(session('user_id') == $hod){
+        if(session('user_id') == $hod_id){
             //If the HoD requests items in his own costcenter then it should directly go to the Admin
 
              //Updating in the approvals tables
@@ -98,4 +98,29 @@ trait ApprovalTraits
         }
     }
 
-}
+    public function get_higher_up1 ($insert_id,$src_table)
+    {
+        /*---------- Finding who to assign to approve -  logic here------------- */
+
+        $higer_up_person = DB::table('rs_reporting')
+                    ->where('reportee',session('user_id'))
+                    ->where('department',session('dept_id'))
+                    ->first();
+
+        //If higher up found in the rs_reporting table
+            if($higer_up_person){
+                    
+                            //Send to approval to the Higher up person
+                            $approval_id = DB::table('rs_approvals')->insertGetId([
+                                'user_id' => $higer_up_person->reporter, 
+                                'module_id' =>session('module_id'),
+                                'src_table'=> $src_table,
+                                'src_id'=> $insert_id,
+                                'remarks' => 'currently requested'
+                            ]);   
+                        
+          
+            }
+        }
+    }
+

@@ -73,7 +73,7 @@
                                         @switch($each_approval->src_table)
                                             @case('rs_stationaryrequests')
                                                     <p>
-                                                        User:&nbsp;<b>{{$details->name}}&nbsp;(Employee Code:&nbsp;{{$details->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;Requested:&nbsp;<b>{{$details->quantity}} {{$details->item_name}}</b>&nbsp;&nbsp;|&nbsp;&nbsp; Remarks:&nbsp;<b>{{$details->remarks}}</b><br>
+                                                    User:&nbsp;<b>{{$details->name}}&nbsp;(Employee Code:&nbsp;{{$details->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;Requested:&nbsp;<b>{{$details->quantity}} {{$details->item_name}}</b>&nbsp;&nbsp;|&nbsp;&nbsp; Remarks:&nbsp;<b>{{$details->remarks}}</b><br>
                                                     Time slot:<b>{{$details->time_slot}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Pickup Date:&nbsp;<b>{{ date("D, d F Y",strtotime($details->p_date))}}</b>
                                                     </p>
                                                 @break

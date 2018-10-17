@@ -316,7 +316,7 @@
 								<b class="arrow"></b>
 							</li>
 							<li class="" id="stationary_request_li_to_be">
-								<a href="/my-request">
+								<a href="/my-request_st">
 									<i class="menu-icon fa fa-caret-right"></i>
 									Stationary Request
 								</a>
@@ -333,6 +333,37 @@
 
 						<b class="arrow"></b>
 					</li>
+                    </li>
+
+                    <li class="">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-list"></i>
+							<span class="menu-text"> Gatepass </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu" id="item-nav-menu">
+							<li class="">
+								<a href="/gp_settings">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Gatepass Settings
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							<li class="" id="stationary_request_li_to_be">
+								<a href="/my-request_gp">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Gatepass Request
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+						</ul>
+                    </li>
                     <li class="">
                             <a href="{{ route('logout') }}" class="waves-effect"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="menu-icon fa fa-power-off"></i>
 							<span class="menu-text">Logout </span></a><form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
