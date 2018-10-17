@@ -39,6 +39,7 @@ Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logou
       Route::get('hod_cc_allocation', 'Admin\StepController@hod_cc_allocation');
       Route::get('assign-admins', 'Admin\StepController@assign_module_admins');
     });
+    
     //Admin-Step Ajax Calls
     Route::post('step', 'Admin\StepController@ajax_step_controller');
 
@@ -58,3 +59,11 @@ Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logou
      //Ajax Call 
      Route::post('approval_ajax', 'ApprovalController@ajax_approval_controller');
      Route::get('issues-approvals', 'ApprovalController@issues_approvals');
+
+
+
+
+  /* ----------------------------------------Taxi Routes------------------------------------ */
+     Route::get('taxi-settings', 'ModuleSettingsController@taxi_settings');
+     //Module-Settings AJAX Calls
+    Route::post('taxi-ajax', 'ModuleSettingsController@ajax_moduleSettings_controller');

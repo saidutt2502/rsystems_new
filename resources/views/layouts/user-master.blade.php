@@ -324,7 +324,15 @@
 								<b class="arrow"></b>
 							</li>
 						</ul>
-                    </li>
+					</li>
+					<li class="">
+						<a href="/taxi-settings">
+							<i class="menu-icon fa fa-fighter-jet"></i>
+							<span class="menu-text">Taxi Settings</span>
+						</a>
+
+						<b class="arrow"></b>
+					</li>
                     <li class="">
                             <a href="{{ route('logout') }}" class="waves-effect"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="menu-icon fa fa-power-off"></i>
 							<span class="menu-text">Logout </span></a><form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
