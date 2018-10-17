@@ -65,16 +65,38 @@
                                 </div>
 
                                 <div class="media-body">
-                                    <div>
-                                        <h4 class="media-heading">
-											<a href="#" class="blue">{{$each_approval->module_name}}&nbsp;&nbsp;|&nbsp;&nbsp;{{$details->loc_name}}</a>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ date("D, d F Y",strtotime($each_approval->updated_at))}}</span>
-										</h4>
-                                    </div>
                                         @switch($each_approval->src_table)
                                             @case('rs_stationaryrequests')
+                                            <div>
+                                                <h4 class="media-heading">
+                                                    <a href="#" class="blue">{{$each_approval->module_name}}&nbsp;&nbsp;|&nbsp;&nbsp;{{$details->loc_name}}</a>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ date("D, d F Y",strtotime($each_approval->updated_at))}}</span>
+                                                </h4>
+                                            </div>
                                                     <p>
                                                     User:&nbsp;<b>{{$details->name}}&nbsp;(Employee Code:&nbsp;{{$details->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;Requested:&nbsp;<b>{{$details->quantity}} {{$details->item_name}}</b>&nbsp;&nbsp;|&nbsp;&nbsp; Remarks:&nbsp;<b>{{$details->remarks}}</b><br>
                                                     Time slot:<b>{{$details->time_slot}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Pickup Date:&nbsp;<b>{{ date("D, d F Y",strtotime($details->p_date))}}</b>
+                                                    </p>
+                                                @break
+                                            @case('rs_gp_entries')
+                                            <?php
+
+                                             $details_gatepass = DB::table('rs_gp_entries')
+                                             ->join('users', 'users.id', '=', 'rs_gp_entries.user_id')
+                                             ->join('rs_locations', 'rs_locations.id', '=', 'rs_gp_entries.location_id')
+                                             ->select('users.name as name','users.emp_id as emp_id', 
+                                             'rs_gp_entries*',                                          'rs_locations.name as loc_name')
+                                             ->where('rs_gp_entries.id',$each_approval->src_id)
+                                             ->first();
+
+                                            ?>
+                                             <div>
+                                                    <h4 class="media-heading">
+                                                        <a href="#" class="blue">{{$each_approval->module_name}}&nbsp;&nbsp;|&nbsp;&nbsp;{{$details_gatepass->loc_name}}</a>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ date("D, d F Y",strtotime($each_approval->updated_at))}}</span>
+                                                    </h4>
+                                                </div>
+                                                    <p>
+                                                    User:&nbsp;<b>{{$details_gatepass->name}}&nbsp;(Employee Code:&nbsp;{{$details_gatepass->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;Shift ID:&nbsp;<b>{{$details_gatepass->shift_id}}</b>&nbsp;&nbsp;|&nbsp;&nbsp; Total:&nbsp;<b>{{$details_gatepass->total}}</b><br>
+                                                    Time slot:<b>{{$details_gatepass->from}} - {{$details_gatepass->to}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Purpose:&nbsp;<b>{{$details_gatepass->purpose}}</b>
                                                     </p>
                                                 @break
                                         @endswitch
