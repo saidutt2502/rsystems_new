@@ -96,7 +96,7 @@
                                                 </div>
                                                     <p>
                                                     User:&nbsp;<b>{{$details_gatepass->name}}&nbsp;(Employee Code:&nbsp;{{$details_gatepass->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;Shift ID:&nbsp;<b>{{$details_gatepass->shift_id}}</b>&nbsp;&nbsp;|&nbsp;&nbsp; Total:&nbsp;<b>{{$details_gatepass->total}}</b><br>
-                                                    Time slot:<b>{{$details_gatepass->from}} - {{$details_gatepass->to}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Purpose:&nbsp;<b>{{$details_gatepass->purpose}}</b>
+                                                    Time slot:<b>@if($details_gatepass->from){{$details_gatepass->from}}@endif - @if($details_gatepass->to){{$details_gatepass->to}}@endif</b>&nbsp;&nbsp;|&nbsp;&nbsp;Purpose:&nbsp;<b>{{$details_gatepass->purpose}}</b>
                                                     </p>
                                                 @break
                                         @endswitch
