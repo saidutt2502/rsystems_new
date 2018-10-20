@@ -9,6 +9,7 @@ $(document).ready(function () {
             data: {
                 function_name: 'approve_request',
                 id: $(this).attr('data-uniqueID'),
+                module: $(this).attr('module-uniqueID'),
                 '_token': $('input[name=_token]').val()
             },
             success: function (data) {

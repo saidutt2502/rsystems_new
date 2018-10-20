@@ -63,7 +63,6 @@
                                <option selected disabled>Select Purpose</option>
                                <option value="Personal Work" >Personal Work</option>
                                <option value="Official Work" >Official Work</option>
-                               <option value="Late Coming" >Late Coming</option>
                                <option value="Early Out" >Early Out</option>
                 </select>
             </div>

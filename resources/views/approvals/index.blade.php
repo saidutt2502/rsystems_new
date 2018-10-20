@@ -83,8 +83,8 @@
                                              $details_gatepass = DB::table('rs_gp_entries')
                                              ->join('users', 'users.id', '=', 'rs_gp_entries.user_id')
                                              ->join('rs_locations', 'rs_locations.id', '=', 'rs_gp_entries.location_id')
-                                             ->select('users.name as name','users.emp_id as emp_id', 
-                                             'rs_gp_entries*',                                          'rs_locations.name as loc_name')
+                                             ->join('rs_gp_settings', 'rs_gp_settings.id', '=', 'rs_gp_entries.shift_id')
+                                             ->select('users.name as name','users.emp_id as emp_id', 'rs_gp_entries.*','rs_locations.name as loc_name','rs_gp_settings.name as shift_name')
                                              ->where('rs_gp_entries.id',$each_approval->src_id)
                                              ->first();
 
@@ -95,13 +95,14 @@
                                                     </h4>
                                                 </div>
                                                     <p>
-                                                    User:&nbsp;<b>{{$details_gatepass->name}}&nbsp;(Employee Code:&nbsp;{{$details_gatepass->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;Shift ID:&nbsp;<b>{{$details_gatepass->shift_id}}</b>&nbsp;&nbsp;|&nbsp;&nbsp; Total:&nbsp;<b>{{$details_gatepass->total}}</b><br>
-                                                    Time slot:<b>@if($details_gatepass->from){{$details_gatepass->from}}@endif - @if($details_gatepass->to){{$details_gatepass->to}}@endif</b>&nbsp;&nbsp;|&nbsp;&nbsp;Purpose:&nbsp;<b>{{$details_gatepass->purpose}}</b>
+                                                    User:&nbsp;<b>{{$details_gatepass->name}}&nbsp;(Employee Code:&nbsp;{{$details_gatepass->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;Shift:&nbsp;<b>{{$details_gatepass->shift_name}}</b>&nbsp;&nbsp;</b><br>
+                                                    Time:<b>{{$details_gatepass->from}} - @if($details_gatepass->to){{$details_gatepass->to}} @else No Return @endif</b>&nbsp;&nbsp;|&nbsp;&nbsp;Purpose:&nbsp;<b>{{$details_gatepass->purpose}}</b><br>
+                                                    Reason:<b>{{$details_gatepass->reason}}</b>
                                                     </p>
                                                 @break
                                         @endswitch
                                     <div class="search-actions text-center">
-                                        <a class="btn btn-sm btn-block btn-info approve-btn" data-uniqueID="{{$each_approval->id}}" >Approve!</a>
+                                        <a class="btn btn-sm btn-block btn-info approve-btn" data-uniqueID="{{$each_approval->id}}" module-uniqueID="{{$each_approval->module_name}}" >Approve!</a>
                                         <a class="btn btn-sm btn-block btn-danger reject-btn" data-uniqueID="{{$each_approval->id}}">Reject!</a>
                                     </div>
                                 </div>
@@ -142,18 +143,42 @@
                                 </div>
 
                                 <div class="media-body">
-                                    <div>
+                                    
+                                        @switch($each_approval->src_table)
+                                            @case('rs_stationaryrequests')
+                                        <div>
                                         <h4 class="media-heading">
 											<a href="#" class="blue">{{$each_approval->module_name}}&nbsp;&nbsp;|&nbsp;&nbsp;{{$d_details->loc_name}}</a>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ date("D, d F Y",strtotime($each_approval->updated_at))}}</span>
 										</h4>
-                                    </div>
-                                        @switch($each_approval->src_table)
-                                            @case('rs_stationaryrequests')
+                                        </div>
                                                     <p>
                                                         User:&nbsp;<b>{{$details->name}}&nbsp;(Employee Code:&nbsp;{{$d_details->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;Requested:&nbsp;<b>{{$d_details->quantity}} {{$d_details->item_name}}</b>&nbsp;&nbsp;|&nbsp;&nbsp; Remarks:&nbsp;<b>{{$d_details->remarks}}</b><br>
                                                     Time slot:<b>{{$d_details->time_slot}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Pickup Date:&nbsp;<b>{{ date("D, d F Y",strtotime($d_details->p_date))}}</b>
                                                     </p>
                                                 @break
+                                                @case('rs_gp_entries')
+                                            <?php
+
+                                             $details_gatepass = DB::table('rs_gp_entries')
+                                             ->join('users', 'users.id', '=', 'rs_gp_entries.user_id')
+                                             ->join('rs_locations', 'rs_locations.id', '=', 'rs_gp_entries.location_id')
+                                             ->join('rs_gp_settings', 'rs_gp_settings.id', '=', 'rs_gp_entries.shift_id')
+                                             ->select('users.name as name','users.emp_id as emp_id', 'rs_gp_entries.*','rs_locations.name as loc_name','rs_gp_settings.name as shift_name')
+                                             ->where('rs_gp_entries.id',$each_approval->src_id)
+                                             ->first();
+
+                                            ?>
+                                             <div>
+                                                    <h4 class="media-heading">
+                                                        <a href="#" class="blue">{{$each_approval->module_name}}&nbsp;&nbsp;|&nbsp;&nbsp;{{$details_gatepass->loc_name}}</a>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ date("D, d F Y",strtotime($each_approval->updated_at))}}</span>
+                                                    </h4>
+                                                </div>
+                                                    <p>
+                                                    User:&nbsp;<b>{{$details_gatepass->name}}&nbsp;(Employee Code:&nbsp;{{$details_gatepass->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;Shift:&nbsp;<b>{{$details_gatepass->shift_name}}</b>&nbsp;&nbsp;</b><br>
+                                                    Time:<b>{{$details_gatepass->from}} - @if($details_gatepass->to){{$details_gatepass->to}} @else No Return @endif</b>&nbsp;&nbsp;|&nbsp;&nbsp;Purpose:&nbsp;<b>{{$details_gatepass->purpose}}</b><br>
+                                                    Reason:<b>{{$details_gatepass->reason}}</b>
+                                                    </p>
+                                            @break    
                                         @endswitch
                                     <div class="search-actions text-center">
                                         <a class="btn btn-sm btn-block btn-info">Approve!</a>
@@ -197,18 +222,42 @@
                                 </div>
 
                                 <div class="media-body">
+                                   
+                                        @switch($each_approval->src_table)
+                                            @case('rs_stationaryrequests')
                                     <div>
                                         <h4 class="media-heading">
 											<a href="#" class="blue">{{$each_approval->module_name}}&nbsp;&nbsp;|&nbsp;&nbsp;{{$a_details->loc_name}}</a>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ date("D, d F Y",strtotime($each_approval->updated_at))}}</span>
 										</h4>
                                     </div>
-                                        @switch($each_approval->src_table)
-                                            @case('rs_stationaryrequests')
                                                     <p>
                                                         User:&nbsp;<b>{{$a_details->name}}&nbsp;(Employee Code:&nbsp;{{$a_details->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;Requested:&nbsp;<b>{{$a_details->quantity}} {{$a_details->item_name}}</b>&nbsp;&nbsp;|&nbsp;&nbsp; Remarks:&nbsp;<b>{{$a_details->remarks}}</b><br>
                                                     Time slot:<b>{{$a_details->time_slot}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Pickup Date:&nbsp;<b>{{ date("D, d F Y",strtotime($a_details->p_date))}}</b>
                                                     </p>
                                                 @break
+                                            @case('rs_gp_entries')
+                                            <?php
+
+                                             $details_gatepass = DB::table('rs_gp_entries')
+                                             ->join('users', 'users.id', '=', 'rs_gp_entries.user_id')
+                                             ->join('rs_locations', 'rs_locations.id', '=', 'rs_gp_entries.location_id')
+                                             ->join('rs_gp_settings', 'rs_gp_settings.id', '=', 'rs_gp_entries.shift_id')
+                                             ->select('users.name as name','users.emp_id as emp_id', 'rs_gp_entries.*','rs_locations.name as loc_name','rs_gp_settings.name as shift_name')
+                                             ->where('rs_gp_entries.id',$each_approval->src_id)
+                                             ->first();
+
+                                            ?>
+                                             <div>
+                                                    <h4 class="media-heading">
+                                                        <a href="#" class="blue">{{$each_approval->module_name}}&nbsp;&nbsp;|&nbsp;&nbsp;{{$details_gatepass->loc_name}}</a>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ date("D, d F Y",strtotime($each_approval->updated_at))}}</span>
+                                                    </h4>
+                                                </div>
+                                                    <p>
+                                                    User:&nbsp;<b>{{$details_gatepass->name}}&nbsp;(Employee Code:&nbsp;{{$details_gatepass->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;Shift:&nbsp;<b>{{$details_gatepass->shift_name}}</b>&nbsp;&nbsp;</b><br>
+                                                    Time:<b>{{$details_gatepass->from}} - @if($details_gatepass->to){{$details_gatepass->to}} @else No Return @endif</b>&nbsp;&nbsp;|&nbsp;&nbsp;Purpose:&nbsp;<b>{{$details_gatepass->purpose}}</b><br>
+                                                    Reason:<b>{{$details_gatepass->reason}}</b>
+                                                    </p>
+                                            @break
                                         @endswitch
                                 </div>
                             </div>

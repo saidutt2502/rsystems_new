@@ -23,11 +23,12 @@ $('#submit').click(function(){
     
         
 
-    if($('#purpose').val()=='Personal Work'||$('#purpose').val()=='Early Out'||$('#purpose').val()=='Late Coming')
+    if($('#purpose').val()=='Personal Work'||$('#purpose').val()=='Early Out')
     {
         var date = $('#date').val()
         var year = date.substring(0, 4);
         var month = date.substring(5, 7);
+
 
         $.ajax({
         type: 'post',

@@ -70,9 +70,18 @@ class ApprovalController extends Controller
             $src_table = DB::table('rs_approvals')->where('id', $request->id)->value('src_table');
 
             //Updating in the parent table
+            if($request->module=='Stationary')
+            {
             DB::table($src_table)
                         ->where('id', $src_table_id)
                         ->update(['status' => 5]);
+            }
+            else if ($request->module=='Gatepass')
+            {
+            DB::table($src_table)
+                        ->where('id', $src_table_id)
+                        ->update(['status' => 2]);
+            }
 
             break;
 

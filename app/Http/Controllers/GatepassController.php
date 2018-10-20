@@ -81,6 +81,16 @@ class GatepassController extends Controller
       return view('gatepass.fill_gp')->withShifts($shifts)->withUser($user);
   }
 
+  public function gp_close()
+  {
+     $gp_details=DB::table('rs_gp_entries')
+                 ->join('users','users.id','=','rs_gp_entries.user_id')
+                 ->select('users.name as name','users.emp_id as emp_id', 'rs_gp_entries.*')
+                 ->whereIn('rs_gp_entries.status',['2','6'])->get();
+
+      return view('gatepass.gp_close')->withDetails($gp_details);
+  }
+
 
    // Ajax Calls 
    public function ajax_gatepass_controller(Request $request)
@@ -132,7 +142,30 @@ class GatepassController extends Controller
                 }
                //Sending for approval (params:costcenter,Insert Id, Table-name)
                $this->get_higher_up1($id,'rs_gp_entries');
-                 break;         
+                 break;
+                 
+            case 'entry_close':
+                  $detail=DB::table('rs_gp_entries')->where('id',$request->entry_id)->first();
+                  if($detail->to==null)
+                  {
+                    DB::table('rs_gp_entries')
+                    ->where('id', $request->entry_id)
+                    ->update(['actualfrom' => $request->time,'actualdatef' => $request->date,'status' => '7']);
+                  }
+                  else
+                  {
+                    DB::table('rs_gp_entries')
+                    ->where('id', $request->entry_id)
+                    ->update(['actualfrom' => $request->time,'actualdatef' => $request->date,'status' => '6']);
+                  }  
+                   
+                   break;
+
+            case 'entry_close_in':
+                   DB::table('rs_gp_entries')
+                    ->where('id', $request->entry_id)
+                    ->update(['actualto' => $request->time,'actualdatet' => $request->date,'status' => '7']);
+                  break;
  
              default:
                  $data['success'] = 'false';

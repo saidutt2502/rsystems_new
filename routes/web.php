@@ -70,6 +70,7 @@ Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logou
      Route::get('gp_settings', 'GatepassController@index');
      Route::get('my-request_gp', 'GatepassController@my_request');
      Route::get('gp-request', 'GatepassController@gp_request');
+     Route::get('gp_close', 'GatepassController@gp_close');
      //Ajax Call 
      Route::post('gatepass_ajax', 'GatepassController@ajax_gatepass_controller');
      //Forms Submit

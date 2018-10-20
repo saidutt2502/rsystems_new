@@ -362,6 +362,15 @@
 
 								<b class="arrow"></b>
 							</li>
+
+							<li class="" id="stationary_request_li_to_be">
+								<a href="/gp_close">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Gatepass (Security)
+								</a>
+
+								<b class="arrow"></b>
+							</li>
 						</ul>
                     </li>
                     <li class="">
