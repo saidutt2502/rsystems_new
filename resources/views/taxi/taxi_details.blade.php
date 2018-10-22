@@ -24,7 +24,7 @@
     <hr />
     <b>TAXI TYPE</b><br>
     <div class="form-group">
-    <div class="col-sm-12 col-sm-offset-2">
+    <div class="col-sm-12">
         <div class="col-sm-4">
 
         <?php
@@ -49,7 +49,7 @@
    
 
     <div class="form-group">
-    <div class="col-sm-12 col-sm-offset-2">
+    <div class="col-sm-12">
         <div class="col-sm-4">
 
         <?php
@@ -68,7 +68,7 @@
     </div>
 
     <div class="form-group">
-    <div class="col-sm-12 col-sm-offset-2">
+    <div class="col-sm-12">
         <div class="col-sm-3">
 
         <label>Night Charges</label>
@@ -86,6 +86,13 @@
         </div>
     </div>
     </div>
+
+<!----------------------- add airport code here ----------------------->
+    <div class="row">
+    <div class="col-xs-12"><hr>
+               <h1>Airport Content here</h1>
+    <hr></div>
+</div>
 
     
 

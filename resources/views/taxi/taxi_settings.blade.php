@@ -1,7 +1,7 @@
 @extends('layouts.user-master')
 
 @section('css-files')
-<link rel="stylesheet" href="{{ asset('/ModuleSettings/module_style.css') }}" />
+<link rel="stylesheet" href="{{ asset('/taxi/module_style.css') }}" />
 @endsection
 
 @section('breadcrumb')
@@ -103,12 +103,12 @@
                     </div>
 
                     <div class="widget-body">
-                        <div class="widget-main">
+                        <div class="widget-main airport_locations_list">
                         <!-- foreach begins here -->
                         @if($taxisettings)
                         @foreach(explode(',', $taxisettings->airport_locations) as $each_location)
                         @if($each_location != '')
-                        <div class="widget-box widget-color-orange collapsed ui-sortable-handle airport_locations_list" id="widget-box-3">
+                        <div class="widget-box widget-color-orange collapsed ui-sortable-handle " id="widget-box-3">
                             <div class="widget-header widget-header-small">
                                 <h6 class="widget-title airport_titles">
                                     {{$each_location}}
@@ -174,7 +174,7 @@
 		<!-- inline scripts related to this page -->
 
             <!-- Custom File -->
-            <script src="{{ asset('/ModuleSettings/TaxiSettings.js') }}" defer></script>
+            <script src="{{ asset('/taxi/TaxiSettings.js') }}" defer></script>
 
 
 		<script type="text/javascript">
