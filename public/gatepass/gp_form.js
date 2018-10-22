@@ -29,7 +29,6 @@ $('#submit').click(function(){
         var year = date.substring(0, 4);
         var month = date.substring(5, 7);
 
-
         $.ajax({
         type: 'post',
         url: $('#url_ajax').val(),
