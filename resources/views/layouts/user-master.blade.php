@@ -326,14 +326,34 @@
 						</ul>
 					</li>
 					<li class="">
-						<a href="/taxi-settings">
-							<i class="menu-icon fa fa-fighter-jet"></i>
-							<span class="menu-text">Taxi Settings</span>
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-globe "></i>
+							<span class="menu-text"> Taxi </span>
+
+							<b class="arrow fa fa-angle-down"></b>
 						</a>
 
 						<b class="arrow"></b>
+
+						<ul class="submenu" id="">
+							<li class="">
+								<a href="/taxi-settings">
+									<i class="menu-icon fa  fa-caret-right"></i>
+									Taxi Settings
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							<li class="">
+								<a href="/vendor-details">
+									<i class="menu-icon fa  fa-caret-right"></i>
+									Vendor Details
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+						</ul>
 					</li>
-                    </li>
 
                     <li class="">
 						<a href="#" class="dropdown-toggle">

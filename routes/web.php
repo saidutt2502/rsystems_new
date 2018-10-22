@@ -62,9 +62,10 @@ Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logou
 
 
   /* ----------------------------------------Taxi Routes------------------------------------ */
-     Route::get('taxi-settings', 'ModuleSettingsController@taxi_settings');
+     Route::get('taxi-settings', 'TaxiController@taxi_settings');
+     Route::get('vendor-details', 'TaxiController@vendor_details');
      //Module-Settings AJAX Calls
-    Route::post('taxi-ajax', 'ModuleSettingsController@ajax_moduleSettings_controller');
+    Route::post('taxi-ajax', 'TaxiController@ajax_taxi_controller');
 
 /* ----------------------------------------Gatepass Routes------------------------------------ */
      Route::get('gp_settings', 'GatepassController@index');

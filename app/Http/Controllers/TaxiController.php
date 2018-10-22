@@ -8,7 +8,7 @@ use DB;
 
 
 
-class ModuleSettingsController extends Controller
+class TaxiController extends Controller
 {
    
     public function taxi_settings()
@@ -21,8 +21,13 @@ class ModuleSettingsController extends Controller
       return view('taxi.taxi_settings')->withTaxisettings($taxi_settings);
     }
 
+    public function vendor_details()
+    {
+      return view('taxi.vendor_details');
+    }
+
       // Ajax Calls 
-  public function ajax_moduleSettings_controller(Request $request)
+  public function ajax_taxi_controller(Request $request)
   {
       if($request->ajax()){
 
