@@ -19,22 +19,7 @@
     <!-- Hidden values       -->
     <input type="hidden" value="{{$user->id}}" id="user_id">
 
-        <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right"> Employee Code </label>
-
-                <div class="col-sm-9">
-                    <input  readonly value="{{$user->emp_id}}"  class="col-xs-10 col-sm-5" type="text">
-                </div>
-        </div>
-        <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" > Employee Name</label>
-
-                <div class="col-sm-9">
-                    <input readonly value="{{$user->name}}"  class="col-xs-10 col-sm-5" type="text">
-                </div>
-        </div>
-    
-        <div class="form-group">
+    <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right">Date</label>
 
                 <div class="col-sm-9">

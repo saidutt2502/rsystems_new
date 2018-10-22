@@ -63,7 +63,9 @@ Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logou
 
   /* ----------------------------------------Taxi Routes------------------------------------ */
      Route::get('taxi-settings', 'TaxiController@taxi_settings');
-     Route::get('vendor-details', 'TaxiController@vendor_details');
+     Route::get('taxi-details', function () {return view('taxi.taxi_details');});
+     Route::get('taxi-request', 'TaxiController@taxi_requests');
+     Route::get('taxi-request-form', 'TaxiController@taxi_requests_form');
      //Module-Settings AJAX Calls
     Route::post('taxi-ajax', 'TaxiController@ajax_taxi_controller');
 

@@ -327,7 +327,7 @@
 					</li>
 					<li class="">
 						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-globe "></i>
+							<i class="menu-icon fa fa-taxi "></i>
 							<span class="menu-text"> Taxi </span>
 
 							<b class="arrow fa fa-angle-down"></b>
@@ -345,9 +345,17 @@
 								<b class="arrow"></b>
 							</li>
 							<li class="">
-								<a href="/vendor-details">
+								<a href="/taxi-details">
 									<i class="menu-icon fa  fa-caret-right"></i>
-									Vendor Details
+									Taxi Details
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							<li class="">
+								<a href="/taxi-request">
+									<i class="menu-icon fa  fa-caret-right"></i>
+									Taxi Request Form
 								</a>
 
 								<b class="arrow"></b>

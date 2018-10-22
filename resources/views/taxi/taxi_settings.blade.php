@@ -30,41 +30,62 @@
     <div class="step-content pos-rel">
         <div class="step-pane active" data-step="1">
             <form class="form-horizontal">
-                    <div class="form-group has-warning">
+                    <div class="form-group">
                         <label for="inputWarning" class="col-xs-12 col-sm-3 control-label no-padding-right">Base Kilometers</label>
-
+                        @if($taxisettings)
                         <div class="col-xs-12 col-sm-5">
                             <span class="block input-icon input-icon-right">
                                 <input type="text" value="{{$taxisettings->base_kms}}" id="basekms" class="width-100" />
                             </span>
                         </div>
+                        @else
+                        <div class="col-xs-12 col-sm-5">
+                            <span class="block input-icon input-icon-right">
+                                <input type="text" id="basekms" class="width-100" />
+                            </span>
+                        </div>
+                        @endif
                     </div>
 
-                    <div class="form-group has-error">
+                    <div class="form-group">
                         <label for="inputError" class="col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">Night Charges Start at</label>
-
+                        @if($taxisettings)
                         <div class="col-xs-12 col-sm-5">
                             <span class="block input-icon input-icon-right">
                                 <input type="time"  value="{{$taxisettings->night_time}}" id="nightTime" class="width-100" />
                             </span>
                         </div>
+                        @else
+                        <div class="col-xs-12 col-sm-5">
+                            <span class="block input-icon input-icon-right">
+                                <input type="time" id="nightTime" class="width-100" />
+                            </span>
+                        </div>
+                        @endif
                     </div>
 
-                    <div class="form-group has-success">
+                    <div class="form-group">
                         <label for="inputSuccess" class="col-xs-12 col-sm-3 control-label no-padding-right">Mid-Night Charges starts at</label>
-
+                        @if($taxisettings)
                         <div class="col-xs-12 col-sm-5">
                             <span class="block input-icon input-icon-right">
                                 <input type="time" value="{{$taxisettings->midnight_time}}" id="midnightTime" class="width-100" />
                             </span>
                         </div>
+                        @else
+                        <div class="col-xs-12 col-sm-5">
+                            <span class="block input-icon input-icon-right">
+                                <input type="time"  id="midnightTime" class="width-100" />
+                            </span>
+                        </div>
+                        @endif
                     </div>
                 </form>
         </div>
 
         <div class="step-pane" data-step="2">
         <div>
-        <div class="form-group has-warning">
+        <div class="form-group">
 
             <div class="col-xs-12 col-sm-5 col-sm-offset-3">
                 <span class="block input-icon input-icon-right">
@@ -84,6 +105,7 @@
                     <div class="widget-body">
                         <div class="widget-main">
                         <!-- foreach begins here -->
+                        @if($taxisettings)
                         @foreach(explode(',', $taxisettings->airport_locations) as $each_location)
                         @if($each_location != '')
                         <div class="widget-box widget-color-orange collapsed ui-sortable-handle airport_locations_list" id="widget-box-3">
@@ -101,6 +123,7 @@
                             </div>
                                 @endif
                             @endforeach
+                            @endif
                             <!-- foreach ends here -->
                         </div>
                     </div>

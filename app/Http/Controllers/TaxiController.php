@@ -21,10 +21,32 @@ class TaxiController extends Controller
       return view('taxi.taxi_settings')->withTaxisettings($taxi_settings);
     }
 
-    public function vendor_details()
+    public function taxi_requests()
     {
-      return view('taxi.vendor_details');
+      $taxi = DB::table('rs_taxi_requests')
+            ->select('*')
+            ->where('user_id',session('user_id'))
+            ->get();
+
+      return view('taxi.taxi_requests')->withRequests($taxi);
     }
+
+    public function taxi_requests_form()
+    {
+      $cc = DB::table('rs_costcenters')
+            ->select('*')
+            ->get();
+      $user = DB::table('users')
+            ->select('*')
+            ->where('id',session('user_id'))
+            ->first();
+      $locations =  DB::table('rs_locations')
+      ->select('*')
+      ->get();          
+
+      return view('taxi.taxi_requests_form')->withCostcenters($cc)->withUser($user)->withLocations($locations);
+    }
+
 
       // Ajax Calls 
   public function ajax_taxi_controller(Request $request)
@@ -44,6 +66,33 @@ class TaxiController extends Controller
                 'night_time' => $request->nightTime,
                 'midnight_time' =>$request->midnightTime,
                 'airport_locations' =>$request->airportLocations,
+                ]);
+
+               $data=1;
+                 break;
+
+          case 'add_vendor':
+
+               $id = DB::table('rs_taxi_vendors')->insert([
+                'location_id' => session('location'), 
+                'user_id' => session('user_id'),
+                'name'=> $request->vendor_name,
+                ]);
+
+               $data=1;
+                 break;
+          
+          case 'add_type':
+
+               $id = DB::table('rs_taxi_type')->insert([
+                'vendor_id'=> $request->vendor,
+                'type'=> $request->type,
+                'base_cost'=> $request->base_kms,
+                'km_cost'=> $request->per_km,
+                'night'=> $request->night,
+                'midnight'=> $request->midnight,
+                'waiting'=> $request->wait,
+                'user_id'=> session('user_id'),
                 ]);
 
                $data=1;
