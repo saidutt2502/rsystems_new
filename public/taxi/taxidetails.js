@@ -46,4 +46,25 @@ $('#reset').click(function(){
     $('#wait').val('');
 });
 
+$('#submit_car').click(function(){
+    $.ajax({
+        type: 'post',
+        url: $('#url_ajax').val(),
+        data: {
+            function_name: 'add_car',
+            vendor: $('#vendor_car').val(),
+            type: $('#type_car').val(),
+            taxino: $('#taxino').val(),
+            '_token': $('input[name=_token]').val()
+        },
+        success: function (data) {
+            location.reload();
+        }
+    });
+});
+
+$('#reset_car').click(function(){
+    $('#taxino').val('');
+});
+
 });

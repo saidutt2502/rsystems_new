@@ -27,6 +27,7 @@ class CreateRsTaxiRequestsTable extends Migration
             $table->time('time2')->nullable();
             $table->string('journey')->nullable();
             $table->string('status');
+            $table->integer('location_id');
             $table->timestamps();
         });
     }

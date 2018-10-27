@@ -88,7 +88,7 @@
 
 													<label class="block clearfix">
 														<select name="location" class="form-control" id="form-field-select-1">
-																<option value="0">Select Department</option>
+																<option value="0">Select Location</option>
 															@foreach($locations as $each_location)
 																<option value="{{$each_location->id}}">{{$each_location->name}}</option>
 															@endforeach

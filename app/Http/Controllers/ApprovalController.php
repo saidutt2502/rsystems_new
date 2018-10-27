@@ -82,6 +82,12 @@ class ApprovalController extends Controller
                         ->where('id', $src_table_id)
                         ->update(['status' => 2]);
             }
+            else if ($request->module=='Taxi')
+            {
+            DB::table($src_table)
+                        ->where('id', $src_table_id)
+                        ->update(['status' => 2]);
+            }
 
             break;
 

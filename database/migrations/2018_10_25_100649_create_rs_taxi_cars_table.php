@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRsTaxiTypeTable extends Migration
+class CreateRsTaxiCarsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateRsTaxiTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('rs_taxi_type', function (Blueprint $table) {
+        Schema::create('rs_taxi_cars', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('vendor_id');
-            $table->string('type');
-            $table->integer('base_cost')->default('0');
-            $table->integer('km_cost')->default('0');
-            $table->integer('night')->default('0');
-            $table->integer('midnight')->default('0');
-            $table->integer('waiting')->default('0');
+            $table->integer('type_id');
+            $table->string('taxino');
             $table->integer('user_id');
             $table->timestamps();
         });
@@ -34,6 +30,6 @@ class CreateRsTaxiTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rs_taxi_type');
+        Schema::dropIfExists('rs_taxi_cars');
     }
 }

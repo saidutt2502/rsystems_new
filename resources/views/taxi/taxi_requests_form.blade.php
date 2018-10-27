@@ -13,7 +13,7 @@
 
 @section('main-content')
 
-    <form class="form-horizontal" role="form" action="{{URL::to('forms_stationary')}}" method="POST">
+    <form class="form-horizontal" role="form" action="{{URL::to('forms_taxi')}}" method="POST">
     @csrf
 
         <input type="hidden" value="{{$user->id}}" name="user_id">

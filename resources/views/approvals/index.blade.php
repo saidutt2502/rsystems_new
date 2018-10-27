@@ -100,6 +100,30 @@
                                                     Reason:<b>{{$details_gatepass->reason}}</b>
                                                     </p>
                                                 @break
+                                                @case('rs_taxi_requests')
+                                            <?php
+
+                                             $details_taxi = DB::table('rs_taxi_requests')
+                                             ->join('users', 'users.id', '=', 'rs_taxi_requests.user_id')
+                                             ->join('rs_costcenters', 'rs_costcenters.id', '=', 'rs_taxi_requests.cc_id')
+                                             ->join('rs_locations', 'rs_locations.id', '=', 'rs_taxi_requests.location')
+                                             ->select('users.name as name','users.emp_id as emp_id', 'rs_taxi_requests.*','rs_costcenters.number as cost_center','rs_locations.name as location')
+                                             ->where('rs_taxi_requests.id',$each_approval->src_id)
+                                             ->first();
+
+                                            ?>
+                                             <div>
+                                                    <h4 class="media-heading">
+                                                        <a href="#" class="blue">{{$each_approval->module_name}}&nbsp;&nbsp;|&nbsp;&nbsp;{{$details_taxi->location}}</a>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ date("D, d F Y",strtotime($each_approval->updated_at))}}</span>
+                                                    </h4>
+                                                </div>
+                                                    <p>
+                                                    User:&nbsp;<b>{{$details_taxi->name}}&nbsp;(Employee Code:&nbsp;{{$details_taxi->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;From:&nbsp;<b>{{$details_taxi->place_from}}</b>&nbsp;&nbsp;To:&nbsp;<b>{{$details_taxi->place_to}}</b>&nbsp;&nbsp;<br>
+                                                    Departure from {{$details_taxi->place_from}}:&nbsp;<b>{{$details_taxi->time1}} </b><br>
+                                                    Departure from {{$details_taxi->place_to}}:&nbsp;<b>@if($details_taxi->time2 != null){{$details_taxi->time1}}@else - @endif </b><br>
+                                                    Cost Center:&nbsp;<b>{{$details_taxi->cost_center}}&nbsp;</b>&nbsp;&nbsp;|&nbsp;&nbsp;Purpose:&nbsp;<b>{{$details_taxi->purpose}}</b>
+                                                    </p>
+                                            @break
                                         @endswitch
                                     <div class="search-actions text-center">
                                         <a class="btn btn-sm btn-block btn-info approve-btn" data-uniqueID="{{$each_approval->id}}" module-uniqueID="{{$each_approval->module_name}}" >Approve!</a>
@@ -177,6 +201,30 @@
                                                     User:&nbsp;<b>{{$details_gatepass->name}}&nbsp;(Employee Code:&nbsp;{{$details_gatepass->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;Shift:&nbsp;<b>{{$details_gatepass->shift_name}}</b>&nbsp;&nbsp;</b><br>
                                                     Time:<b>{{$details_gatepass->from}} - @if($details_gatepass->to){{$details_gatepass->to}} @else No Return @endif</b>&nbsp;&nbsp;|&nbsp;&nbsp;Purpose:&nbsp;<b>{{$details_gatepass->purpose}}</b><br>
                                                     Reason:<b>{{$details_gatepass->reason}}</b>
+                                                    </p>
+                                            @break
+                                            @case('rs_taxi_requests')
+                                            <?php
+
+                                             $details_taxi = DB::table('rs_taxi_requests')
+                                             ->join('users', 'users.id', '=', 'rs_taxi_requests.user_id')
+                                             ->join('rs_costcenters', 'rs_costcenters.id', '=', 'rs_taxi_requests.cc_id')
+                                             ->join('rs_locations', 'rs_locations.id', '=', 'rs_taxi_requests.location')
+                                             ->select('users.name as name','users.emp_id as emp_id', 'rs_taxi_requests.*','rs_costcenters.number as cost_center','rs_locations.name as location')
+                                             ->where('rs_taxi_requests.id',$each_approval->src_id)
+                                             ->first();
+
+                                            ?>
+                                             <div>
+                                                    <h4 class="media-heading">
+                                                        <a href="#" class="blue">{{$each_approval->module_name}}&nbsp;&nbsp;|&nbsp;&nbsp;{{$details_taxi->location}}</a>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ date("D, d F Y",strtotime($each_approval->updated_at))}}</span>
+                                                    </h4>
+                                                </div>
+                                                    <p>
+                                                    User:&nbsp;<b>{{$details_taxi->name}}&nbsp;(Employee Code:&nbsp;{{$details_taxi->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;From:&nbsp;<b>{{$details_taxi->place_from}}</b>&nbsp;&nbsp;To:&nbsp;<b>{{$details_taxi->place_to}}</b>&nbsp;&nbsp;<br>
+                                                    Departure from {{$details_taxi->place_from}}:&nbsp;<b>{{$details_taxi->time1}} </b><br>
+                                                    Departure from {{$details_taxi->place_to}}:&nbsp;<b>@if($details_taxi->time2 != null){{$details_taxi->time1}}@else - @endif </b><br>
+                                                    Cost Center:&nbsp;<b>{{$details_taxi->cost_center}}&nbsp;</b>&nbsp;&nbsp;|&nbsp;&nbsp;Purpose:&nbsp;<b>{{$details_taxi->purpose}}</b>
                                                     </p>
                                             @break    
                                         @endswitch
@@ -256,6 +304,31 @@
                                                     User:&nbsp;<b>{{$details_gatepass->name}}&nbsp;(Employee Code:&nbsp;{{$details_gatepass->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;Shift:&nbsp;<b>{{$details_gatepass->shift_name}}</b>&nbsp;&nbsp;</b><br>
                                                     Time:<b>{{$details_gatepass->from}} - @if($details_gatepass->to){{$details_gatepass->to}} @else No Return @endif</b>&nbsp;&nbsp;|&nbsp;&nbsp;Purpose:&nbsp;<b>{{$details_gatepass->purpose}}</b><br>
                                                     Reason:<b>{{$details_gatepass->reason}}</b>
+                                                    </p>
+                                            @break
+
+                                              @case('rs_taxi_requests')
+                                            <?php
+
+                                             $details_taxi = DB::table('rs_taxi_requests')
+                                             ->join('users', 'users.id', '=', 'rs_taxi_requests.user_id')
+                                             ->join('rs_costcenters', 'rs_costcenters.id', '=', 'rs_taxi_requests.cc_id')
+                                             ->join('rs_locations', 'rs_locations.id', '=', 'rs_taxi_requests.location')
+                                             ->select('users.name as name','users.emp_id as emp_id', 'rs_taxi_requests.*','rs_costcenters.number as cost_center','rs_locations.name as location')
+                                             ->where('rs_taxi_requests.id',$each_approval->src_id)
+                                             ->first();
+
+                                            ?>
+                                             <div>
+                                                    <h4 class="media-heading">
+                                                        <a href="#" class="blue">{{$each_approval->module_name}}&nbsp;&nbsp;|&nbsp;&nbsp;{{$details_taxi->location}}</a>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ date("D, d F Y",strtotime($each_approval->updated_at))}}</span>
+                                                    </h4>
+                                                </div>
+                                                    <p>
+                                                    User:&nbsp;<b>{{$details_taxi->name}}&nbsp;(Employee Code:&nbsp;{{$details_taxi->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;From:&nbsp;<b>{{$details_taxi->place_from}}</b>&nbsp;&nbsp;To:&nbsp;<b>{{$details_taxi->place_to}}</b>&nbsp;&nbsp;<br>
+                                                    Departure from {{$details_taxi->place_from}}:&nbsp;<b>{{$details_taxi->time1}} </b><br>
+                                                    Departure from {{$details_taxi->place_to}}:&nbsp;<b>@if($details_taxi->time2 != null){{$details_taxi->time1}}@else - @endif </b><br>
+                                                    Cost Center:&nbsp;<b>{{$details_taxi->cost_center}}&nbsp;</b>&nbsp;&nbsp;|&nbsp;&nbsp;Purpose:&nbsp;<b>{{$details_taxi->purpose}}</b>
                                                     </p>
                                             @break
                                         @endswitch

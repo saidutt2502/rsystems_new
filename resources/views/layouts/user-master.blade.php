@@ -360,6 +360,24 @@
 
 								<b class="arrow"></b>
 							</li>
+
+							<li class="">
+								<a href="/taxi-schedule">
+									<i class="menu-icon fa  fa-caret-right"></i>
+									Taxi Schedule
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+
+							<li class="">
+								<a href="/taxi-closing">
+									<i class="menu-icon fa  fa-caret-right"></i>
+									Taxi (Security)
+								</a>
+
+								<b class="arrow"></b>
+							</li>
 						</ul>
 					</li>
 
