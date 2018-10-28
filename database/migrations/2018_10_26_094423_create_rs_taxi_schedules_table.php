@@ -25,7 +25,9 @@ class CreateRsTaxiSchedulesTable extends Migration
             $table->time('end_time')->nullable();
             $table->integer('end_km')->nullable();
             $table->integer('total_km')->nullable();
-            $table->integer('cost')->nullable();
+            $table->integer('wait_time')->nullable();
+            $table->integer('extra_cost')->nullable();
+            $table->string('remarks')->nullable();
             $table->integer('assigning_user');
             $table->integer('closing_user')->nullable();
             $table->timestamps();

@@ -57,4 +57,20 @@ $(document).ready(function(){
         });
     });
 
+    $('.validate-btn').click(function(){
+        var validate_trip = $(this).attr('data-validate');
+        $.ajax({
+            type: 'post',
+            url: $('#url_ajax').val(),
+            data: {
+                function_name: 'validate_trip',
+                trip_id: validate_trip,
+                '_token': $('input[name=_token]').val()
+            },
+            success: function (data) {
+                location.reload();
+            }
+        });
+    });
+
 });    
