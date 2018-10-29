@@ -12,13 +12,25 @@ $(document).ready(function () {
     });
 
     $('#confirm_update').click(function(){
+        var item_ids = new Array();
+        var item_qty = new Array();
+
+        $('.item_id').each(function(){
+                item_ids.push($(this).val());
+        });
+
+        $('.updated_qty').each(function(){
+                 item_qty.push($(this).val());
+        });
+
+
         $.ajax({
             type: 'post',
             url: $('#url_ajax').val(),
             data: {
                 function_name: 'update_stock',
-                id: $('#item_update_id').val(),
-                qty: $('#update_qty').val(),
+                id: item_ids,
+                qty: item_qty,
                 '_token': $('input[name=_token]').val()
             },
             success: function (data) {
@@ -121,6 +133,23 @@ $(document).ready(function () {
         });
     });
 
+    $('.btn-clone').click(function(){
+
+        var cloned = '<div class="form-group"><div class="col-sm-12"><div class="col-sm-5"><select  class="chosen-container chosen-container-single chosen-select newly_added item_id">'+$('#first_chosen_list').html()+'</select></div><div class="col-sm-5"><span class="input-icon"><input id="update_qty" placeholder="Quantity" name="qty[]" class="updated_qty" type="text"><i class="ace-icon fa fa-envelope blue"></i></span></div><div class="col-sm-1 col-md-1"><button type="button" class="btn delete_item btn-danger btn-block btn-xs"><i class="ace-icon fa fa-close bigger-110 icon-only"></i></button></div></div></div>';
+ 
+        $(cloned).insertAfter(".clone-this");
+ 
+        $('.newly_added').each(function() {
+             var $this = $(this);
+             $this.chosen();
+             $this.next().css({'width': $this.parent().width()});
+         })
+ 
+         $('.delete_item').click(function(){
+             $(this).parent().parent().parent().remove();
+         });
+ 
+     });
   
 
 });

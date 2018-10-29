@@ -136,20 +136,31 @@
         <h4 class="modal-title">Update Item</h4>
       </div>
       <div class="modal-body">
+      <div class="form-group clone-this">
+          <div>
+            <div class="col-sm-12">
                 <div class="col-sm-5">
-                    <select id="item_update_id" class="chosen-container chosen-container-single chosen-select">
+                    <select name="item_id[]" id="first_chosen_list" class="chosen-container chosen-container-single chosen-select item_id">
                         <option value="" disabled selected>Select Item</option>
                             @foreach($item as $each_item)
-                            <option value="{{$each_item->id}}">{{$each_item->name}}</option>
+                            <option class="item_options" value="{{$each_item->id}}">{{$each_item->name}}</option>
                             @endforeach
                     </select>
                 </div>
-                <div class="col-sm-3">
-                  <span class="input-icon">
-                            <input id="update_qty" placeholder="Quantity" type="text">
+                <div class="col-sm-5">
+                <span class="input-icon">
+                            <input placeholder="Quantity" class="updated_qty" name="qty[]" type="text">
                             <i class="ace-icon fa fa-envelope blue"></i>
                     </span>
                 </div>
+                <div class="col-sm-1 col-md-1">
+                    <button type="button" class="btn btn-warning btn-block btn-xs btn-clone">
+                        <i class="ace-icon fa fa-mail-forward bigger-110 icon-only"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+</div>
                 <br><br>
       </div>
       <div class="modal-footer">
@@ -157,7 +168,6 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
-
   </div>
 </div>
 

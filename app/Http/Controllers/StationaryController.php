@@ -108,17 +108,19 @@ class StationaryController extends Controller
                  break;
 
           case 'update_stock':
+                                
+                foreach($request->id as $key => $value){
                     DB::table('rs_items')
-                            ->where('id', $request->id)
-                            ->increment('available',$request->qty,['last_edited' =>session('user_id'),'updated_at'=> DB::raw('CURRENT_TIMESTAMP')]);
+                            ->where('id', $value)
+                            ->increment('available',$request->qty[$key],['last_edited' =>session('user_id'),'updated_at'=> DB::raw('CURRENT_TIMESTAMP')]);
                     
                     DB::table('rs_stockUpdateStationary')->insertGetId([
-                                'item_id' => $request->id, 
+                                'item_id' => $value, 
                                 'user_id' => session('user_id'),
-                                'quantity_updated'=> $request->qty,
+                                'quantity_updated'=> $request->qty[$key],
                                 'updated_at' =>  DB::raw('CURRENT_TIMESTAMP')
                           ]);
-
+                    }
                  break;
 
           case 'delete_item':
@@ -139,12 +141,14 @@ class StationaryController extends Controller
     switch ($request->function_name) {
 
         case 'item_request':
+
+        foreach($request->item_id as $key => $value){
                 $id = DB::table('rs_stationaryrequests')->insertGetId([
                     'user_id' => $request->user_id, 
-                    'item_id' => $request->item_id,
+                    'item_id' => $value,
                     'location_id'=> session('location'),
                     'costcenter_id' => $request->cc_id,
-                    'quantity' => $request->qty,
+                    'quantity' => $request->qty[$key],
                     'remarks' => $request->remarks ,
                     'pickup_date' => $request->pickup_date ,
                     'time_slot' => $request->time_slot ,
@@ -152,8 +156,9 @@ class StationaryController extends Controller
                 
             //Sending for approval (params:costcenter,Insert Id, Table-name)
                 $this->get_higher_up($request->cc_id,$id,'rs_stationaryrequests');
-
+        }
         return redirect()->action('StationaryController@my_request'); 
+        break;
 
         default:
                 $data['success'] = 'false';

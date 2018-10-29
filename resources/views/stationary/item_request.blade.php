@@ -34,27 +34,20 @@
 
             <div class="col-sm-9">
                 <div class="col-sm-5">
-                    <select name="item_id" class="chosen-container chosen-container-single chosen-select">
+                    <select id="item_id" name="item_id[]" class="chosen-container chosen-container-single chosen-select">
                         <option value="" disabled selected>Select Item</option>
                             @foreach($items as $each_item)
-                            <option value="{{$each_item->id}}">{{$each_item->name}}</option>
+                            <option class="item_options" value="{{$each_item->id}}">{{$each_item->name}}</option>
                             @endforeach
                     </select>
                 </div>
                 <div class="col-sm-3">
-                    <select name="qty" class="chosen-container chosen-container-single chosen-select">
-                        <option value="" disabled selected>Quantity</option>
-                            @for($i=0;$i<150;$i++)
-                                <option value="{{$i}}">{{$i}}</option>
-                            @endfor
-                    </select>
+                <span class="input-icon">
+                            <input id="update_qty" placeholder="Quantity" name="qty[]" type="text">
+                            <i class="ace-icon fa fa-envelope blue"></i>
+                    </span>
                 </div>
-                <div class="col-sm-10 col-md-1">
-                    <button type="button" class="btn btn-danger btn-block btn-xs">
-                        <i class="ace-icon fa fa-close bigger-110 icon-only"></i>
-                    </button>
-                </div>
-                <div class="col-sm-10 col-md-1">
+                <div class="col-sm-1 col-md-1">
                     <button type="button" class="btn btn-warning btn-block btn-xs btn-clone">
                         <i class="ace-icon fa fa-mail-forward bigger-110 icon-only"></i>
                     </button>
