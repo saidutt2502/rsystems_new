@@ -48,8 +48,7 @@
 
 
         
-<!-- Ajax call url       -->
-<input type="hidden" value="{{URL::to('stationary_ajax')}}" id="url_ajax">
+
 
     <!-- Modal -->
 <div id="confirm_delete_modal" class="modal fade" role="dialog">

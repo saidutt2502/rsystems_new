@@ -79,16 +79,25 @@ class TaxiController extends Controller
             ->first();
       $locations =  DB::table('rs_locations')
       ->select('*')
-      ->get();          
+      ->get();
+      $airports = DB::table('rs_taxisettings')
+            ->where('location_id',session('location'))
+            ->value('airport_locations');
+                      
 
-      return view('taxi.taxi_requests_form')->withCostcenters($cc)->withUser($user)->withLocations($locations);
+      return view('taxi.taxi_requests_form')->withCostcenters($cc)->withUser($user)->withLocations($locations)->withAirports($airports);
     }
 
     public function forms_taxi_functions(Request $request)
  {
+
+  
+
+   $airport_count=DB::table('rs_taxisettings')->where('location_id',session('location'))->value('airport_locations');
    if($request->trip_type=='Airport')
    {
-     if($request->journey=='Drop')
+     
+      if($request->journey=='Drop')
      {
       $id = DB::table('rs_taxi_requests')->insertGetId([
         'user_id' => $request->user_id, 
@@ -122,6 +131,8 @@ class TaxiController extends Controller
         'location_id'=> session('location'),
         ]);
      }
+    
+     
    }
    else if($request->trip_type=='Local Run')
    {
@@ -160,14 +171,13 @@ class TaxiController extends Controller
      }
    }
     
-                
+               
                 
             //Sending for approval (params:costcenter,Insert Id, Table-name)
                 $this->get_higher_up($request->cc_id,$id,'rs_taxi_requests');
 
         return redirect()->action('TaxiController@taxi_requests'); 
 
-        
     
  }
 
@@ -266,7 +276,7 @@ class TaxiController extends Controller
           case 'add_type':
 
               
-               $id = DB::table('rs_taxi_type')->insert([
+               $id = DB::table('rs_taxi_type')->insertGetId([
                 'vendor_id'=> $request->vendor,
                 'type'=> $request->type,
                 'base_cost'=> $request->base_kms,
@@ -311,6 +321,19 @@ class TaxiController extends Controller
 
                $data=1;
                  break;
+               
+          case 'get_airports':
+
+                 $airports=DB::table('rs_taxisettings')->where('location_id',session('location'))->value('airport_locations');
+                 $i=0;
+
+                 foreach(explode(',', $airports) as $airport)
+                 {
+                   $data[$i]=$airport;
+                   $i++;
+                 }
+                 $data['count']=$i;
+                   break;       
           
           case 'assign_taxi':
 
@@ -473,7 +496,7 @@ class TaxiController extends Controller
                       }
                       elseif($requested_trip->trip_type=='Airport')
                       {
-                        
+                       
                       }
          
                       DB::table('rs_taxi_schedules')
@@ -501,6 +524,96 @@ class TaxiController extends Controller
 
               $data=1;
              break;
+
+          case 'get_trip_schedule':
+
+             $data=DB::table('rs_taxi_schedules')->where('id',$request->trip_id)->get();
+             break;
+
+          case 'edit_trip_schedule':
+
+          DB::table('rs_taxi_schedules')
+          ->where('id', $request->trip_id)
+          ->update([
+
+              'start_date' => $request->start_date,
+              'start_time' => $request->start_time,
+              'start_km' => $request->start_kms,
+              'end_date' => $request->close_date,
+              'end_time' => $request->close_time,
+              'end_km' => $request->close_kms,
+              'total_km' => $request->close_kms-$request->start_kms,
+              'wait_time' => $request->wait_time,
+              'extra_cost' => $request->extra_costs,
+              'remarks' => $request->remarks,
+              'closing_user' => session('user_id'), 
+          ]);
+
+          $scheduled_trip=DB::table('rs_taxi_schedules')->where('id',$request->trip_id)->first();
+
+          $requested_trip=DB::table('rs_taxi_requests')->where('id',$scheduled_trip->lead_trip_id)->first();
+          $next_day=date('Y-m-d ', strtotime($requested_trip->date_ . ' +1 day'));
+
+          $details=DB::table('rs_taxi_schedules')
+                   ->join('rs_taxi_cars','rs_taxi_cars.id','=','rs_taxi_schedules.taxi_id')
+                   ->join('rs_taxi_type','rs_taxi_type.id','=','rs_taxi_cars.type_id')
+                   ->select('rs_taxi_type.*')
+                   ->where('rs_taxi_schedules.taxi_id',$scheduled_trip->taxi_id)
+                   ->first();
+           $taxi_settings=DB::table('rs_taxisettings')->where('location_id',session('location'))->first();        
+
+                   if($requested_trip->trip_type=='Local Run')
+                   {
+                     //Vendor Taxi Kms Cost
+                     if($details->base_cost!='0')
+                     {
+                       //Total kms less than Base Cost
+                       if($scheduled_trip->total_km<=$taxi_settings->base_kms)
+                       {
+                         $cost = $details->base_cost;
+                       }
+                       //Total kms greater than Base Cost
+                       else
+                       {
+                         $cost = $details->base_cost+($scheduled_trip->total_km-$taxi_settings->base_kms)*$details->km_cost;
+                       }
+                     }
+                     //Rented Taxi and Company Car Kms Cost
+                     if($details->base_cost=='0')
+                     {
+                       $cost = $scheduled_trip->total_km * $details->km_cost;
+                     }
+
+                     //Night Charges
+                     if($scheduled_trip->end_time>=$taxi_settings->night_time && $scheduled_trip->end_date==$requested_trip->date_ )
+                     {
+                       $cost+=$details->night; 
+                     }
+                     
+                     // MidNight Charges
+                     // if($scheduled_trip->end_time>=$taxi_settings->midnight_time && $scheduled_trip->end_date==$next_day)
+                     // {
+                       
+                     // } 
+
+                     $cost+=$scheduled_trip->wait_time*$details->waiting;
+                     $cost+=$scheduled_trip->extra_cost;
+                     
+                   }
+                   elseif($requested_trip->trip_type=='Airport')
+                   {
+                     
+                   }
+      
+                   DB::table('rs_taxi_schedules')
+                   ->where('id',$request->trip_id)
+                   ->update([
+                    'cost' => $cost, 
+                   ]);
+
+             $data=1;
+             break;
+
             }
 
           return $data;

@@ -178,11 +178,7 @@
                         @if($taxicosts)
                             @foreach($taxicosts as $taxicost)        
                             <div class="media search-media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" data-src="holder.js/72x72" alt="72x72" style="width: 72px; height: 72px;" src="/core/images/avatars/avatar2.png" data-holder-rendered="true">
-                                    </a>
-                                </div>
+                                
 
                                 <div class="media-body">
                                              <div>
@@ -191,7 +187,7 @@
                                                     </h4>
                                                 </div>
                                                     <p>
-                                                    User:&nbsp;<b>{{$taxicost->name}}&nbsp;(Employee Code:&nbsp;{{$taxicost->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;From:&nbsp;<b>{{$taxicost->place_from}}</b>&nbsp;&nbsp;To:&nbsp;<b>{{$taxicost->place_to}}</b>&nbsp;&nbsp;<br>
+                                                    User:&nbsp;<b>{{$taxicost->name}}&nbsp;(Employee Code:&nbsp;{{$taxicost->emp_id}})</b>&nbsp;&nbsp;|Taxi:&nbsp;<b>{{$taxicost->taxino}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;From:&nbsp;<b>{{$taxicost->place_from}}</b>&nbsp;&nbsp;To:&nbsp;<b>{{$taxicost->place_to}}</b>&nbsp;&nbsp;<br>
                                                     Starting Date:&nbsp;<b>{{$taxicost->start_date}}</b>&nbsp;&nbsp;Closing Date:&nbsp;<b>{{$taxicost->end_date}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Starting Time:&nbsp;<b>{{$taxicost->start_time}}</b>&nbsp;&nbsp;Closing Time:&nbsp;<b>{{$taxicost->end_time}}</b>&nbsp;&nbsp;<br>
                                                     Starting Kms:&nbsp;<b>{{$taxicost->start_km}}</b>&nbsp;&nbsp;Closing Kms:&nbsp;<b>{{$taxicost->end_km}}</b>&nbsp;&nbsp;Total Kms:&nbsp;<b>{{$taxicost->total_km}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Remarks:&nbsp;<b>{{$taxicost->remarks}}</b><br>
                                                     Wait Time:&nbsp;<b>{{$taxicost->wait_time}} Hrs</b>&nbsp;&nbsp;|&nbsp;&nbsp;Extra Costs:&nbsp;<b>{{$taxicost->extra_cost}}</b><br>
@@ -199,7 +195,7 @@
                                     <div class="search-actions text-center">
                                         <br>
                                         <a class="btn btn-sm btn-block btn-success validate-btn" data-validate="{{$taxicost->id}}">Validate!</a><br><br>
-                                        <a class="btn btn-sm btn-block btn-info assign-btn" data-uniqueID="{{$each_request->id}}">Edit!</a>
+                                        <a class="btn btn-sm btn-block btn-info edit-btn" data-edit="{{$taxicost->id}}">Edit!</a>
                                     </div>
                                 </div>
                             </div>
@@ -245,6 +241,81 @@
       
       <div class="modal-footer">
         <button type="button" class="btn btn-default" id="confirm_assign">Assign</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="myModal_edit" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+ <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Trip Details</h4>
+      </div>
+      <div class="modal-body">
+      <input class="form-control" type="hidden" id="schedule_id">
+      <label>Start Date</label>
+      <div class="input-group col-sm-12">
+      <span class="input-group-addon"><i class="ace-icon fa fa-calendar"></i></span>
+      <input class="form-control" type="date" id="start_date"> 
+      </div>
+      <br><br><br>
+      <label>Closing Date</label>
+      <div class="input-group col-sm-12">
+      <span class="input-group-addon"><i class="ace-icon fa fa-calendar"></i></span>
+      <input class="form-control" type="date" id="date_close"> 
+      </div>
+      <br><br><br>
+      <label>Start Time</label>
+      <div class="input-group col-sm-12">
+      <span class="input-group-addon"><i class="ace-icon fa fa-clock-o"></i></span>
+      <input class="form-control" type="time" id="start_time"> 
+      </div>
+      <br><br><br>    
+      <label>Closing Time</label>
+      <div class="input-group col-sm-12">
+      <span class="input-group-addon"><i class="ace-icon fa fa-clock-o"></i></span>
+      <input class="form-control" type="time" id="time_close"> 
+      </div>
+      <br><br><br>
+      <label>Start Kms</label>
+      <div class="input-group col-sm-12">
+      <span class="input-group-addon"><i class="ace-icon fa fa-road"></i></span>
+      <input class="form-control" type="text" id="start_kms">
+      </div>
+      <br><br><br>
+      <label>Closing Kms</label>
+      <div class="input-group col-sm-12">
+      <span class="input-group-addon"><i class="ace-icon fa fa-road"></i></span>
+      <input class="form-control" type="text" id="close_kms">
+      </div>
+      <br><br><br>
+      <label>Waiting Time (Hrs)</label>
+      <div class="input-group col-sm-12">
+      <span class="input-group-addon"><i class="ace-icon fa fa-clock-o"></i></span>
+      <input class="form-control" type="text" id="wait_time"> 
+      </div>
+      <br><br><br>
+      <label>Extra Costs</label>
+      <div class="input-group col-sm-12">
+      <span class="input-group-addon"><i class="ace-icon fa fa-rupee"></i></span>
+      <input class="form-control" type="text" id="extra_costs"> 
+      </div>
+      <br><br><br>
+      <label>Remarks</label>
+      <div class="input-group col-sm-12">
+      <span class="input-group-addon"><i class="ace-icon fa fa-pencil-square-o"></i></span>
+      <textarea class="form-control" type="text" placeholder="Optional" id="remarks"></textarea>
+      </div>
+      <br><br><br><br>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="confirm_finish">Finish</button>
       </div>
     </div>
 
