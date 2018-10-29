@@ -5,6 +5,8 @@ namespace App\Http\Traits;
 use Session;
 use DB;
 
+use App\Mail\ApprovalMails;
+
 trait ApprovalTraits
 {
     public function get_approval_notifications()
@@ -96,6 +98,22 @@ trait ApprovalTraits
                 ]);  
             }
         }
+
+         /*---------- Send email for approval  -  logic here------------- */
+                $approver_id = DB::table('rs_approvals')->where('id', $approval_id )->value('user_id');
+                $approver_email = DB::table('users')->where('id', $approver_id )->value('email');
+
+                $count = $unapproved_requests = DB::table('rs_approvals')
+                ->where('user_id',$approver_id)
+                ->where('status','1')
+                ->count();
+
+                $mailData = array(
+                    'count'     => $count,
+                );
+
+                \Mail::to($approver_email)->queue(new ApprovalMails($mailData));
+         /*---------- Send email for approval - Ends ------------- */
     }
 
     public function get_higher_up1 ($insert_id,$src_table)
@@ -117,7 +135,24 @@ trait ApprovalTraits
                                 'src_table'=> $src_table,
                                 'src_id'=> $insert_id,
                                 'remarks' => 'currently requested'
-                            ]);   
+                            ]);  
+                            
+                            
+         /*---------- Send email for approval  -  logic here------------- */
+                $approver_id = DB::table('rs_approvals')->where('id', $approval_id )->value('user_id');
+                $approver_email = DB::table('users')->where('id', $approver_id )->value('email');
+
+                $count = $unapproved_requests = DB::table('rs_approvals')
+                ->where('user_id',$approver_id)
+                ->where('status','1')
+                ->count();
+                
+                $mailData = array(
+                    'count'     => $count,
+                );
+
+                \Mail::to($approver_email)->queue(new ApprovalMails($mailData));
+         /*---------- Send email for approval - Ends ------------- */
                         
           
             }
