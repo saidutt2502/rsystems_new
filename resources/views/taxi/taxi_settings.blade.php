@@ -48,6 +48,23 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="inputError" class="col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">Day Charges Start at</label>
+                        @if($taxisettings)
+                        <div class="col-xs-12 col-sm-5">
+                            <span class="block input-icon input-icon-right">
+                                <input type="time"  value="{{$taxisettings->day_time}}" id="dayTime" class="width-100" />
+                            </span>
+                        </div>
+                        @else
+                        <div class="col-xs-12 col-sm-5">
+                            <span class="block input-icon input-icon-right">
+                                <input type="time" id="dayTime" class="width-100" />
+                            </span>
+                        </div>
+                        @endif
+                    </div>
+
+                    <div class="form-group">
                         <label for="inputError" class="col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">Night Charges Start at</label>
                         @if($taxisettings)
                         <div class="col-xs-12 col-sm-5">
@@ -228,6 +245,7 @@ $('.airport_titles').each(function (index, value) {
             basekms: $('#basekms').val(),
             nightTime: $('#nightTime').val(),
             midnightTime: $('#midnightTime').val(),
+            dayTime: $('#dayTime').val(),
             airportLocations: airport_L_array,
             '_token': $('input[name=_token]').val()
         },

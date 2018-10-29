@@ -28,10 +28,16 @@
                         View Taxi Schedule
                     </a>
                 </li>
+
+                <li>
+                    <a data-toggle="tab" href="#cost_validation">
+                        Trip Cost Validation
+                    </a>
+                </li>
             </ul>
 
             <div class="tab-content">
-                <div id="home" class="tab-pane fade in active">
+                <div id="schedule_taxi" class="tab-pane fade in active">
                     <div class="row">
                         <div class="col-xs-12">
                         @if($requests)
@@ -140,7 +146,7 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12 widget-container-col ui-sortable" id="widget-container-col-3">
                                             <div class="widget-box collapsed ui-sortable-handle" id="widget-box-3">
                                                 <div class="widget-header widget-header-small">
-                                                    <h6 class="widget-title each_dept_name">{{$passengerdetail->name}} (Emp Id:{{$passengerdetail->emp_id}})&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$passengerdetail->place_from}} To {{$passengerdetail->place_to}}</h6>
+                                                    <h6 class="widget-title each_dept_name"><b>Name:</b> {{$passengerdetail->name}} (Emp Id:{{$passengerdetail->emp_id}})<br><b>Place:</b> {{$passengerdetail->place_from}} To {{$passengerdetail->place_to}}</h6>
                                                     <div class="widget-toolbar hidden-480">
                                                         @if($schedule->lead_trip_id==$passengerdetail->id)
                                                         <a href="#"><input type="radio" checked></a>
@@ -163,6 +169,43 @@
                         </div>
                 </div>
             </div>
+
+ 
+<!-- Cost Validation here -->
+<div id="cost_validation" class="tab-pane fade in">
+                    <div class="row">
+                        <div class="col-xs-12">
+                        @if($taxicosts)
+                            @foreach($taxicosts as $taxicost)        
+                            <div class="media search-media">
+                                
+
+                                <div class="media-body">
+                                             <div>
+                                                    <h4 class="media-heading">
+                                                        <a href="#" class="blue">Taxi&nbsp;&nbsp;|&nbsp;&nbsp;Cost Validation</a>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ date("D, d F Y",strtotime($taxicost->date_))}}</span>
+                                                    </h4>
+                                                </div>
+                                                    <p>
+                                                    User:&nbsp;<b>{{$taxicost->name}}&nbsp;(Employee Code:&nbsp;{{$taxicost->emp_id}})</b>&nbsp;&nbsp;|Taxi:&nbsp;<b>{{$taxicost->taxino}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;From:&nbsp;<b>{{$taxicost->place_from}}</b>&nbsp;&nbsp;To:&nbsp;<b>{{$taxicost->place_to}}</b>&nbsp;&nbsp;<br>
+                                                    Starting Date:&nbsp;<b>{{$taxicost->start_date}}</b>&nbsp;&nbsp;Closing Date:&nbsp;<b>{{$taxicost->end_date}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Starting Time:&nbsp;<b>{{$taxicost->start_time}}</b>&nbsp;&nbsp;Closing Time:&nbsp;<b>{{$taxicost->end_time}}</b>&nbsp;&nbsp;<br>
+                                                    Starting Kms:&nbsp;<b>{{$taxicost->start_km}}</b>&nbsp;&nbsp;Closing Kms:&nbsp;<b>{{$taxicost->end_km}}</b>&nbsp;&nbsp;Total Kms:&nbsp;<b>{{$taxicost->total_km}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Remarks:&nbsp;<b>{{$taxicost->remarks}}</b><br>
+                                                    Wait Time:&nbsp;<b>{{$taxicost->wait_time}} Hrs</b>&nbsp;&nbsp;|&nbsp;&nbsp;Extra Costs:&nbsp;<b>{{$taxicost->extra_cost}}</b><br>
+                                                    </p>
+                                    <div class="search-actions text-center">
+                                        <br>
+                                        <a class="btn btn-sm btn-block btn-success validate-btn" data-validate="{{$taxicost->id}}">Validate!</a><br><br>
+                                        <a class="btn btn-sm btn-block btn-info edit-btn" data-edit="{{$taxicost->id}}">Edit!</a>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        @endif 
+                        </div>
+                    </div>
+                </div>
+
+            
             </div>
         </div>
     </div>
@@ -198,6 +241,81 @@
       
       <div class="modal-footer">
         <button type="button" class="btn btn-default" id="confirm_assign">Assign</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="myModal_edit" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+ <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Trip Details</h4>
+      </div>
+      <div class="modal-body">
+      <input class="form-control" type="hidden" id="schedule_id">
+      <label>Start Date</label>
+      <div class="input-group col-sm-12">
+      <span class="input-group-addon"><i class="ace-icon fa fa-calendar"></i></span>
+      <input class="form-control" type="date" id="start_date"> 
+      </div>
+      <br><br><br>
+      <label>Closing Date</label>
+      <div class="input-group col-sm-12">
+      <span class="input-group-addon"><i class="ace-icon fa fa-calendar"></i></span>
+      <input class="form-control" type="date" id="date_close"> 
+      </div>
+      <br><br><br>
+      <label>Start Time</label>
+      <div class="input-group col-sm-12">
+      <span class="input-group-addon"><i class="ace-icon fa fa-clock-o"></i></span>
+      <input class="form-control" type="time" id="start_time"> 
+      </div>
+      <br><br><br>    
+      <label>Closing Time</label>
+      <div class="input-group col-sm-12">
+      <span class="input-group-addon"><i class="ace-icon fa fa-clock-o"></i></span>
+      <input class="form-control" type="time" id="time_close"> 
+      </div>
+      <br><br><br>
+      <label>Start Kms</label>
+      <div class="input-group col-sm-12">
+      <span class="input-group-addon"><i class="ace-icon fa fa-road"></i></span>
+      <input class="form-control" type="text" id="start_kms">
+      </div>
+      <br><br><br>
+      <label>Closing Kms</label>
+      <div class="input-group col-sm-12">
+      <span class="input-group-addon"><i class="ace-icon fa fa-road"></i></span>
+      <input class="form-control" type="text" id="close_kms">
+      </div>
+      <br><br><br>
+      <label>Waiting Time (Hrs)</label>
+      <div class="input-group col-sm-12">
+      <span class="input-group-addon"><i class="ace-icon fa fa-clock-o"></i></span>
+      <input class="form-control" type="text" id="wait_time"> 
+      </div>
+      <br><br><br>
+      <label>Extra Costs</label>
+      <div class="input-group col-sm-12">
+      <span class="input-group-addon"><i class="ace-icon fa fa-rupee"></i></span>
+      <input class="form-control" type="text" id="extra_costs"> 
+      </div>
+      <br><br><br>
+      <label>Remarks</label>
+      <div class="input-group col-sm-12">
+      <span class="input-group-addon"><i class="ace-icon fa fa-pencil-square-o"></i></span>
+      <textarea class="form-control" type="text" placeholder="Optional" id="remarks"></textarea>
+      </div>
+      <br><br><br><br>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="confirm_finish">Finish</button>
       </div>
     </div>
 

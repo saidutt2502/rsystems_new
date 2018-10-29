@@ -69,10 +69,12 @@
                 <textarea name="purpose" class="col-xs-10 col-sm-5" type="text"  required></textarea>
             </div>
         </div>
+        
+    
         <div id="add_form"></div>
         
         
-        <!-- Hidden values       -->
+        
 
         <div class="clearfix form-actions">
             <div class="col-md-offset-5 col-md-6">
@@ -89,6 +91,9 @@
             </div>
 		</div>
     </form>
+
+<!-- Ajax call url       -->
+<input type="hidden" value="{{URL::to('taxi-ajax')}}" id="url_ajax">
         
 
 @endsection

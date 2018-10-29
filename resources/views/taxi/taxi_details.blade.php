@@ -25,6 +25,8 @@
 
                                             <!-- TAXI TYPE -->
     <b>TAXI TYPE</b><br>
+    *All unrelated fields must have the value 0
+    <br><br><br>
     <div class="form-group">
     <div class="col-sm-12 col-sm-offset-2">
         <div class="col-sm-4">
@@ -56,12 +58,12 @@
         ?>
 
         <label>Cost per {{$base_kms->base_kms}} Kms</label>
-        <input type="text" autocomplete="off" id="base_kms" class="form-control"><br>
+        <input type="text" autocomplete="off" id="base_kms" class="form-control" value="0"><br>
         </div>
 
         <div class="col-sm-4">
         <label>Cost per Km</label>
-        <input type="text" autocomplete="off" id="per_km" class="form-control"><br>
+        <input type="text" autocomplete="off" id="per_km" class="form-control" value="0"><br>
         </div>
     </div>
     </div>
@@ -71,17 +73,17 @@
         <div class="col-sm-3">
 
         <label>Night Charges</label>
-        <input type="text" autocomplete="off" id="night" class="form-control"><br>
+        <input type="text" autocomplete="off" id="night" class="form-control" value="0"><br>
         </div>
 
         <div class="col-sm-3">
         <label>Midnight Charges</label>
-        <input type="text" autocomplete="off" id="midnight" class="form-control"><br>
+        <input type="text" autocomplete="off" id="midnight" class="form-control" value="0"><br>
         </div>
 
         <div class="col-sm-2">
         <label>Waiting Charges</label>
-        <input type="text" autocomplete="off" id="wait" class="form-control"><br>
+        <input type="text" autocomplete="off" id="wait" class="form-control" value="0"><br>
         </div>
     </div>
     </div>
@@ -94,12 +96,12 @@
         <div class="col-sm-4">
 
         <label>Place</label>
-        <input type="text" autocomplete="off" id="night" class="form-control" value="{{$each_location}}" disabled><br>
+        <input type="text" autocomplete="off" class="form-control" value="{{$each_location}}" disabled><br>
         </div>
 
         <div class="col-sm-4">
         <label>Airport Charges</label>
-        <input type="text" autocomplete="off" id="midnight" class="form-control"><br>
+        <input type="text" autocomplete="off" data-place="{{$each_location}}" class="form-control  airport_details_input" value="0"><br>
         </div>
     </div>
     </div>
@@ -143,9 +145,6 @@
         <label>Type</label>
         <select id="type_car" class="chosen-container chosen-container-single chosen-select">
                        <option selected disabled>Select Type</option>
-                       @foreach($type as $each_type)
-                      <option value="{{$each_type->id}}">{{$each_type->type}}</option>
-                      @endforeach
         </select><br>
         </div>
 

@@ -57,4 +57,71 @@ $(document).ready(function(){
         });
     });
 
+    $('.validate-btn').click(function(){
+        var validate_trip = $(this).attr('data-validate');
+        $.ajax({
+            type: 'post',
+            url: $('#url_ajax').val(),
+            data: {
+                function_name: 'validate_trip',
+                trip_id: validate_trip,
+                '_token': $('input[name=_token]').val()
+            },
+            success: function (data) {
+                location.reload();
+            }
+        });
+    });
+
+    $('.edit-btn').click(function(){
+        var id=$(this).attr('data-edit');
+        $.ajax({
+            type: 'post',
+            url: $('#url_ajax').val(),
+            data: {
+                function_name: 'get_trip_schedule',
+                trip_id: id,
+                '_token': $('input[name=_token]').val()
+            },
+            success: function (data) {
+                $('#schedule_id').val(id);
+                $('#start_date').val(data[0]['start_date']);
+                $('#date_close').val(data[0]['end_date']);
+                $('#start_time').val(data[0]['start_time']);
+                $('#time_close').val(data[0]['end_time']);
+                $('#start_kms').val(data[0]['start_km']);
+                $('#close_kms').val(data[0]['end_km']);
+                $('#extra_costs').val(data[0]['extra_cost']);
+                $('#wait_time').val(data[0]['wait_time']);
+                $('#remarks').val(data[0]['remarks']);
+                
+            }
+        });
+        $('#myModal_edit').modal();
+    });
+
+    $('#confirm_finish').click(function(){
+        $.ajax({
+            type: 'post',
+            url: $('#url_ajax').val(),
+            data: {
+                function_name: 'edit_trip_schedule',
+                trip_id: $('#schedule_id').val(),
+                start_date: $('#start_date').val(),
+                close_date: $('#date_close').val(),
+                start_time: $('#start_time').val(),
+                close_time: $('#time_close').val(),
+                start_kms: $('#start_kms').val(),
+                close_kms: $('#close_kms').val(),
+                extra_costs: $('#extra_costs').val(),
+                wait_time: $('#wait_time').val(),
+                remarks: $('#remarks').val(),
+                '_token': $('input[name=_token]').val()
+            },
+            success: function (data) {
+              location.reload();
+            }
+        });
+    });
+
 });    
