@@ -284,6 +284,33 @@ class StepController extends Controller
 
                         $data['insert_id'] = $inserted_user;
                   break;
+
+            case 'add_user_register':
+                   $check=DB::table('users')->where('emp_id',$request->emp_id)->first();
+                   if($check)
+                   {
+                       $inserted_user = $check->id;
+                       DB::table('rs_location2users')->insert(
+                        ['user_id' => $inserted_user, 'location_id' => $request->loc_id,'last_edited' => session('admin_id') ]
+                     );
+                   }
+                   else{
+                   $inserted_user = DB::table('users')->insertGetId([
+
+                            'name' => $request->name, 
+                            'email' => $request->email,
+                            'password'=> bcrypt($request->password),
+                            'emp_id' => $request->emp_id 
+
+                      ]);
+                    
+                      DB::table('rs_location2users')->insert(
+                           ['user_id' => $inserted_user, 'location_id' => $request->loc_id,'last_edited' => '0' ]
+                        );
+                      }
+
+                        $data['insert_id'] = $inserted_user;
+                  break;
             
            case 'assign_hod':
                   DB::table('rs_departments')->where('id', $request->dept_id) ->update(['hod_id' => $request->user_id]);

@@ -10,7 +10,9 @@
 
 
 <!-- particles.js container --> 
-<a href="/login"><div id="particles-js"></div></a>
+<a href="/login"><div id="particles-js">
+<div style="margin: auto;width: 100%;text-align: center;position:absolute;color:#fff;font-size:50px"><h1>Rosenberger | India</h1></div>
+</div></a>
 
 
 

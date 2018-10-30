@@ -188,42 +188,48 @@
 
 											<div class="space-6"></div>
 											<p> Enter your details to begin: </p>
-
-											<form>
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="Email" />
+															<input  id="emp_email" type="email" class="form-control" placeholder="Email" />
 															<i class="ace-icon fa fa-envelope"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="Username" />
+															<input  id="emp_name" type="text" class="form-control" placeholder="Name" />
 															<i class="ace-icon fa fa-user"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Password" />
+															<input id="emp_id" type="text" class="form-control" placeholder="Employee ID" />
+															<i class="ace-icon fa fa-user"></i>
+														</span>
+													</label>
+
+													<label class="block clearfix">
+														<select name="location" class="form-control" id="emp_location">
+																<option value="0">Select Location</option>
+															@foreach($locations as $each_location)
+																<option value="{{$each_location->id}}">{{$each_location->name}}</option>
+															@endforeach
+														</select>
+													</label>
+
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input id="emp_password" type="password" class="form-control" placeholder="Password" />
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Repeat password" />
+															<input id="r_password" type="password" class="form-control" placeholder="Repeat password" />
 															<i class="ace-icon fa fa-retweet"></i>
-														</span>
-													</label>
-
-													<label class="block">
-														<input type="checkbox" class="ace" />
-														<span class="lbl">
-															I accept the
-															<a href="#">User Agreement</a>
 														</span>
 													</label>
 
@@ -235,14 +241,13 @@
 															<span class="bigger-110">Reset</span>
 														</button>
 
-														<button type="button" class="width-65 pull-right btn btn-sm btn-success">
+														<button id="add_user" type="button" class="width-65 pull-right btn btn-sm btn-success">
 															<span class="bigger-110">Register</span>
 
 															<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
 														</button>
 													</div>
 												</fieldset>
-											</form>
 										</div>
 
 										<div class="toolbar center">
@@ -259,6 +264,8 @@
 				</div><!-- /.row -->
 			</div><!-- /.main-content -->
 		</div><!-- /.main-container -->
+
+		    <input type="hidden" value="{{URL::to('step')}}" id="url_ajax">
 
 		<!-- basic scripts -->
 
@@ -282,8 +289,35 @@
                             var target = $(this).data('target');
                             $('.widget-box.visible').removeClass('visible');//hide others
                             $(target).addClass('visible');//show target
-                        });
-                    });
+						});
+						
+						$('#add_user').click(function(){
+							if($('#emp_password').val() != $('#r_password').val()){
+									alert("Passwords Do not match");
+							}else{
+										$.ajax({
+												type: 'post',
+												url: $('#url_ajax').val(),
+												data: {
+													function_name: 'add_user_register',
+													email: $('#emp_email').val(),
+													password: $('#emp_password').val(),
+													emp_id: $('#emp_id').val(),
+													name: $('#emp_name').val(),
+													loc_id: $('#emp_location').val(),
+													'_token': $('input[name=_token]').val()
+												},
+												success: function (data) {
+													if (data.success) {
+															location.reload();
+													}
+												}
+											});
+								
+						}
+	
+					});
+				});
 		</script>
 	</body>
 </html>
