@@ -284,8 +284,8 @@
 					@if($user->user_type=='1')
 					<li class="">
 						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-list"></i>
-							<span class="menu-text"> Inception </span>
+							<i class="menu-icon fa fa-cog"></i>
+							<span class="menu-text"> System Settings </span>
 
 							<b class="arrow fa fa-angle-down"></b>
 						</a>
@@ -296,7 +296,7 @@
 							<li class="">
 								<a href="/admin/step-1">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Step - 1
+									Locations and Departments
 								</a>
 
 								<b class="arrow"></b>
@@ -304,7 +304,7 @@
 							<li class="" id="step2-menu-nav">
 								<a href="/admin/step-2">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Step - 2
+									User Master
 								</a>
 
 								<b class="arrow"></b>
@@ -312,7 +312,15 @@
 							<li class="">
 								<a href="/admin/step-3">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Step - 3
+									Hod Information
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							<li class="">
+								<a href="/admin/module_info">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Module Information
 								</a>
 
 								<b class="arrow"></b>
@@ -322,8 +330,8 @@
 					@else
 					<li class="">
 						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-list"></i>
-							<span class="menu-text"> Department Details </span>
+							<i class="menu-icon fa fa-cog"></i>
+							<span class="menu-text"> Department Settings </span>
 
 							<b class="arrow fa fa-angle-down"></b>
 						</a>
@@ -350,7 +358,7 @@
 							<li class="" id="step2-menu-nav">
 								<a href="/admin/assign-admins">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Assign Modules
+									Module Information
 								</a>
 
 								<b class="arrow"></b>

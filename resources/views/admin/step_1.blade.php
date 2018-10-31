@@ -5,12 +5,12 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="active">Step-1</li>
+    <li class="active">Locations and Departments</li>
 @endsection
 
 
 @section('page-header')
-    <h1>Location
+    <h1>Locations
         <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Departments</small>
     </h1>
 @endsection

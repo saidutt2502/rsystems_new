@@ -9,7 +9,7 @@
 @endsection
 
 @section('main-content')
-        <ol class="organizational-chart">
+        <!-- <ol class="organizational-chart">
         <li>
             <div>
                 <h1><b>Rosenberger India</b></h1>
@@ -39,5 +39,5 @@
                 @endforeach
             @endif
                   
-        </ol>
+        </ol> -->
 @endsection

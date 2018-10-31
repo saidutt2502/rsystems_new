@@ -1,12 +1,12 @@
 @extends('layouts.admin-master')
 
 @section('breadcrumb')
-    <li class="active">Step-2</li>
+    <li class="active">User Master</li>
 @endsection
 
 
 @section('page-header')
-    <h1>Location
+    <h1>Locations
         <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Users</small>
     </h1>
 @endsection
