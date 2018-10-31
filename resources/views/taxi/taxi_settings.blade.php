@@ -15,7 +15,7 @@
         <ul class="steps">
             <li data-step="1" class="active">
                 <span class="step">1</span>
-                <span class="title">Base Settings</span>
+                <span class="title">Information Settings</span>
             </li>
 
             <li data-step="2">

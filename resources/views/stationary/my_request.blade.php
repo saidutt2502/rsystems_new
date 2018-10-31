@@ -10,7 +10,7 @@
         <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;History</small>
     </h1>
     <div class="input-field pull-right">
-        <a href="/item-request"><button class="btn btn-danger pull-right">Request Item<i class="ace-icon fa fa-arrow-right icon-on-right"></i></button></a>
+        <a href="/item-request"><button class="btn btn-danger pull-right">Request Stock<i class="ace-icon fa fa-arrow-right icon-on-right"></i></button></a>
     </div>
 @endsection
 

@@ -101,13 +101,42 @@ class GatepassController extends Controller
  
          switch ($request->function_name) {
  
+
+           case 'check_difference':
+                 $details=DB::table('rs_gp_settings')->where('id',$request->shift_id)->first();
+                 $data['limit']=$details->hours*60;
+                 if($request->to)
+                 {
+                    $date1 = date('H:i', strtotime("$request->from"));
+                    $date2 = date('H:i', strtotime("$request->to"));
+      
+                    $to_time = strtotime($date1);
+                    $from_time = strtotime($date2);
+                    $whole=abs($to_time - $from_time)/60;
+                    $data['value'] = $whole;
+                 }
+                 else
+                 {
+                    $date1 = date('H:i', strtotime("$request->from"));
+                    $date2 = date('H:i', strtotime("$details->to"));
+   
+                    $to_time = strtotime($date1);
+                    $from_time = strtotime($date2);
+                    $whole=abs($to_time - $from_time)/60;
+                    $data['value'] = $whole;
+                 }
+
+                 break;
+    
            case 'calculate_total':
-                 $data['total']= DB::table('rs_gp_entries')
+                 $total= DB::table('rs_gp_entries')
                  ->where('user_id',$request->user_id)
                  ->where('purpose','!=','Official Work')
                  ->where('date_','>=',$request->year.'-'.$request->month.'-01')
                  ->where('date_','<=',$request->year.'-'.$request->month.'-31')
+                 ->where('status','!=','3')
                  ->sum('total');
+                 $data['total']=$total+$request->requested_time/60;
                  $limit=DB::table('rs_gp_settings')->first();
                  $data['limit']=$limit->hours;
                  break;
@@ -115,6 +144,13 @@ class GatepassController extends Controller
             case 'add_entry':
                 if($request->to)
                 {
+                  $date1 = date('H:i', strtotime("$request->from"));
+                  $date2 = date('H:i', strtotime("$request->to"));
+      
+                  $to_time = strtotime($date1);
+                  $from_time = strtotime($date2);
+                  $whole=abs($to_time - $from_time)/3600; 
+
                   $id = DB::table('rs_gp_entries')->insertGetId([
                   'user_id' => $request->user_id, 
                   'date_' => $request->date,
@@ -125,10 +161,19 @@ class GatepassController extends Controller
                   'to' => $request->to,
                   'status' => '1' ,
                   'location_id'=> session('location'),
+                  'total'=> $whole,
                     ]);
                 }
                 else
                 {
+
+                  $details=DB::table('rs_gp_settings')->where('id',$request->shift)->first();
+                  $date1 = date('H:i', strtotime("$request->from"));
+                  $date2 = date('H:i', strtotime("$details->to"));
+      
+                  $to_time = strtotime($date1);
+                  $from_time = strtotime($date2);
+                  $whole=abs($to_time - $from_time)/3600;  
                   $id = DB::table('rs_gp_entries')->insertGetId([
                   'user_id' => $request->user_id, 
                   'date_' => $request->date,
@@ -138,6 +183,7 @@ class GatepassController extends Controller
                   'from' => $request->from,
                   'status' => '1' ,
                   'location_id'=> session('location'),
+                  'total'=> $whole,
                    ]);
                 }
                //Sending for approval (params:costcenter,Insert Id, Table-name)

@@ -7,7 +7,7 @@
 
 @section('page-header')
     <h1>Stationary
-        <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Request</small>
+        <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Form</small>
     </h1>
 @endsection
 
@@ -49,7 +49,7 @@
                 </div>
                 <div class="col-sm-1 col-md-1">
                     <button type="button" class="btn btn-warning btn-block btn-xs btn-clone">
-                        <i class="ace-icon fa fa-mail-forward bigger-110 icon-only"></i>
+                        <i class="ace-icon fa fa-plus bigger-110 icon-only"></i>
                     </button>
                 </div>
             </div>

@@ -5,7 +5,7 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="active">Taxi Settings</li>
+    <li class="active">Taxi Details</li>
 @endsection
 
 

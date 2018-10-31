@@ -1,3 +1,7 @@
+<?php
+$taxisettings=DB::table('rs_taxisettings')->where('location_id',session('location'))->first();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -282,7 +286,7 @@
 					</li>
 					<li id="approvals_menu_id" class="">
 						<a href="/approvals">
-							<i class="menu-icon fa fa-pencil-square-o "></i>
+							<i class="menu-icon fa fa-check-square-o  "></i>
 							<span class="menu-text"> Approvals </span>
 						</a>
 
@@ -290,7 +294,7 @@
 					</li>
 					<li id="approvals_menu_id" class="">
 						<a href="/issues-approvals">
-							<i class="menu-icon fa fa-pencil-square-o "></i>
+							<i class="menu-icon fa fa-share-square-o"></i>
 							<span class="menu-text"> Issues </span>
 						</a>
 
@@ -298,7 +302,7 @@
 					</li>
 					<li class="">
 						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-list"></i>
+							<i class="menu-icon fa fa-pencil "></i>
 							<span class="menu-text"> Stationary </span>
 
 							<b class="arrow fa fa-angle-down"></b>
@@ -310,7 +314,7 @@
 							<li class="">
 								<a href="/items">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Items
+									Stock Master
 								</a>
 
 								<b class="arrow"></b>
@@ -318,7 +322,7 @@
 							<li class="" id="stationary_request_li_to_be">
 								<a href="/my-request_st">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Stationary Request
+									Request Form&nbsp;
 								</a>
 
 								<b class="arrow"></b>
@@ -344,6 +348,7 @@
 
 								<b class="arrow"></b>
 							</li>
+							@if($taxisettings)
 							<li class="">
 								<a href="/taxi-details">
 									<i class="menu-icon fa  fa-caret-right"></i>
@@ -352,10 +357,11 @@
 
 								<b class="arrow"></b>
 							</li>
+							@endif
 							<li class="">
 								<a href="/taxi-request">
 									<i class="menu-icon fa  fa-caret-right"></i>
-									Taxi Request Form
+									 Request Form
 								</a>
 
 								<b class="arrow"></b>
@@ -364,7 +370,7 @@
 							<li class="">
 								<a href="/taxi-schedule">
 									<i class="menu-icon fa  fa-caret-right"></i>
-									Taxi Schedule
+									Schedule and Validation
 								</a>
 
 								<b class="arrow"></b>
@@ -383,7 +389,7 @@
 
                     <li class="">
 						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-list"></i>
+							<i class="menu-icon fa fa-sticky-note-o"></i>
 							<span class="menu-text"> Gatepass </span>
 
 							<b class="arrow fa fa-angle-down"></b>
@@ -403,7 +409,7 @@
 							<li class="" id="stationary_request_li_to_be">
 								<a href="/my-request_gp">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Gatepass Request
+									 Request Form
 								</a>
 
 								<b class="arrow"></b>
@@ -436,7 +442,7 @@
 					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
 						<ul class="breadcrumb">
                         <li>
-                            <i class="ace-icon fa fa-home home-icon"></i><a href="/admin">Home</a>
+                            <i class="ace-icon fa fa-home home-icon"></i><a href="#">Home</a>
                         </li>
                            @yield('breadcrumb')
 						</ul><!-- /.breadcrumb -->

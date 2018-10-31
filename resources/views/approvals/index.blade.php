@@ -18,7 +18,7 @@
             <ul class="nav nav-tabs" id="myTab">
                 <li id="home_tab_first" class="active">
                     <a data-toggle="tab" href="#home">
-                        <i class="green ace-icon fa fa-home bigger-120"></i> Pending Approvals
+                         Pending Approvals
                         <span class="badge badge-danger">{{$count}}</span>
                     </a>
                 </li>

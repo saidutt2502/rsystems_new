@@ -13,8 +13,8 @@
 
 @section('main-content')
 
-    <form class="form-horizontal" role="form" method="POST">
-    @csrf
+    <form class="form-horizontal" role="form" >
+   
 
     <!-- Hidden values       -->
     <input type="hidden" value="{{$user->id}}" id="user_id">

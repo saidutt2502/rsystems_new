@@ -1,7 +1,7 @@
 @extends('layouts.user-master')
 
 @section('main-content')
-<div class="col-sm-12">
+<!-- <div class="col-sm-12">
     <div class="widget-box transparent">
         <div class="widget-header widget-header-small">
             <h4 class="widget-title blue smaller">
@@ -80,8 +80,8 @@
     </div>
 </div> 
 
-<!-- Approval count -->
-<input value="{{$count}}" id="count" type="hidden">
+Approval count
+<input value="{{$count}}" id="count" type="hidden"> -->
            
 @endsection
 

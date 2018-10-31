@@ -7,7 +7,7 @@
 
 @section('page-header')
     <h1>Taxi
-        <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Schedule</small>
+        <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Schedule and Validation</small>
     </h1>
 @endsection
 
@@ -31,7 +31,7 @@
 
                 <li>
                     <a data-toggle="tab" href="#cost_validation">
-                        Trip Cost Validation
+                         Cost Validation
                     </a>
                 </li>
             </ul>
@@ -58,7 +58,7 @@
                                                     <p>
                                                     User:&nbsp;<b>{{$each_request->name}}&nbsp;(Employee Code:&nbsp;{{$each_request->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;From:&nbsp;<b>{{$each_request->place_from}}</b>&nbsp;&nbsp;To:&nbsp;<b>{{$each_request->place_to}}</b>&nbsp;&nbsp;<br>
                                                     Departure from {{$each_request->place_from}}:&nbsp;<b>{{$each_request->time1}} </b><br>
-                                                    Departure from {{$each_request->place_to}}:&nbsp;<b>@if($each_request->time2 != null){{$each_request->time1}}@else - @endif </b><br>
+                                                    Departure from {{$each_request->place_to}}:&nbsp;<b>@if($each_request->time2 != null){{$each_request->time2}}@else - @endif </b><br>
                                                     Purpose:&nbsp;<b>{{$each_request->purpose}}</b>
                                                     </p>
                                     <div class="search-actions text-center">
@@ -149,9 +149,9 @@
                                                     <h6 class="widget-title each_dept_name"><b>Name:</b> {{$passengerdetail->name}} (Emp Id:{{$passengerdetail->emp_id}})<br><b>Place:</b> {{$passengerdetail->place_from}} To {{$passengerdetail->place_to}}</h6>
                                                     <div class="widget-toolbar hidden-480">
                                                         @if($schedule->lead_trip_id==$passengerdetail->id)
-                                                        <a href="#"><input type="radio" checked></a>
+                                                        <a href="#"><input type="radio" name="lead_{{$schedule->id}}" value="{{$passengerdetail->id}}" checked></a>
                                                         @else
-                                                        <a href="#"><input type="radio" id="hazard" ></a>
+                                                        <a href="#"><input type="radio" name="lead_{{$schedule->id}}" value="{{$passengerdetail->id}}" ></a>
                                                         @endif
                                                     </div>
                                             </div>
@@ -190,7 +190,7 @@
                                                     User:&nbsp;<b>{{$taxicost->name}}&nbsp;(Employee Code:&nbsp;{{$taxicost->emp_id}})</b>&nbsp;&nbsp;|Taxi:&nbsp;<b>{{$taxicost->taxino}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;From:&nbsp;<b>{{$taxicost->place_from}}</b>&nbsp;&nbsp;To:&nbsp;<b>{{$taxicost->place_to}}</b>&nbsp;&nbsp;<br>
                                                     Starting Date:&nbsp;<b>{{$taxicost->start_date}}</b>&nbsp;&nbsp;Closing Date:&nbsp;<b>{{$taxicost->end_date}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Starting Time:&nbsp;<b>{{$taxicost->start_time}}</b>&nbsp;&nbsp;Closing Time:&nbsp;<b>{{$taxicost->end_time}}</b>&nbsp;&nbsp;<br>
                                                     Starting Kms:&nbsp;<b>{{$taxicost->start_km}}</b>&nbsp;&nbsp;Closing Kms:&nbsp;<b>{{$taxicost->end_km}}</b>&nbsp;&nbsp;Total Kms:&nbsp;<b>{{$taxicost->total_km}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Remarks:&nbsp;<b>{{$taxicost->remarks}}</b><br>
-                                                    Wait Time:&nbsp;<b>{{$taxicost->wait_time}} Hrs</b>&nbsp;&nbsp;|&nbsp;&nbsp;Extra Costs:&nbsp;<b>{{$taxicost->extra_cost}}</b><br>
+                                                    Wait Time:&nbsp;<b>{{$taxicost->wait_time}} Hrs</b>&nbsp;&nbsp;|&nbsp;&nbsp;Extra Costs:&nbsp;<b>{{$taxicost->extra_cost}}</b>|&nbsp;&nbsp;Total Cost:&nbsp;<b>{{$taxicost->cost}}</b><br>
                                                     </p>
                                     <div class="search-actions text-center">
                                         <br>
@@ -223,6 +223,13 @@
       </div>
       <div class="modal-body">
       <input class="form-control" type="hidden" id="trip_id">
+      <div class="input-group col-sm-12">
+      <input type="radio" name="type_of_trip" value="Complete" checked> Complete-Trip</input>&nbsp;&nbsp;
+     
+      <input type="radio" name="type_of_trip" value="Duration"> Duration-Trip</input>
+      
+      </div>
+      <br><br><br>
       <div class="input-group col-sm-12">
         <select id="taxino" class="chosen-container chosen-container-single chosen-select">
                         <option value="" disabled selected>Select Taxi</option>
@@ -312,6 +319,7 @@
       <textarea class="form-control" type="text" placeholder="Optional" id="remarks"></textarea>
       </div>
       <br><br><br><br>
+      *If extra costs is modified state reason explaining why
       </div>
       
       <div class="modal-footer">

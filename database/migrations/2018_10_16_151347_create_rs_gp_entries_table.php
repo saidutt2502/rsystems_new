@@ -22,7 +22,7 @@ class CreateRsGpEntriesTable extends Migration
             $table->string('reason');
             $table->time('from');
             $table->time('to')->nullable();
-            $table->integer('total')->default('0');
+            $table->float('total')->default('0');
             $table->string('status');
             $table->integer('location_id');
             $table->timestamps();

@@ -135,7 +135,7 @@ $(document).ready(function () {
 
     $('.btn-clone').click(function(){
 
-        var cloned = '<div class="form-group"><div class="col-sm-12"><div class="col-sm-5"><select  class="chosen-container chosen-container-single chosen-select newly_added item_id">'+$('#first_chosen_list').html()+'</select></div><div class="col-sm-5"><span class="input-icon"><input id="update_qty" placeholder="Quantity" name="qty[]" class="updated_qty" type="text"><i class="ace-icon fa fa-envelope blue"></i></span></div><div class="col-sm-1 col-md-1"><button type="button" class="btn delete_item btn-danger btn-block btn-xs"><i class="ace-icon fa fa-close bigger-110 icon-only"></i></button></div></div></div>';
+        var cloned = '<div class="form-group"><div class="col-sm-12"><div class="col-sm-5"><select  class="chosen-container chosen-container-single chosen-select newly_added item_id">'+$('#first_chosen_list').html()+'</select></div><div class="col-sm-5"><span class="input-icon"><input id="update_qty" placeholder="Quantity" name="qty[]" class="updated_qty" type="text"><i class="ace-icon fa fa-envelope blue"></i></span></div><div class="col-sm-1 col-md-1"><button type="button" class="btn delete_item btn-danger  btn-xs"><i class="ace-icon fa fa-close bigger-110 icon-only"></i></button></div></div></div><br>';
  
         $(cloned).insertAfter(".clone-this");
  

@@ -7,7 +7,7 @@
 
 @section('page-header')
     <h1>Stationary
-        <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Items</small>
+        <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Stock</small>
     </h1>
 @endsection
 
@@ -16,7 +16,7 @@
             <div class="widget-header">
                 <h4 class="widget-title">Add Items</h4>
                 <button type="button" id="update_item" class="btn btn-default btn pull-right">
-                            <i class="ace-icon fa fa-stop bigger-110"></i>Update Item
+                            <i class="ace-icon fa fa-stop bigger-110"></i>Update Stock
                 </button>
             </div>
 
@@ -154,8 +154,8 @@
                     </span>
                 </div>
                 <div class="col-sm-1 col-md-1">
-                    <button type="button" class="btn btn-warning btn-block btn-xs btn-clone">
-                        <i class="ace-icon fa fa-mail-forward bigger-110 icon-only"></i>
+                    <button type="button" class="btn btn-warning  btn-xs btn-clone">
+                        <i class="ace-icon fa fa-plus bigger-110 icon-only"></i>
                     </button>
                 </div>
             </div>

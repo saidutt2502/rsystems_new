@@ -49,7 +49,6 @@ $(document).ready(function(){
            var hours = ('0'+dt.getHours()).slice(-2);
            var mins = ('0'+dt.getMinutes()).slice(-2);
            var time = hours+ ":" + mins;
-
            
 
         $('#schedule_id_close').val($(this).attr('data-uniqueID'));
@@ -80,6 +79,7 @@ $(document).ready(function(){
                 },
                 success: function (data) {
                     location.reload();
+                    
                     
                 }
             });

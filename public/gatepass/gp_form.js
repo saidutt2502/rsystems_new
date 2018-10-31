@@ -20,64 +20,93 @@ $(document).ready(function () {
 
 $('#submit').click(function(){
 
-    
-        
-
-    if($('#purpose').val()=='Personal Work'||$('#purpose').val()=='Early Out')
+    if($('#date').val()==''||$('#shift').val()==null||$('#purpose').val()==null||$('#reason').val()==''||$('#return').val()==null||$('#from').val()==''||($('#return').val()=='Yes' && $('#to').val()==''))
     {
-        var date = $('#date').val()
-        var year = date.substring(0, 4);
-        var month = date.substring(5, 7);
-
-        $.ajax({
-        type: 'post',
-        url: $('#url_ajax').val(),
-        data: {
-            function_name: 'calculate_total',
-            user_id: $('#user_id').val(),
-            year: year,
-            month: month,
-            '_token': $('input[name=_token]').val()
-        },
-        success: function (data) 
-        {
-            if (data.success)
-            {
-                if(data.total>=data.limit)
-                {
-                    alert('LIMIT EXCEEDED,CANNOT SUBMIT GATEPASS!\n\nNumber of Hours of Abscence: '+data.total+'\nLimit: '+data.limit+'\n\nApply for Leave');
-                  
-                }
-                else
+        alert('Please Enter All Fields!');
+    }
+    else
+    {
+        if($('#purpose').val()=='Personal Work'||$('#purpose').val()=='Early Out')
+    {
+            $.ajax({
+                type: 'post',
+                url: $('#url_ajax').val(),
+                data: {
+                    function_name: 'check_difference',
+                    shift_id: $('#shift').val(),
+                    from:$('#from').val(),
+                    to: $('#to').val(),
+                    '_token': $('input[name=_token]').val()
+                },
+                success: function (data) 
                 {
                     
+                    if(data.value>data.limit)
+                    {
+                        alert('LIMIT EXCEEDED,CANNOT SUBMIT GATEPASS!\n\nNumber of Hours Requested: '+data.value/60+'\nLimit: '+data.limit/60+'\n\nApply for Leave');
+                    }
+                    else
+                    {
+                        var date = $('#date').val()
+                        var year = date.substring(0, 4);
+                        var month = date.substring(5, 7);
+
+
                         $.ajax({
                             type: 'post',
                             url: $('#url_ajax').val(),
                             data: {
-                                function_name: 'add_entry',
+                                function_name: 'calculate_total',
                                 user_id: $('#user_id').val(),
-                                date: $('#date').val(),
-                                shift: $('#shift').val(),
-                                purpose: $('#purpose').val(),
-                                reason: $('#reason').val(),
-                                from: $('#from').val(),
-                                to: $('#to').val(),
+                                year: year,
+                                month: month,
+                                requested_time:data.value,
                                 '_token': $('input[name=_token]').val()
                             },
                             success: function (data) 
                             {
+                                
                                 if (data.success)
                                 {
+                                    if(data.total>data.limit)
+                                   {
+                                         alert('LIMIT EXCEEDED,CANNOT SUBMIT GATEPASS!\n\nNumber of Hours of Abscence(With Requested Time): '+data.total+'\nLimit: '+data.limit+'\n\nApply for Leave');
+                   
+                                    }
+                                else
+                               {   
+                    
+                                    $.ajax({
+                                    type: 'post',
+                                    url: $('#url_ajax').val(),
+                                    data: {
+                                    function_name: 'add_entry',
+                                    user_id: $('#user_id').val(),
+                                    date: $('#date').val(),
+                                    shift: $('#shift').val(),
+                                    purpose: $('#purpose').val(),
+                                    reason: $('#reason').val(),
+                                    from: $('#from').val(),
+                                    to: $('#to').val(),
+                                    '_token': $('input[name=_token]').val()
+                                     },
+                                    success: function (data) 
+                               {
+                                  if (data.success)
+                                  {
                                     window.location.href="my-request_gp"; 
-                                }
-                            }   
-                        });
+                                  }
+                                }   
+                           });
                           
-                }  
-            }
-        }
-    });
+                                } 
+                                 }
+                            }
+                        });
+                    }
+                }   
+            });
+     
     }
     else
     {
@@ -104,7 +133,7 @@ $('#submit').click(function(){
             }   
         });
     }
-    
-
+    }
+   
 });
 });

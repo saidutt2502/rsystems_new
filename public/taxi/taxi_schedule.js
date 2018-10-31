@@ -28,6 +28,7 @@ $(document).ready(function(){
                 trip_id: $('#trip_id').val(),
                 taxino: $('#taxino').val(),
                 time: $('#time').val(),
+                trip_type: $("input[name='type_of_trip']:checked").val(),
                 '_token': $('input[name=_token]').val()
             },
             success: function (data) {
@@ -56,6 +57,11 @@ $(document).ready(function(){
             }
         });
     });
+
+    
+    $("input[name='lead']:checked").change(function(){
+        alert('hi');
+     });
 
     $('.validate-btn').click(function(){
         var validate_trip = $(this).attr('data-validate');

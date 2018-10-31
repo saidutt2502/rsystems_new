@@ -39,7 +39,7 @@ class ApprovalController extends Controller
         ->select('rs_stationaryrequests.id as main_id','users.name as name','users.emp_id as emp_id', 'rs_items.name as item_name', 'rs_items.id as item_id', 'rs_locations.name as loc_name','rs_costcenters.number as cost_center','rs_stationaryrequests.quantity as quantity','rs_stationaryrequests.remarks as remarks',
         'rs_stationaryrequests.pickup_date as p_date','rs_stationaryrequests.updated_at as updt_date',
         'rs_stationaryrequests.time_slot as time_slot')
-        ->where('rs_stationaryrequests.status','5')
+        ->where('rs_stationaryrequests.status','2')
         ->where('rs_stationaryrequests.issue_status','5')
         ->get();
 
