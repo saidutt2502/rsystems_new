@@ -19,21 +19,19 @@ class TaxiController extends Controller
   {
       /* Function to get module ID */
       if(!session('module_id')){
-              $dept_id = DB::table('rs_location2department')->where('location',session('location') )->get();
+              
 
-              foreach($dept_id as $each_dept){
-
-                  $correct_dept = DB::table('rs_modules')->where('department', $each_dept->department)->where('name','Taxi')
+                  $correct_dept = DB::table('rs_modules_programmer')->where('module_name','Taxi')
                   ->first();
 
                   if($correct_dept){
                       session(['module_id' =>  $correct_dept->id]); 
-                      session(['dept_id' =>  $each_dept->department]); 
+                      
                   }
           }
       }
 
-  }
+  
    
     public function taxi_settings()
     {
@@ -70,9 +68,12 @@ class TaxiController extends Controller
 
     public function taxi_requests_form()
     {
-      $cc = DB::table('rs_costcenters')
-            ->select('*')
-            ->get();
+      $cost_center = DB::table('rs_costcenters')
+                       ->join('rs_departments', 'rs_costcenters.department', '=', 'rs_departments.id')
+                       ->join('rs_location2department', 'rs_location2department.department', '=', 'rs_departments.id')
+                       ->join('rs_locations', 'rs_location2department.location', '=', 'rs_locations.id')
+                       ->select('rs_locations.name as l_name','rs_costcenters.*')
+                       ->get();
       $user = DB::table('users')
             ->select('*')
             ->where('id',session('user_id'))
@@ -85,7 +86,7 @@ class TaxiController extends Controller
             ->value('airport_locations');
                       
 
-      return view('taxi.taxi_requests_form')->withCostcenters($cc)->withUser($user)->withLocations($locations)->withAirports($airports);
+      return view('taxi.taxi_requests_form')->withCostcenters($cost_center)->withUser($user)->withLocations($locations)->withAirports($airports);
     }
 
     public function forms_taxi_functions(Request $request)
@@ -286,7 +287,8 @@ class TaxiController extends Controller
                 'waiting'=> $request->wait,
                 'user_id'=> session('user_id'),
                 ]);
-                
+                if($request->airport_locations)
+                {
                 foreach($request->airport_locations as $key => $value){
                   if($request->airport_charges[$key] != 0){
                     DB::table('rs_taxi_airports')->insert([
@@ -297,6 +299,7 @@ class TaxiController extends Controller
                       ]);
                   }
                  }
+                }
 
                $data=1;
                  break;

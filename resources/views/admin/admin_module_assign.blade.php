@@ -6,7 +6,7 @@
 
 
 @section('breadcrumb')
-    <li class="active">Assign Modules</li>
+    <li class="active">Module Information</li>
 @endsection
 
 
@@ -17,7 +17,6 @@
 @endsection
 
 @section('main-content')
-
  
   <br>
 
@@ -36,7 +35,7 @@
         $dept2loc = DB::table('rs_location2department')->where('department',$department->id)->first();
         $deptname = DB::table('rs_departments')->where('id',$dept2loc->department)->value('name');
         $location = DB::table('rs_locations')->where('id',$dept2loc->location)->value('name');
-        $modules = DB::table('rs_modules')->where('department',$department->id)->get();
+        $modules = DB::table('rs_modules_programmer')->where('department_name',$deptname)->get();
     ?>   
         <tr>
             <td class="center">
@@ -55,23 +54,13 @@
         </tr>
         <tr class="detail-row">
             <td colspan="8">
-                <div class="input-group col-sm-7  col-sm-offset-2 hidden-480">
-                    <span class="input-group-addon"><i class="ace-icon fa fa-gavel"></i></span>
-                    <input class="form-control mod_name " placeholder="Modules Name" type="text">
-                    <span class="input-group-btn">
-                    <button type="button" class="btn btn-purple btn-sm add_modules" dept-id="{{$department->id}}">
-                    <span class="ace-icon fa fa-check icon-on-right bigger-110"></span>
-                    Add
-                    </button>
-                    </span>
-                </div><br>
                      @if($modules)
                         @foreach($modules as $each_modules)
                         <div class="col-xs-12 col-sm-7 col-sm-offset-2 ">
                             <div class="well well-sm">
-                                <h5>{{ $each_modules->name }}</h5> 
+                                <h5>{{ $each_modules->module_name }}</h5> 
                                     <div class="col-xs-4 col-sm-4 col-sm-4">
-                                        <select class="chosen-select form-control add_admin"  data-placeholder="Select Admin..." data-moduleID="{{ $each_modules->id}}">
+                                        <select class="chosen-select form-control add_admin"  data-placeholder="Select Admin..." data-moduleID="{{ $each_modules->id}}" dept-id="{{ $department->id}}">
                                             <option value="">  </option>
                                             @foreach($users as $each_user)
                                                 <option value="{{$each_user->id}}">{{$each_user->name}}</option>
@@ -80,7 +69,7 @@
                                     </div>
                                     @if($admins)
                                         @foreach($admins as $each_admin)
-                                            @if($each_admin->module_id == $each_modules->id)
+                                            @if($each_admin->department == $department->id && $each_admin->module_id == $each_modules->id )
                                                 <div class="col-xs-4 col-sm-4 col-sm-4">
                                                     <select class="chosen-select form-control add_admin"  data-placeholder="Select Admin..."
                                                     data-tbid = "{{$each_admin->id}}" data-adminID = "{{$each_admin->user_id}}" 

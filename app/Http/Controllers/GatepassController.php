@@ -16,21 +16,17 @@ class GatepassController extends Controller
     {
         /* Function to get module ID */
         if(!session('module_id')){
-                $dept_id = DB::table('rs_location2department')->where('location',session('location') )->get();
 
-                foreach($dept_id as $each_dept){
-
-                    $correct_dept = DB::table('rs_modules')->where('department', $each_dept->department)->where('name','Gatepass')
+                    $correct_dept = DB::table('rs_modules')->where('name','Gatepass')
                     ->first();
 
-                    if($correct_dept){
+                    
                         session(['module_id' =>  $correct_dept->id]); 
-                        session(['dept_id' =>  $each_dept->department]); 
-                    }
+                      
             }
         }
 
-    }
+    
 
     public function index()
     {
@@ -38,10 +34,21 @@ class GatepassController extends Controller
         $entry = DB::table('rs_gp_settings')->first();
         $count=count($entries);
         $counter=$count;
-        $hours=$entry->hours;
+        if($entry)
+        {
+            $hours=$entry->hours;
+        }
         
-
+        
+        
+        if($entry)
+        {
         return view('gatepass.settings')->withEntries($entries)->withCount($count)->withCounter($counter)->withHours($hours);
+        }
+        else
+        {
+            return view('gatepass.settings')->withEntries($entries)->withCount($count)->withCounter($counter);
+        }
     }
 
     public function settings(Request $request)
@@ -186,6 +193,7 @@ class GatepassController extends Controller
                   'total'=> $whole,
                    ]);
                 }
+
                //Sending for approval (params:costcenter,Insert Id, Table-name)
                $this->get_higher_up1($id,'rs_gp_entries');
                  break;

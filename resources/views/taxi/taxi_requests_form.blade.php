@@ -46,7 +46,7 @@
                         <select  name="cc_id" class="chosen-container chosen-container-single chosen-select"  required>
                             <option value="" disabled selected>Select Cost Center</option>
                             @foreach($costcenters as $costcenter)
-                                 <option value="{{$costcenter->id}}">{{$costcenter->number}}</option>
+                                 <option value="{{$costcenter->id}}">{{$costcenter->number}}- {{$costcenter->l_name}}</option>
                             @endforeach   
                         </select>
                    

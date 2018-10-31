@@ -20,7 +20,7 @@
   <div class="input-group hidden-480">
         <span class="input-group-addon"><i class="ace-icon fa fa-gavel"></i></span>
         <input class="form-control" id="location_name" placeholder="Location Name" type="text">
-
+        
         <span class="input-group-btn">
             <button type="button" id="add_location_ico" class="btn btn-purple btn-sm" >
             <span class="ace-icon fa fa-check icon-on-right bigger-110"></span>
@@ -76,9 +76,11 @@
         </tr>
         <tr class="detail-row">
             <td colspan="8">
+            *Ensure same spelling for comman departments in different locations.<br><br>
                 <div class="input-group col-sm-7  col-sm-offset-2 hidden-480">
                     <span class="input-group-addon"><i class="ace-icon fa fa-gavel"></i></span>
                     <input class="form-control dept_name" input-id="{{ $each_location->id }}" placeholder="Department Name" type="text">
+                    
                     <span class="input-group-btn">
                     <button type="button" class="btn btn-purple btn-sm add_department_ico" data-location="{{ $each_location->id }}">
                     <span class="ace-icon fa fa-check icon-on-right bigger-110"></span>

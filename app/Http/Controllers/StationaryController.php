@@ -19,21 +19,18 @@ class StationaryController extends Controller
     {
         /* Function to get module ID */
         if(!session('module_id')){
-                $dept_id = DB::table('rs_location2department')->where('location',session('location') )->get();
+                
 
-                foreach($dept_id as $each_dept){
-
-                    $correct_dept = DB::table('rs_modules')->where('department', $each_dept->department)->where('name','Stationary')
+                    $correct_dept = DB::table('rs_modules_programmer')->where('module_name','Stationary')
                     ->first();
 
                     if($correct_dept){
                         session(['module_id' =>  $correct_dept->id]); 
-                        session(['dept_id' =>  $each_dept->department]); 
+                         
                     }
             }
         }
-
-    }
+    
 
     public function index()
     {
@@ -64,7 +61,12 @@ class StationaryController extends Controller
                     ->where('id',session('user_id'))
                     ->first();
 
-        $cost_center = DB::table('rs_costcenters')->get();
+        $cost_center = DB::table('rs_costcenters')
+                       ->join('rs_departments', 'rs_costcenters.department', '=', 'rs_departments.id')
+                       ->join('rs_location2department', 'rs_location2department.department', '=', 'rs_departments.id')
+                       ->join('rs_locations', 'rs_location2department.location', '=', 'rs_locations.id')
+                       ->select('rs_locations.name as l_name','rs_costcenters.*')
+                       ->get();
 
         $items = DB::table('rs_items')->get();
 

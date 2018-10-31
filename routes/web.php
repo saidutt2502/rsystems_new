@@ -38,6 +38,7 @@ Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logou
       Route::post('oc_structure_1', 'Admin\StepController@oc_structure_1');
       Route::get('hod_cc_allocation', 'Admin\StepController@hod_cc_allocation');
       Route::get('assign-admins', 'Admin\StepController@assign_module_admins');
+      Route::get('module_info', 'Admin\StepController@assign_module_admins');
     });
     
     //Admin-Step Ajax Calls

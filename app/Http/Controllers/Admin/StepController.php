@@ -85,6 +85,7 @@ class StepController extends Controller
     return view('admin.department_hod')->withId($id)->withName($location)->withDepartments($departments)->withUsers($users);
   }
 
+
   //HOD Admin Functions
 
 
@@ -189,6 +190,7 @@ class StepController extends Controller
 
     return view('admin.admin_module_assign')->withDepartments($department)->withUsers($users)->withAdmins($assigned_admins);
   }
+
 
   // Ajax Calls 
   public function ajax_step_controller(Request $request)
@@ -386,9 +388,9 @@ class StepController extends Controller
                   );
                   $entries=DB::table('rs_cc2modules')
                   ->join('rs_costcenters','rs_costcenters.id','=','rs_cc2modules.costcenter')
-                  ->join('rs_modules','rs_modules.id','=','rs_cc2modules.module')
+                  ->join('rs_modules_programmer','rs_modules_programmer.id','=','rs_cc2modules.module')
                   ->where('rs_cc2modules.id',$entry_id)
-                  ->select('rs_costcenters.number','rs_costcenters.id','rs_cc2modules.budget','rs_cc2modules.actual','rs_modules.name as m_name','rs_modules.id as m_id','rs_cc2modules.id as cc2m_id')
+                  ->select('rs_costcenters.number','rs_costcenters.id','rs_cc2modules.budget','rs_cc2modules.actual','rs_modules_programmer.module_name as m_name','rs_modules_programmer.id as m_id','rs_cc2modules.id as cc2m_id')
                   ->get();
                   return $entries;
                   break;
@@ -410,6 +412,7 @@ class StepController extends Controller
                       DB::table('rs_admin2modules')->insert([
                         'user_id' => $request->user_id, 
                         'module_id' => $request->module_id,
+                        'department' => $request->dept_id,
                         'last_edited' => session('admin_id')
                       ]);
                   }

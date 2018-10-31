@@ -55,7 +55,6 @@ trait ApprovalTraits
         }else{
                 $higer_up_person = DB::table('rs_reporting')
                     ->where('reportee',session('user_id'))
-                    ->where('department',session('dept_id'))
                     ->first();
 
         //If higher up found in the rs_reporting table
@@ -122,7 +121,6 @@ trait ApprovalTraits
 
         $higer_up_person = DB::table('rs_reporting')
                     ->where('reportee',session('user_id'))
-                    ->where('department',session('dept_id'))
                     ->first();
 
         //If higher up found in the rs_reporting table

@@ -26,31 +26,12 @@ $('.add_admin').on("change",function(){
             function_name: 'assign_admin2module',
             user_id: $(this).val(),
             module_id: $(this).attr('data-moduleID'),
+            dept_id: $(this).attr('dept-id'),
             tbl_id: $(this).attr('data-tbid'),
             '_token': $('input[name=_token]').val()
         },
         success: function (data) {
                 $('#myModal').modal();
-        }
-    });
-
- });
-
-
-$('.add_modules').on("click",function(){
-    var module_name = $(this).parent().parent().find('.mod_name').val();
-     $.ajax({
-        type: 'post',
-        url: $('#url_ajax').val(),
-        data: {
-            function_name: 'add_modules',
-            module_name: module_name,
-            dept_id: $(this).attr('dept-id'),
-            '_token': $('input[name=_token]').val()
-        },
-        success: function (data) {
-            $(this).parent().parent().find('.mod_name').val('');
-                location.reload();
         }
     });
 

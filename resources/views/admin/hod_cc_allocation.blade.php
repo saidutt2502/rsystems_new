@@ -44,19 +44,13 @@
         ->get();
 
         
-        $modules=DB::table('rs_modules')
-        ->join('rs_departments','rs_departments.id','=','rs_modules.department')
-        ->join('rs_location2department','rs_location2department.department','=','rs_departments.id')
-        ->where('rs_departments.hod_id',$hod)
-        ->where('rs_location2department.location',$user->location)
-        ->select('rs_modules.name','rs_modules.id')
-        ->get();
+        $modules=DB::table('rs_modules_programmer')->get();
 
         $entries=DB::table('rs_cc2modules')
         ->join('rs_costcenters','rs_costcenters.id','=','rs_cc2modules.costcenter')
-        ->join('rs_modules','rs_modules.id','=','rs_cc2modules.module')
+        ->join('rs_modules_programmer','rs_modules_programmer.id','=','rs_cc2modules.module')
         ->where('rs_cc2modules.user',$user->id)
-        ->select('rs_costcenters.number','rs_costcenters.id','rs_cc2modules.budget','rs_cc2modules.actual','rs_modules.name as m_name','rs_modules.id as m_id','rs_cc2modules.id as cc2m_id')
+        ->select('rs_costcenters.number','rs_costcenters.id','rs_cc2modules.budget','rs_cc2modules.actual','rs_modules_programmer.module_name as m_name','rs_modules_programmer.id as m_id','rs_cc2modules.id as cc2m_id')
         ->get();
 
         ?>
@@ -77,6 +71,7 @@
         </tr>
         <tr class="detail-row">
             <td colspan="8">
+            *Only allocate modules with a budget.<br><br>
             <div class="row">
 		<div class="col-xs-12 col-sm-4 col-sm-offset-4">
 				<div class="widget-box hidden-480">
@@ -109,7 +104,7 @@
                                                 <option value="" disabled selected>Select Module</option>
                                                 @if($modules)
                                                          @foreach($modules as $module)
-                                                             <option value="{{$module->id}}">{{$module->name}}</option>
+                                                             <option value="{{$module->id}}">{{$module->module_name}}</option>
                                                          @endforeach
                                                      @endif    
                                                              

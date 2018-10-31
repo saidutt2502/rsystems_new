@@ -317,14 +317,6 @@
 
 								<b class="arrow"></b>
 							</li>
-							<li class="">
-								<a href="/admin/module_info">
-									<i class="menu-icon fa fa-caret-right"></i>
-									Module Information
-								</a>
-
-								<b class="arrow"></b>
-							</li>
 						</ul>
 					</li>
 					@else
