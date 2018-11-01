@@ -11,7 +11,7 @@
 
 <!-- particles.js container --> 
 <a href="/login"><div id="particles-js">
-<div style="margin: auto;width: 100%;text-align: center;position:absolute;color:#fff;font-size:50px"><br><h1>Rsystems</h1>Rosenberger|India</center></div>
+<div style="margin: auto;width: 100%;text-align: center;position:absolute;color:#fff;font-size:50px"><br><h1>Rsystems</h1>Rosenberger | India</center></div>
 </div></a>
 
 
