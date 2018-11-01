@@ -76,7 +76,7 @@
         </tr>
         <tr class="detail-row">
             <td colspan="8">
-            *Ensure same spelling for comman departments in different locations.<br><br>
+            *Ensure same spelling for common departments in different locations.<br><br>
                 <div class="input-group col-sm-7  col-sm-offset-2 hidden-480">
                     <span class="input-group-addon"><i class="ace-icon fa fa-gavel"></i></span>
                     <input class="form-control dept_name" input-id="{{ $each_location->id }}" placeholder="Department Name" type="text">
