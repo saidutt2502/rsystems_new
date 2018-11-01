@@ -403,7 +403,7 @@
 				<div class="footer-inner">
 					<div class="footer-content">
 						<span class="bigger-120">
-							<b>Development Phase</b> &copy; 2018-2020
+							<b>Rosenberger|India</b> &copy; 
 						</span>
 					</div>
 				</div>

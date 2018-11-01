@@ -1,5 +1,9 @@
 <?php
 $taxisettings=DB::table('rs_taxisettings')->where('location_id',session('location'))->first();
+
+$stationary_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'))->where('module_id','1')->first();
+$taxi_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'))->where('module_id','2')->first();
+$gatepass_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'))->where('module_id','3')->first();
 ?>
 
 <!DOCTYPE html>
@@ -292,6 +296,7 @@ $taxisettings=DB::table('rs_taxisettings')->where('location_id',session('locatio
 
 						<b class="arrow"></b>
 					</li>
+					@if($stationary_admin)
 					<li id="approvals_menu_id" class="">
 						<a href="/issues-approvals">
 							<i class="menu-icon fa fa-share-square-o"></i>
@@ -300,6 +305,7 @@ $taxisettings=DB::table('rs_taxisettings')->where('location_id',session('locatio
 
 						<b class="arrow"></b>
 					</li>
+					@endif
 					<li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-pencil "></i>
@@ -311,6 +317,7 @@ $taxisettings=DB::table('rs_taxisettings')->where('location_id',session('locatio
 						<b class="arrow"></b>
 
 						<ul class="submenu" id="item-nav-menu">
+						@if($stationary_admin)
 							<li class="">
 								<a href="/items">
 									<i class="menu-icon fa fa-caret-right"></i>
@@ -319,6 +326,7 @@ $taxisettings=DB::table('rs_taxisettings')->where('location_id',session('locatio
 
 								<b class="arrow"></b>
 							</li>
+						@endif	
 							<li class="" id="stationary_request_li_to_be">
 								<a href="/my-request_st">
 									<i class="menu-icon fa fa-caret-right"></i>
@@ -340,6 +348,7 @@ $taxisettings=DB::table('rs_taxisettings')->where('location_id',session('locatio
 						<b class="arrow"></b>
 
 						<ul class="submenu" id="">
+						@if($taxi_admin)
 							<li class="">
 								<a href="/taxi-settings">
 									<i class="menu-icon fa  fa-caret-right"></i>
@@ -348,6 +357,8 @@ $taxisettings=DB::table('rs_taxisettings')->where('location_id',session('locatio
 
 								<b class="arrow"></b>
 							</li>
+							@endif
+							@if($taxi_admin)
 							@if($taxisettings)
 							<li class="">
 								<a href="/taxi-details">
@@ -358,6 +369,7 @@ $taxisettings=DB::table('rs_taxisettings')->where('location_id',session('locatio
 								<b class="arrow"></b>
 							</li>
 							@endif
+							@endif
 							<li class="">
 								<a href="/taxi-request">
 									<i class="menu-icon fa  fa-caret-right"></i>
@@ -366,7 +378,7 @@ $taxisettings=DB::table('rs_taxisettings')->where('location_id',session('locatio
 
 								<b class="arrow"></b>
 							</li>
-
+							@if($taxi_admin)
 							<li class="">
 								<a href="/taxi-schedule">
 									<i class="menu-icon fa  fa-caret-right"></i>
@@ -375,15 +387,17 @@ $taxisettings=DB::table('rs_taxisettings')->where('location_id',session('locatio
 
 								<b class="arrow"></b>
 							</li>
-
+							@endif
+                            @if($taxi_admin)
 							<li class="">
 								<a href="/taxi-closing">
 									<i class="menu-icon fa  fa-caret-right"></i>
-									Taxi (Security)
+									Taxi Closing
 								</a>
 
 								<b class="arrow"></b>
 							</li>
+							@endif
 						</ul>
 					</li>
 
@@ -398,6 +412,7 @@ $taxisettings=DB::table('rs_taxisettings')->where('location_id',session('locatio
 						<b class="arrow"></b>
 
 						<ul class="submenu" id="item-nav-menu">
+						@if($gatepass_admin)
 							<li class="">
 								<a href="/gp_settings">
 									<i class="menu-icon fa fa-caret-right"></i>
@@ -406,6 +421,7 @@ $taxisettings=DB::table('rs_taxisettings')->where('location_id',session('locatio
 
 								<b class="arrow"></b>
 							</li>
+							@endif
 							<li class="" id="stationary_request_li_to_be">
 								<a href="/my-request_gp">
 									<i class="menu-icon fa fa-caret-right"></i>
@@ -414,15 +430,16 @@ $taxisettings=DB::table('rs_taxisettings')->where('location_id',session('locatio
 
 								<b class="arrow"></b>
 							</li>
-
+							@if($gatepass_admin)
 							<li class="" id="stationary_request_li_to_be">
 								<a href="/gp_close">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Gatepass (Security)
+									Gatepass Closing
 								</a>
 
 								<b class="arrow"></b>
 							</li>
+							@endif
 						</ul>
                     </li>
                     <li class="">
@@ -470,7 +487,7 @@ $taxisettings=DB::table('rs_taxisettings')->where('location_id',session('locatio
 				<div class="footer-inner">
 					<div class="footer-content">
 						<span class="bigger-120">
-							<b>Development Phase</b> &copy; 2018-2020
+							<b>Rosenberger|India</b> &copy; 
 						</span>
 					</div>
 				</div>

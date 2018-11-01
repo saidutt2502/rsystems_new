@@ -125,7 +125,9 @@
                                                     </p>
                                             @break
                                         @endswitch
+                                        
                                     <div class="search-actions text-center">
+                                    <br>
                                         <a class="btn btn-sm btn-block btn-info approve-btn" data-uniqueID="{{$each_approval->id}}" module-uniqueID="{{$each_approval->module_name}}" >Approve!</a>
                                         <a class="btn btn-sm btn-block btn-danger reject-btn" data-uniqueID="{{$each_approval->id}}">Reject!</a>
                                     </div>
@@ -176,7 +178,7 @@
 										</h4>
                                         </div>
                                                     <p>
-                                                        User:&nbsp;<b>{{$details->name}}&nbsp;(Employee Code:&nbsp;{{$d_details->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;Requested:&nbsp;<b>{{$d_details->quantity}} {{$d_details->item_name}}</b>&nbsp;&nbsp;|&nbsp;&nbsp; Remarks:&nbsp;<b>{{$d_details->remarks}}</b><br>
+                                                        User:&nbsp;<b>{{$d_details->name}}&nbsp;(Employee Code:&nbsp;{{$d_details->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;Requested:&nbsp;<b>{{$d_details->quantity}} {{$d_details->item_name}}</b>&nbsp;&nbsp;|&nbsp;&nbsp; Remarks:&nbsp;<b>{{$d_details->remarks}}</b><br>
                                                     Time slot:<b>{{$d_details->time_slot}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Pickup Date:&nbsp;<b>{{ date("D, d F Y",strtotime($d_details->p_date))}}</b>
                                                     </p>
                                                 @break
@@ -228,6 +230,7 @@
                                                     </p>
                                             @break    
                                         @endswitch
+                                        
                                     <div class="search-actions text-center">
                                         <a class="btn btn-sm btn-block btn-info">Approve!</a>
                                         <a class="btn btn-sm btn-block btn-danger">Delete!</a>

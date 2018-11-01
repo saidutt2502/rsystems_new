@@ -15,15 +15,15 @@ class GatepassController extends Controller
     public function __construct()
     {
         /* Function to get module ID */
-        if(!session('module_id')){
+        
 
-                    $correct_dept = DB::table('rs_modules')->where('name','Gatepass')
+                    $correct_dept = DB::table('rs_modules_programmer')->where('module_name','Gatepass')
                     ->first();
 
                     
                         session(['module_id' =>  $correct_dept->id]); 
                       
-            }
+            
         }
 
     

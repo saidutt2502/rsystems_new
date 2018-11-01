@@ -18,7 +18,7 @@ class StationaryController extends Controller
     public function __construct()
     {
         /* Function to get module ID */
-        if(!session('module_id')){
+        
                 
 
                     $correct_dept = DB::table('rs_modules_programmer')->where('module_name','Stationary')
@@ -27,7 +27,7 @@ class StationaryController extends Controller
                     if($correct_dept){
                         session(['module_id' =>  $correct_dept->id]); 
                          
-                    }
+                    
             }
         }
     

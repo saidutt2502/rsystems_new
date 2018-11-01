@@ -90,7 +90,9 @@
                     Reset
                 </button>
             </div>
+           
 		</div>
+        *Please click SUBMIT only once and allow a few seconds for form submission. 
     </form>
 
 <!-- Ajax call url       -->
