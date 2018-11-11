@@ -727,6 +727,11 @@ class TaxiController extends Controller
              $data=1;
              break;
 
+             case 'delete_taxi_list':
+              DB::table($request->table)->where('id', $request->id)->delete();
+              $data=1;
+                break;
+
             }
 
           return $data;

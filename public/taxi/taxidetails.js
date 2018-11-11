@@ -1,4 +1,49 @@
 $(document).ready(function(){
+
+
+    //Pre populate the fields
+    $.ajax({
+        type: 'post',
+        url: $('#url_ajax').val(),
+        data: {
+            function_name: 'find_type',
+            vendor: $('#vendor_car').val(),
+            '_token': $('input[name=_token]').val()
+        },
+        success: function (data) {
+            for(var i=0;i<data.count;i++)
+            {
+            $('#type_car').append('<option class="to_clear" value="'+data[i]['id']+'">'+data[i]['type']+'</option>');
+
+            var append= '<div class="widget-box widget-color-orange collapsed ui-sortable-handle">            <div class="widget-header widget-header-small"><h6 class="widget-title airport_titles">'+ data[i]['type']+'</h6><div class="widget-toolbar"><a data-action="close" class="delete_list" data-table="rs_taxi_type" data-id="'+data[i]['id']+'"><i class="ace-icon fa fa-times"></i></a></div></div></div>';
+
+            $('#taxi_list_modal').append(append);
+            }
+            $("#type_car").trigger("chosen:updated"); 
+
+            $('.delete_list').click(function(){
+                var table = $(this).attr('data-table');
+                var id = $(this).attr('data-id');
+            
+                $.ajax({
+                    type: 'post',
+                    url: $('#url_ajax').val(),
+                    data: {
+                        table: table,
+                        id: id,
+                        function_name: 'delete_taxi_list',
+                        '_token': $('input[name=_token]').val()
+                    },
+                    success: function (data) {
+                        location.reload();
+                    }
+                });
+            
+            });
+           
+        }
+    });
+    //Ends here
 $('#add_vendor').click(function(){
     $.ajax({
         type: 'post',
@@ -12,6 +57,28 @@ $('#add_vendor').click(function(){
             location.reload();
         }
     });
+});
+
+
+
+$('.delete_list').click(function(){
+    var table = $(this).attr('data-table');
+    var id = $(this).attr('data-id');
+
+    $.ajax({
+        type: 'post',
+        url: $('#url_ajax').val(),
+        data: {
+            table: table,
+            id: id,
+            function_name: 'delete_taxi_list',
+            '_token': $('input[name=_token]').val()
+        },
+        success: function (data) {
+            location.reload();
+        }
+    });
+
 });
 
 $('#submit').click(function(){
@@ -58,6 +125,7 @@ $('#reset').click(function(){
 
 $('#vendor_car').change(function(){
     $('.to_clear').remove();
+    $('#taxi_list_modal').children().remove();
     $.ajax({
         type: 'post',
         url: $('#url_ajax').val(),
@@ -70,8 +138,33 @@ $('#vendor_car').change(function(){
             for(var i=0;i<data.count;i++)
             {
             $('#type_car').append('<option class="to_clear" value="'+data[i]['id']+'">'+data[i]['type']+'</option>');
+
+            var append= '<div class="widget-box widget-color-orange collapsed ui-sortable-handle">            <div class="widget-header widget-header-small"><h6 class="widget-title airport_titles">'+ data[i]['type']+'</h6><div class="widget-toolbar"><a data-action="close" class="delete_list" data-table="rs_taxi_type" data-id="'+data[i]['id']+'"><i class="ace-icon fa fa-times"></i></a></div></div></div>';
+
+            $('#taxi_list_modal').append(append);
             }
             $("#type_car").trigger("chosen:updated"); 
+
+            $('.delete_list').click(function(){
+                var table = $(this).attr('data-table');
+                var id = $(this).attr('data-id');
+            
+                $.ajax({
+                    type: 'post',
+                    url: $('#url_ajax').val(),
+                    data: {
+                        table: table,
+                        id: id,
+                        function_name: 'delete_taxi_list',
+                        '_token': $('input[name=_token]').val()
+                    },
+                    success: function (data) {
+                        location.reload();
+                    }
+                });
+            
+            });
+           
         }
     });
 });
