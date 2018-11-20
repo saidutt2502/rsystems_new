@@ -192,6 +192,7 @@ class TaxiController extends Controller
               ->where('rs_taxi_requests.location',session('location'))
               ->where('rs_taxi_requests.status','2')
               ->get();
+
               
       $count = DB::table('rs_taxi_requests')
               ->where('location',session('location'))
@@ -209,6 +210,8 @@ class TaxiController extends Controller
                        ->where('rs_taxi_requests.status','8')
                        ->select('rs_taxi_schedules.*','rs_taxi_requests.date_ as date_','rs_taxi_requests.place_from as place_from','rs_taxi_requests.place_to as place_to','rs_taxi_cars.taxino as taxino')
                        ->get();
+
+                       
       
       $taxi_costs = DB::table('rs_taxi_schedules')
                     ->join('rs_taxi_requests', 'rs_taxi_requests.id', '=', 'rs_taxi_schedules.lead_trip_id')
@@ -237,6 +240,49 @@ class TaxiController extends Controller
                        ->get();
                        return view('taxi.taxi_closing')->withTaxischedule($taxi_schedule);
     }
+
+    public function taxi_old_records()
+    {
+          $taxi_nos = DB::table('rs_taxi_cars')
+                       ->join('rs_taxi_vendors', 'rs_taxi_vendors.id', '=', 'rs_taxi_cars.vendor_id')
+                       ->where('rs_taxi_vendors.location_id',session('location'))
+                        ->select('rs_taxi_cars.*')
+                       ->get();           
+
+                     
+          return view('taxi.taxi_old_records_dates')->withTaxinos($taxi_nos);
+    }
+
+    public function taxi_old_records_view(Request $request)
+ {
+
+  
+    $records=DB::table('taxitrip')
+            ->join('users','users.emp_id','=','taxitrip.lead')
+            ->where('taxitrip.taxino',$request->taxino)
+            ->where('taxitrip.ddate','>=',$request->from)
+            ->where('taxitrip.ddate','<=',$request->from)
+            ->select('taxitrip.*','users.name as name')
+            ->get();
+    $total=DB::table('taxitrip')
+            ->join('users','users.emp_id','=','taxitrip.lead')
+            ->where('taxitrip.taxino',$request->taxino)
+            ->where('taxitrip.ddate','>=',$request->from)
+            ->where('taxitrip.ddate','<=',$request->from)
+            ->sum('taxitrip.cost');
+    $kms=DB::table('taxitrip')
+            ->join('users','users.emp_id','=','taxitrip.lead')
+            ->where('taxitrip.taxino',$request->taxino)
+            ->where('taxitrip.ddate','>=',$request->from)
+            ->where('taxitrip.ddate','<=',$request->from)
+            ->sum('taxitrip.totalkm');                         
+  
+    return view('taxi.taxi_old_records_view')->withRecords($records)->withTotal($total)->withKms($kms)->withKms($kms);
+
+       
+
+    
+ }
 
 
       // Ajax Calls 

@@ -76,7 +76,7 @@
                     <tr data-id="{{$each_item->id}}" >
                         <td data-type="code_edit" class="input-edit">{{$each_item->code}}</td>
                         <td data-type="name_edit" class="input-edit">{{$each_item->name}}</td>
-                        <td>{{$each_item->available}}</td>
+                        <td data-type="available_edit" class="input-edit">{{$each_item->available}}</td>
                         <td data-type="costpu_edit" class="input-edit hidden-480">{{$each_item->costpu}}</td>
                         <td data-type="threshold_edit" class="input-edit hidden-480">{{$each_item->threshold}}</td>
                         <td class="hidden-480">@if($each_item->updated_at){{ date("D, d F Y",strtotime($each_item->updated_at))}}@endif</td>

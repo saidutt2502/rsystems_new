@@ -398,6 +398,16 @@ $gatepass_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'
 								<b class="arrow"></b>
 							</li>
 							@endif
+							@if($taxi_admin)
+							<li class="">
+								<a href="/taxi-old_records">
+									<i class="menu-icon fa  fa-caret-right"></i>
+									Old Records
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							@endif
 						</ul>
 					</li>
 
