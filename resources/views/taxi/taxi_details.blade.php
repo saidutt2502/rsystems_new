@@ -20,11 +20,18 @@
                 </span>
             </div>
             <div class="help-block col-xs-12 col-sm-reset inline">&nbsp;</div>
+            <button class="btn btn-xs" type="button" data-toggle="modal" data-target="#vendor_modal">
+                    <i class="ace-icon fa fa-undo bigger-110"></i>
+                    Vendors List
+                </button>  
     </div>
     <hr />
 
                                             <!-- TAXI TYPE -->
-    <b>TAXI TYPE</b><br>
+    <b>TAXI TYPE</b>  <button class="btn btn-xs" type="button" data-toggle="modal" data-target="#taxi_type_modal">
+                    <i class="ace-icon fa fa-undo bigger-110"></i>
+                   Taxi Type
+                </button><br>
     *All unrelated fields must have the value 0
     <br><br><br>
     <div class="form-group">
@@ -175,10 +182,65 @@
 </div>
 
     
+    <!-- Modal -->
+    <div id="vendor_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <center><h4 class="modal-title">Vendors List</h4></center>
+      </div>
+      <div class="modal-body">
+      @foreach($vendors as $vendor)
+            <div class="widget-box widget-color-orange collapsed ui-sortable-handle">
+                <div class="widget-header widget-header-small">
+                    <h6 class="widget-title airport_titles">
+                        {{$vendor->name}}
+                    </h6>
+
+                    <div class="widget-toolbar">
+                        <a data-action="close" class="delete_list" data-table="rs_taxi_vendors" data-id="{{ $vendor->id }}">
+                            <i class="ace-icon fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+         </div>
+         @endforeach
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+</div>
+    
+    
+
+
+  <!-- Last Div dont delete -->
+</div>
 
             
   
-     
+
+  <!-- taxi_type_modal Modal -->
+  <div id="taxi_type_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <center><h4 class="modal-title">Taxi Type List</h4></center>
+      </div>
+      <div id="taxi_list_modal" class="modal-body">
+          
+    </div>
+         <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+</div>
+</div>   
 
 
 
