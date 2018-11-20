@@ -86,4 +86,5 @@ Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logou
      //Forms Submit
      Route::post('gatepass_settings', 'GatepassController@settings');
      
-    
+/* ----------------------------------------Productions Routes------------------------------------ */
+        Route::get('production', 'ProductionController@index');

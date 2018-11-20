@@ -43,6 +43,27 @@ $(document).ready(function(){
            
         }
     });
+
+    $.ajax({
+        type: 'post',
+        url: $('#url_ajax').val(),
+        data: {
+            function_name: 'find_taxi_number',
+            vendor: $('#vendor_car').val(),
+            '_token': $('input[name=_token]').val()
+        },
+        success: function (data) {
+            for(var i=0;i<data.count;i++)
+            {
+                var append= '<div class="widget-box widget-color-orange collapsed ui-sortable-handle">            <div class="widget-header widget-header-small"><h6 class="widget-title airport_titles">'+ data[i]['taxino']+'</h6><div class="widget-toolbar"><a data-action="close" class="delete_list" data-table="rs_taxi_cars" data-id="'+data[i]['id']+'"><i class="ace-icon fa fa-times"></i></a></div></div></div>';
+
+                $('#number_taxi_list').append(append);
+            }
+        }
+    });
+
+
+
     //Ends here
 $('#add_vendor').click(function(){
     $.ajax({
@@ -123,7 +144,7 @@ $('#reset').click(function(){
     $('#wait').val('');
 });
 
-$('#vendor_car').change(function(){
+$('.vendor_dd').change(function(){
     $('.to_clear').remove();
     $('#taxi_list_modal').children().remove();
     $.ajax({
@@ -142,6 +163,7 @@ $('#vendor_car').change(function(){
             var append= '<div class="widget-box widget-color-orange collapsed ui-sortable-handle">            <div class="widget-header widget-header-small"><h6 class="widget-title airport_titles">'+ data[i]['type']+'</h6><div class="widget-toolbar"><a data-action="close" class="delete_list" data-table="rs_taxi_type" data-id="'+data[i]['id']+'"><i class="ace-icon fa fa-times"></i></a></div></div></div>';
 
             $('#taxi_list_modal').append(append);
+                update_taxi_number_list();
             }
             $("#type_car").trigger("chosen:updated"); 
 
@@ -189,5 +211,27 @@ $('#submit_car').click(function(){
 $('#reset_car').click(function(){
     $('#taxino').val('');
 });
+
+function update_taxi_number_list(){
+
+    $('#number_taxi_list').children().remove();
+    $.ajax({
+        type: 'post',
+        url: $('#url_ajax').val(),
+        data: {
+            function_name: 'find_taxi_number',
+            vendor: $('#vendor_car').val(),
+            '_token': $('input[name=_token]').val()
+        },
+        success: function (data) {
+            for(var i=0;i<data.count;i++)
+            {
+                var append= '<div class="widget-box widget-color-orange collapsed ui-sortable-handle">            <div class="widget-header widget-header-small"><h6 class="widget-title airport_titles">'+ data[i]['taxino']+'</h6><div class="widget-toolbar"><a data-action="close" class="delete_list" data-table="rs_taxi_cars" data-id="'+data[i]['id']+'"><i class="ace-icon fa fa-times"></i></a></div></div></div>';
+
+                $('#number_taxi_list').append(append);
+            }
+        }
+    });
+}
 
 });
