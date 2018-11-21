@@ -96,11 +96,23 @@ $(document).ready(function(){
                 '_token': $('input[name=_token]').val()
             },
             success: function (data) {
-                
+                console.log(data);
                 var option = '';
-                $.each(data, function () {
-                    option = option.concat('<option selected value="'+this.id+'">'+this.name+'</option>')
-                  });
+                var selected_id =[];
+                    for(i=0;i<data.all_users.length;i++){
+                        for(j=0;j<data.selected_user.length;j++){
+                           if(data.all_users[i]['id'] == data.selected_user[j]['id'] ){
+                                option = option.concat('<option selected value="'+data.selected_user[j]['id']+'">'+data.selected_user[j]['name']+'</option>')
+                                selected_id.push(data.selected_user[j]['id']);
+                            }
+                               
+                           }
+
+                           if(selected_id.indexOf(data.all_users[i]['id']) == -1){
+                            option = option.concat('<option  value="'+data.all_users[i]['id']+'">'+data.all_users[i]['name']+'</option>')
+                           }
+                        }
+
                   var dualstack_dd = '<select multiple="multiple" size="10" name="user_list[]" id="duallist">'+option+'</select>';
 
                   $('#insert_here_dd').children().remove();
