@@ -40,7 +40,7 @@
 
 
         <label>Vendor</label>
-        <select id="vendor" class="chosen-container chosen-container-single chosen-select">
+        <select id="vendor" class="chosen-container chosen-container-single chosen-select vendor_dd">
                                <option selected disabled>Select Vendor</option>
                                @foreach($vendors as $vendor)
                               <option value="{{$vendor->id}}">{{$vendor->name}}</option>
@@ -139,7 +139,7 @@
  
 
         <label>Vendor</label>
-        <select id="vendor_car" class="chosen-container chosen-container-single chosen-select">
+        <select id="vendor_car" class="chosen-container chosen-container-single chosen-select vendor_dd">
                                <option selected disabled>Select Vendor</option>
                                @foreach($vendors as $vendor)
                               <option value="{{$vendor->id}}">{{$vendor->name}}</option>
@@ -158,7 +158,10 @@
         <div class="col-sm-2">
         <label>Taxi No.</label>
         <input type="text" autocomplete="off" id="taxino" class="form-control"><br>
-        </div>
+        </div> <button class="btn btn-xs" type="button" data-toggle="modal" data-target="#taxi_number_modal">
+                    <i class="ace-icon fa fa-undo bigger-110"></i>
+                   Taxis
+                </button><br>
 
     </div>
     </div>
@@ -233,6 +236,25 @@
         <center><h4 class="modal-title">Taxi Type List</h4></center>
       </div>
       <div id="taxi_list_modal" class="modal-body">
+          
+    </div>
+         <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+</div>
+</div>   
+
+  <!-- taxi_number_modal Modal -->
+  <div id="taxi_number_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <center><h4 class="modal-title">Taxi Number List</h4></center>
+      </div>
+      <div id="number_taxi_list" class="modal-body">
           
     </div>
          <div class="modal-footer">

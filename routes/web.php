@@ -86,4 +86,9 @@ Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logou
      //Forms Submit
      Route::post('gatepass_settings', 'GatepassController@settings');
      
-    
+/* ----------------------------------------Productions Routes------------------------------------ */
+        Route::get('production', 'ProductionController@index');
+        //Forms Submit
+        Route::post('production_settings', 'ProductionController@settings');
+        //Ajax Call 
+        Route::post('production_ajax', 'ProductionController@ajax_production_controller');

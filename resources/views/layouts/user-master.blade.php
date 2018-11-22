@@ -4,6 +4,7 @@ $taxisettings=DB::table('rs_taxisettings')->where('location_id',session('locatio
 $stationary_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'))->where('module_id','1')->first();
 $taxi_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'))->where('module_id','2')->first();
 $gatepass_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'))->where('module_id','3')->first();
+$user_type=DB::table('users')->where('id',session('user_id'))->value('user_type_id');
 ?>
 
 <!DOCTYPE html>
@@ -450,6 +451,27 @@ $gatepass_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'
 								<b class="arrow"></b>
 							</li>
 							@endif
+						</ul>
+                    </li>
+                    <li class="">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-sticky-note-o"></i>
+							<span class="menu-text"> Production </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu" id="item-nav-menu">
+							<li class="" id="stationary_request_li_to_be">
+								<a href="/production">
+									<i class="menu-icon fa fa-caret-right"></i>
+									 Production Settings
+								</a>
+
+								<b class="arrow"></b>
+							</li>
 						</ul>
                     </li>
                     <li class="">

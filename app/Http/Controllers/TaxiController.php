@@ -62,7 +62,6 @@ class TaxiController extends Controller
       $vendors=DB::table('rs_taxi_vendors')->where('location_id',session('location'))->get();
       $airports=DB::table('rs_taxisettings')->where('location_id',session('location'))->first(); 
            
-
       return view('taxi.taxi_details')->withVendors($vendors)->withAirports($airports);
     }
 
@@ -776,6 +775,15 @@ class TaxiController extends Controller
              case 'delete_taxi_list':
               DB::table($request->table)->where('id', $request->id)->delete();
               $data=1;
+                break;
+
+             case 'find_taxi_number':
+              
+             $type = DB::table('rs_taxi_cars')->where('vendor_id',$request->vendor)->get();
+             $count = DB::table('rs_taxi_cars')->where('vendor_id',$request->vendor)->count();
+             $data=$type;
+             $data['count']=$count;
+
                 break;
 
             }
