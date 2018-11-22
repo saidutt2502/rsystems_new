@@ -53,6 +53,7 @@ $(document).ready(function () {
     });
 
     $('#add_user').click(function(){
+        
                 $.ajax({
                     type: 'post',
                     url: $('#url_ajax').val(),
@@ -63,6 +64,7 @@ $(document).ready(function () {
                         emp_id: $('#emp_id').val(),
                         name: $('#name').val(),
                         loc_id: $('#location_id').val(),
+                        user_type_id: $('#user_type_id').val(),
                         '_token': $('input[name=_token]').val()
                     },
                     success: function (data) {

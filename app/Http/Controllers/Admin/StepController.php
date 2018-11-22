@@ -275,7 +275,8 @@ class StepController extends Controller
                             'name' => $request->name, 
                             'email' => $request->email,
                             'password'=> bcrypt($request->password),
-                            'emp_id' => $request->emp_id 
+                            'emp_id' => $request->emp_id,
+                            'user_type_id' => $request->user_type_id 
 
                       ]);
                     

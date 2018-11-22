@@ -4,6 +4,7 @@ $taxisettings=DB::table('rs_taxisettings')->where('location_id',session('locatio
 $stationary_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'))->where('module_id','1')->first();
 $taxi_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'))->where('module_id','2')->first();
 $gatepass_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'))->where('module_id','3')->first();
+$user_type=DB::table('users')->where('id',session('user_id'))->value('user_type_id');
 ?>
 
 <!DOCTYPE html>

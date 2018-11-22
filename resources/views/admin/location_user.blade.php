@@ -36,6 +36,17 @@
                             <input id="password" placeholder="Password" type="text">
                             <i class="ace-icon fa  fa-eye  red"></i>
                         </span>
+                        <span class="input-icon">
+                        <?php
+                         $user_types=DB::table('users_type')->get();
+                        ?>
+                        <select  id="user_type_id" class="chosen-container chosen-container-single chosen-select">
+                            <option value="" disabled selected>Select User Type</option>
+                                @foreach($user_types as $type)
+                                <option value="{{$type->id}}">{{$type->type}}</option>
+                                @endforeach
+                        </select>
+                        </span>
                       
                         <button type="button" id="add_user" class="btn btn-info btn-sm">
                             <i class="ace-icon fa fa-check bigger-110"></i>Add
