@@ -90,7 +90,7 @@
 													<div class="clearfix">
 														<button type="submit" class="width-35 pull-right btn btn-sm btn-danger">
 															<i class="ace-icon fa fa-lightbulb-o"></i>
-															<span class="bigger-110">Change Password!</span>
+															<span class="bigger-110">Change!</span>
 														</button>
 													</div>
 												</fieldset>

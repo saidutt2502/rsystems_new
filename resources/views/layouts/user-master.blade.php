@@ -389,7 +389,7 @@ $user_type=DB::table('users')->where('id',session('user_id'))->value('user_type_
 								<b class="arrow"></b>
 							</li>
 							@endif
-                            @if($taxi_admin)
+                            @if($taxi_admin || $user_type=='2')
 							<li class="">
 								<a href="/taxi-closing">
 									<i class="menu-icon fa  fa-caret-right"></i>
@@ -441,7 +441,7 @@ $user_type=DB::table('users')->where('id',session('user_id'))->value('user_type_
 
 								<b class="arrow"></b>
 							</li>
-							@if($gatepass_admin)
+							@if($gatepass_admin || $user_type=='2')
 							<li class="" id="stationary_request_li_to_be">
 								<a href="/gp_close">
 									<i class="menu-icon fa fa-caret-right"></i>
@@ -451,6 +451,27 @@ $user_type=DB::table('users')->where('id',session('user_id'))->value('user_type_
 								<b class="arrow"></b>
 							</li>
 							@endif
+						</ul>
+                    </li>
+					<li class="">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-exclamation-triangle"></i>
+							<span class="menu-text"> Safety </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu" id="item-nav-menu">
+							<li class="" id="stationary_request_li_to_be">
+								<a href="/shoes">
+									<i class="menu-icon fa fa-caret-right"></i>
+									 Stock Master
+								</a>
+
+								<b class="arrow"></b>
+							</li>
 						</ul>
                     </li>
                     <li class="">

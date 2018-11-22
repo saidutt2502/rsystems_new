@@ -92,3 +92,11 @@ Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logou
         Route::post('production_settings', 'ProductionController@settings');
         //Ajax Call 
         Route::post('production_ajax', 'ProductionController@ajax_production_controller');
+
+/* ----------------------------------------Safety Routes------------------------------------ */
+    Route::get('shoes', 'SafetyController@index');
+    //Ajax Call 
+    Route::post('safety_ajax', 'SafetyController@ajax_safety_controller');
+    //Forms Submit
+        
+
