@@ -100,5 +100,6 @@ Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logou
     //Ajax Call 
     Route::post('safety_ajax', 'SafetyController@ajax_safety_controller');
     //Forms Submit
+    Route::post('forms_safety_shoes', 'SafetyController@forms_safety_shoes');
         
 

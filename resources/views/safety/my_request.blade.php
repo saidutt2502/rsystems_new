@@ -23,7 +23,7 @@
         <table id="dynamic-table" class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>Date</th
+                    <th>Date</th>
                     <th>Brand Name</th>
                     <th>Size</th>
                     <th>Quantity</th>

@@ -44,6 +44,38 @@ class SafetyController extends Controller
         return view('safety.shoes_request')->withUser($user)->withShoes($shoes);
     }
 
+    public function forms_safety_shoes(Request $request)
+ {
+     $date=date("Y-m-d");
+    switch ($request->function_name) {
+
+        case 'shoes_request':
+
+        foreach($request->shoes_id as $key => $value){
+
+                $tags = explode(',' , $request->emp_id[$key]);
+                $quantity=count($tags);
+
+                $id = DB::table('rs_safety_requests')->insertGetId([
+                    'pickup_date' => $date,
+                    'shoes_id' => $request->shoes_id[$key],
+                    'user_id' => $request->user_id,
+                    'emp_id' => $request->emp_id[$key],
+                    'quantity' => $quantity,
+                    'status' => '5',
+                ]);
+                
+            //Sending for approval (params:costcenter,Insert Id, Table-name)
+                // $this->get_higher_up($request->cc_id,$id,'rs_stationaryrequests');
+        }
+        return redirect()->action('SafetyController@my_request'); 
+        break;
+
+        default:
+                $data['success'] = 'false';
+    }
+ }
+
       // Ajax Calls 
   public function ajax_safety_controller(Request $request)
   {

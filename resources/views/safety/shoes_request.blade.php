@@ -13,8 +13,10 @@
 
 @section('main-content')
 
-    <form class="form-horizontal" role="form" action="{{URL::to('forms_stationary')}}" method="POST">
+    <form class="form-horizontal" role="form" action="{{URL::to('forms_safety_shoes')}}" method="POST">
     @csrf
+
+    
         
         <div class="form-group clone-this">
             <label class="col-sm-3 control-label no-padding-right" >Request</label>
