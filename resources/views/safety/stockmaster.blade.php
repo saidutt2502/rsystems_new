@@ -140,10 +140,10 @@
           <div>
             <div class="col-sm-12">
                 <div class="col-sm-5">
-                    <select name="shoes_id[]" id="first_chosen_list" class="chosen-container chosen-container-single chosen-select item_id">
+                    <select name="shoes_id[]" id="first_chosen_list" class="chosen-container chosen-container-single chosen-select shoes_id">
                         <option value="" disabled selected>Select Brand</option>
                             @foreach($shoes as $each_item)
-                            <option class="item_options" value="{{$each_item->id}}">{{$each_item->brand}} ({{$each_item->size}})</option>
+                            <option class="shoes_options" value="{{$each_item->id}}">{{$each_item->brand}} ({{$each_item->size}})</option>
                             @endforeach
                     </select>
                 </div>

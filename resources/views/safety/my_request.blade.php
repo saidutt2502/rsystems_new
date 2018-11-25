@@ -1,16 +1,16 @@
 @extends('layouts.user-master')
 
 @section('breadcrumb')
-    <li class="active">Stationary</li>
+    <li class="active">Safety</li>
 @endsection
 
 
 @section('page-header')
-    <h1>Stationary
+    <h1>Safety
         <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;History</small>
     </h1>
     <div class="input-field pull-right">
-        <a href="/item-request"><button class="btn btn-danger pull-right">Request Stationary<i class="ace-icon fa fa-arrow-right icon-on-right"></i></button></a>
+        <a href="/shoes-request"><button class="btn btn-danger pull-right">Request Shoes<i class="ace-icon fa fa-arrow-right icon-on-right"></i></button></a>
     </div>
 @endsection
 
@@ -23,13 +23,12 @@
         <table id="dynamic-table" class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>Pickup Date</th>
-                    <th>Pickup Time</th>
-                    <th>Item Name</th>
-                    <th class="hidden-480">Quantity</th>
-                    <th class="hidden-480">Costcenter</th>
-                    <th class="hidden-480"><i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>Remarks</th>
-                    <th class="hidden-480">Status</th>
+                    <th>Date</th
+                    <th>Brand Name</th>
+                    <th>Size</th>
+                    <th>Quantity</th>
+                    <th>Emp Id's</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,12 +36,11 @@
                     @foreach($request as $each_request)
                         <tr>
                             <td>{{ date("D, d F Y",strtotime($each_request->pickup_date))}}</td>
-                            <td>{{$each_request->time_slot}}</td>
-                            <td>{{$each_request->item_name}}</td>
-                            <td class="hidden-480">{{$each_request->quantity}}</td>
-                            <td class="hidden-480">{{$each_request->cc_number}}</td>
-                            <td class="hidden-480">{{$each_request->remarks}}</td>
-                            <td class="hidden-480">{!!html_entity_decode($each_request->html_status)!!}</td>
+                            <td>{{$each_request->brand_name}}</td>
+                            <td>{{$each_request->size}}</td>
+                            <td>{{$each_request->quantity}}</td>
+                            <td>{{$each_request->emp_id}}</td>
+                            <td>{!!html_entity_decode($each_request->html_status)!!}</td>
                         </tr>
                     @endforeach
                 @endif
@@ -53,7 +51,7 @@
 
         
 <!-- Ajax call url       -->
-<input type="hidden" value="{{URL::to('stationary_ajax')}}" id="url_ajax">
+<input type="hidden" value="{{URL::to('safety_ajax')}}" id="url_ajax">
 
     <!-- Modal -->
 <div id="confirm_delete_modal" class="modal fade" role="dialog">

@@ -20,6 +20,30 @@ class SafetyController extends Controller
         return view('safety.stockmaster')->withShoes($shoes);
     }
 
+    public function my_request()
+    {
+
+        $shoes_requests = DB::table('rs_safety_requests')
+            ->join('rs_safety_shoes', 'rs_safety_shoes.id', '=', 'rs_safety_requests.shoes_id')
+            ->join('rs_status', 'rs_status.id', '=', 'rs_safety_requests.status')
+            ->select('rs_safety_requests.*', 'rs_safety_shoes.brand as brand_name','rs_safety_shoes.size as size','rs_status.html_string as html_status')
+            ->where('rs_safety_requests.user_id',session('user_id'))
+            ->get();
+
+        return view('safety.my_request')->withRequest($shoes_requests);
+    }
+
+    public function shoes_request()
+    {
+        $user = DB::table('users')
+                    ->where('id',session('user_id'))
+                    ->first();
+
+        $shoes = DB::table('rs_safety_shoes')->where('location_id',session('location'))->get();
+
+        return view('safety.shoes_request')->withUser($user)->withShoes($shoes);
+    }
+
       // Ajax Calls 
   public function ajax_safety_controller(Request $request)
   {

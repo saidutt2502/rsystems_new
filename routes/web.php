@@ -95,6 +95,8 @@ Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logou
 
 /* ----------------------------------------Safety Routes------------------------------------ */
     Route::get('shoes', 'SafetyController@index');
+    Route::get('my-request_shoes', 'SafetyController@my_request');
+    Route::get('shoes-request', 'SafetyController@shoes_request');
     //Ajax Call 
     Route::post('safety_ajax', 'SafetyController@ajax_safety_controller');
     //Forms Submit

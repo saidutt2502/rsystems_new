@@ -472,6 +472,15 @@ $user_type=DB::table('users')->where('id',session('user_id'))->value('user_type_
 
 								<b class="arrow"></b>
 							</li>
+
+							<li class="" id="stationary_request_li_to_be">
+								<a href="/my-request_shoes">
+									<i class="menu-icon fa fa-caret-right"></i>
+									 Request Form
+								</a>
+
+								<b class="arrow"></b>
+							</li>
 						</ul>
                     </li>
                     <li class="">

@@ -68,7 +68,7 @@ class StationaryController extends Controller
                        ->select('rs_locations.name as l_name','rs_costcenters.*')
                        ->get();
 
-        $items = DB::table('rs_items')->get();
+        $items = DB::table('rs_items')->where('location_id',session('location'))->get();
 
         return view('stationary.item_request')->withUser($user)->withCc($cost_center)->withItems($items);
     }
