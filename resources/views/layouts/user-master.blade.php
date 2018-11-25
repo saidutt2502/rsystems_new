@@ -74,7 +74,7 @@ $user_type=DB::table('users')->where('id',session('user_id'))->value('user_type_
 				</button>
 
 				<div class="navbar-header pull-left">
-					<a href="admin/" class="navbar-brand">
+					<a href="/home" class="navbar-brand">
 						<small>
 							<i class="fa fa-leaf"></i>
 							Rsystems | User
@@ -497,10 +497,18 @@ $user_type=DB::table('users')->where('id',session('user_id'))->value('user_type_
 						<b class="arrow"></b>
 
 						<ul class="submenu" id="item-nav-menu">
-							<li class="" id="stationary_request_li_to_be">
+							<li class="">
 								<a href="/production">
 									<i class="menu-icon fa fa-caret-right"></i>
 									 Production Settings
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							<li class="">
+								<a href="/edit-production">
+									<i class="menu-icon fa fa-caret-right"></i>
+									 Edit Permissions
 								</a>
 
 								<b class="arrow"></b>

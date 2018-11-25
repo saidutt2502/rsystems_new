@@ -88,8 +88,10 @@ Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logou
      
 /* ----------------------------------------Productions Routes------------------------------------ */
         Route::get('production', 'ProductionController@index');
+        Route::get('edit-production', 'ProductionController@edit_production');
         //Forms Submit
         Route::post('production_settings', 'ProductionController@settings');
+        Route::post('edit_production_form', 'ProductionController@edit_production_form');
         //Ajax Call 
         Route::post('production_ajax', 'ProductionController@ajax_production_controller');
 
