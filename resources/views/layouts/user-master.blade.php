@@ -4,6 +4,7 @@ $taxisettings=DB::table('rs_taxisettings')->where('location_id',session('locatio
 $stationary_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'))->where('module_id','1')->first();
 $taxi_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'))->where('module_id','2')->first();
 $gatepass_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'))->where('module_id','3')->first();
+$safety_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'))->where('module_id','4')->first();
 $user_type=DB::table('users')->where('id',session('user_id'))->value('user_type_id');
 ?>
 
@@ -297,7 +298,7 @@ $user_type=DB::table('users')->where('id',session('user_id'))->value('user_type_
 
 						<b class="arrow"></b>
 					</li>
-					@if($stationary_admin)
+					@if($stationary_admin || $safety_admin )
 					<li id="approvals_menu_id" class="">
 						<a href="/issues-approvals">
 							<i class="menu-icon fa fa-share-square-o"></i>
@@ -464,6 +465,7 @@ $user_type=DB::table('users')->where('id',session('user_id'))->value('user_type_
 						<b class="arrow"></b>
 
 						<ul class="submenu" id="item-nav-menu">
+						@if($safety_admin)
 							<li class="" id="stationary_request_li_to_be">
 								<a href="/shoes">
 									<i class="menu-icon fa fa-caret-right"></i>
@@ -472,6 +474,7 @@ $user_type=DB::table('users')->where('id',session('user_id'))->value('user_type_
 
 								<b class="arrow"></b>
 							</li>
+							@endif
 
 							<li class="" id="stationary_request_li_to_be">
 								<a href="/my-request_shoes">
