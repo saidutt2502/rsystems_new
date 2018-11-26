@@ -14,7 +14,7 @@ class ProductionController extends Controller
 
     public function index()
     {
-      $depts = DB::table('rs_production_dept')->select('department','id')
+      $depts = DB::table('rs_production_dept')->where('location_id',session('location'))->select('department','id')
       ->get();
       return view('production.add_production')->withDept($depts);
     }
@@ -73,7 +73,7 @@ class ProductionController extends Controller
       }else{
 
           $dept_id = DB::table('rs_production_dept')->insertGetId(
-            ['department' =>  $request->department ,'last_edited' => session('user_id')]
+            ['department' =>  $request->department ,'last_edited' => session('user_id'),'location_id' => session('location')]
         );
     
         foreach($request->company as $each_company){
@@ -92,6 +92,81 @@ class ProductionController extends Controller
         }
      
         return redirect()->action('ProductionController@index');
+    }
+
+    public function schedule_production()
+    {
+      $edit_permission=DB::table('rs_production_user_list')->where('user_id',session('user_id'))->where('location_id',session('location'))->first();
+      if($edit_permission)
+      {
+        $depts = DB::table('rs_production_dept')->where('location_id',session('location'))->select('department','id')
+        ->get();
+      }
+      else
+      {
+        $depts = DB::table('rs_production_dept')
+                 ->join('rs_users_production','rs_users_production.production_dept_id','=','rs_production_dept.id')
+        ->where('rs_production_dept.location_id',session('location'))
+        ->where('rs_users_production.user_id',session('user_id'))
+        ->select('rs_production_dept.id','rs_production_dept.department')
+        ->get();
+      }
+      
+      return view('production.schedule_production')->withDept($depts);
+    }
+
+    public function production_schedule_chart(Request $request)
+    {
+      $depts = DB::table('rs_production_dept')->where('location_id',session('location'))->select('department','id')
+      ->get();
+      $selected_dept_name = DB::table('rs_production_dept')->where('id',$request->department)->value('department');
+      $sub_depts = DB::table('rs_company_production')->where('dept_id',$request->department)->get();
+
+      if($request->month=='1')
+      $month_name='January';
+      if($request->month=='2')
+      $month_name='February';
+      if($request->month=='3')
+      $month_name='March';
+      if($request->month=='4')
+      $month_name='April';
+      if($request->month=='5')
+      $month_name='May';
+      if($request->month=='6')
+      $month_name='June';
+      if($request->month=='7')
+      $month_name='July';
+      if($request->month=='8')
+      $month_name='August';
+      if($request->month=='9')
+      $month_name='September';
+      if($request->month=='10')
+      $month_name='October';
+      if($request->month=='11')
+      $month_name='November';
+      if($request->month=='12')
+      $month_name='December';
+
+     foreach($sub_depts as $each_dept)
+     {
+      $exists=DB::table('rs_production_chart')->where('subdept_id',$each_dept->id)->where('month',$request->month)->where('year',$request->year)->first();
+
+      if(!$exists)
+      {
+        $days=cal_days_in_month (CAL_GREGORIAN, $request->month, $request->year);
+        for($i=1;$i<=$days;$i++)
+        {
+          DB::table('rs_production_chart')->insert(
+            ['day' => $i, 'month' => $request->month ,'year' =>$request->year ,'subdept_id' => $each_dept->id,'last_edited' => session('user_id')]
+          );
+        }
+       
+      }
+
+     }
+     
+
+      return view('production.production_chart')->withSubdept($sub_depts)->withDept($depts)->withMonthid($request->month)->withMonthname($month_name)->withYear($request->year)->withDepartmentid($request->department)->withDepartmentname($selected_dept_name);
     }
 
       // Ajax Calls 
@@ -149,6 +224,32 @@ class ProductionController extends Controller
 
                   $data['selected_user']=$user_prod;
                   $data['all_users']=$all_users;
+              break;
+
+              case 'update_planned':
+ 
+              $achived=DB::table('rs_production_chart')->where('id',$request->id)->value('achived');
+
+              DB::table('rs_production_chart')
+                              ->where('id', $request->id)
+                              ->update([
+                                  'planned' => $request->data,
+                                  'difference' => $achived-$request->data,
+                                  'last_edited' => session('user_id'), 
+                              ]);
+              break;
+
+              case 'update_achived':
+ 
+              $planned=DB::table('rs_production_chart')->where('id',$request->id)->value('planned');
+
+              DB::table('rs_production_chart')
+                              ->where('id', $request->id)
+                              ->update([
+                                  'achived' => $request->data,
+                                  'difference' => $request->data-$planned,
+                                  'last_edited' => session('user_id'), 
+                              ]);
               break;
 
             }

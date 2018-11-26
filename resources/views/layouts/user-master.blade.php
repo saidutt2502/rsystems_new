@@ -1,10 +1,40 @@
 <?php
 $taxisettings=DB::table('rs_taxisettings')->where('location_id',session('location'))->first();
 
-$stationary_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'))->where('module_id','1')->first();
-$taxi_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'))->where('module_id','2')->first();
-$gatepass_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'))->where('module_id','3')->first();
-$safety_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'))->where('module_id','4')->first();
+$stationary_admin=DB::table('rs_admin2modules')
+->join('rs_location2department','rs_location2department.department','rs_admin2modules.department')
+->where('rs_location2department.location',session('location'))
+->where('rs_admin2modules.user_id',session('user_id'))
+->where('rs_admin2modules.module_id','1')
+->first();;
+
+$taxi_admin=DB::table('rs_admin2modules')
+->join('rs_location2department','rs_location2department.department','rs_admin2modules.department')
+->where('rs_location2department.location',session('location'))
+->where('rs_admin2modules.user_id',session('user_id'))
+->where('rs_admin2modules.module_id','2')
+->first();
+
+$gatepass_admin=DB::table('rs_admin2modules')
+->join('rs_location2department','rs_location2department.department','rs_admin2modules.department')
+->where('rs_location2department.location',session('location'))
+->where('rs_admin2modules.user_id',session('user_id'))
+->where('rs_admin2modules.module_id','3')
+->first();
+
+$safety_admin=DB::table('rs_admin2modules')
+->join('rs_location2department','rs_location2department.department','rs_admin2modules.department')
+->where('rs_location2department.location',session('location'))
+->where('rs_admin2modules.user_id',session('user_id'))
+->where('rs_admin2modules.module_id','4')
+->first();
+
+$production_admin=DB::table('rs_admin2modules')
+				  ->join('rs_location2department','rs_location2department.department','rs_admin2modules.department')
+				  ->where('rs_location2department.location',session('location'))
+				  ->where('rs_admin2modules.user_id',session('user_id'))
+				  ->where('rs_admin2modules.module_id','5')
+				  ->first();
 $user_type=DB::table('users')->where('id',session('user_id'))->value('user_type_id');
 ?>
 
@@ -488,8 +518,8 @@ $user_type=DB::table('users')->where('id',session('user_id'))->value('user_type_
                     </li>
                     <li class="">
 						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-sticky-note-o"></i>
-							<span class="menu-text"> Production </span>
+							<i class="menu-icon fa fa-th-list"></i>
+							<span class="menu-text"> Production Tracker </span>
 
 							<b class="arrow fa fa-angle-down"></b>
 						</a>
@@ -497,10 +527,11 @@ $user_type=DB::table('users')->where('id',session('user_id'))->value('user_type_
 						<b class="arrow"></b>
 
 						<ul class="submenu" id="item-nav-menu">
+							@if($production_admin)
 							<li class="">
 								<a href="/production">
 									<i class="menu-icon fa fa-caret-right"></i>
-									 Production Settings
+									 Settings
 								</a>
 
 								<b class="arrow"></b>
@@ -508,7 +539,16 @@ $user_type=DB::table('users')->where('id',session('user_id'))->value('user_type_
 							<li class="">
 								<a href="/edit-production">
 									<i class="menu-icon fa fa-caret-right"></i>
-									 Edit Permissions
+									 Planners
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							@endif
+							<li class="">
+								<a href="/production-schedule">
+									<i class="menu-icon fa fa-caret-right"></i>
+									 Tracker
 								</a>
 
 								<b class="arrow"></b>

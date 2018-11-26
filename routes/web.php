@@ -89,9 +89,11 @@ Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logou
 /* ----------------------------------------Productions Routes------------------------------------ */
         Route::get('production', 'ProductionController@index');
         Route::get('edit-production', 'ProductionController@edit_production');
+        Route::get('production-schedule', 'ProductionController@schedule_production');
         //Forms Submit
         Route::post('production_settings', 'ProductionController@settings');
         Route::post('edit_production_form', 'ProductionController@edit_production_form');
+        Route::post('production_schedule_chart', 'ProductionController@production_schedule_chart');
         //Ajax Call 
         Route::post('production_ajax', 'ProductionController@ajax_production_controller');
 

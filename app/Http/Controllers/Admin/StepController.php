@@ -48,14 +48,12 @@ class StepController extends Controller
                  ->join('rs_location2department', 'rs_location2department.department', '=', 'rs_departments.id')
                  ->get();
 
-    $users = DB::table('users')
-              ->select('id','name')
-              ->get();
+  
 
   
 
 
-   return view('admin.step_3')->withLocation($location)->withDeptlocation($dept2location)->withUsers($users);
+   return view('admin.step_3')->withLocation($location)->withDeptlocation($dept2location);
   }
 
   public function location_user($id)
@@ -184,7 +182,7 @@ class StepController extends Controller
     $users = DB::table('users')->where('email',$admins)->value('id');
     $department = DB::table('rs_departments')->where('hod_id',$users)->get();
 
-    $users = DB::table('users')->select('id','name')->get();
+    
 
     $assigned_admins = DB::table('rs_admin2modules')->get();
 

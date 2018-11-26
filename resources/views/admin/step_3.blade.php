@@ -66,6 +66,9 @@
                     @if($deptlocation)
                         @foreach($deptlocation as $each_dept)
                             @if( $each_location->id == $each_dept->location_id)
+                            <?php
+                            $users=DB::table('users')->join('rs_location2users','rs_location2users.user_id','=','users.id')->where('rs_location2users.location_id',$each_location->id)->select('users.*')->get();
+                            ?>
                                     <div class="col-xs-12 col-sm-7 col-sm-offset-2 ">
                                     <div class="well well-sm">
                                          <h5>{{ $each_dept->name }}</h5> 

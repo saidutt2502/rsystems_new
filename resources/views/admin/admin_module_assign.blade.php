@@ -36,6 +36,7 @@
         $deptname = DB::table('rs_departments')->where('id',$dept2loc->department)->value('name');
         $location = DB::table('rs_locations')->where('id',$dept2loc->location)->value('name');
         $modules = DB::table('rs_modules_programmer')->where('department_name',$deptname)->get();
+        $users=DB::table('users')->join('rs_location2users','rs_location2users.user_id','=','users.id')->where('rs_location2users.location_id',$dept2loc->location)->select('users.*')->get();
     ?>   
         <tr>
             <td class="center">
