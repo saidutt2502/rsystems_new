@@ -443,7 +443,22 @@ class TaxiController extends Controller
                  }          
   
                  $data=1;
-                break;       
+                break;
+                
+                case 'unassign_taxi':
+
+                $request_id=DB::table('rs_taxi_requests2schedules')->where('schedule_id',$request->schedule_id)->value('request_id');
+                DB::table('rs_taxi_requests')
+                              ->where('id', $request_id)
+                              ->update([
+                                  'status' => '2', 
+                              ]);  
+                DB::table('rs_taxi_requests2schedules')->where('schedule_id', $request->schedule_id)->delete();
+                DB::table('rs_taxi_schedules')->where('id', $request->schedule_id)->delete();                                              
+
+               $data=1;
+              break;
+
           case 'add_trip':
 
                  DB::table('rs_taxi_requests2schedules')->insert([

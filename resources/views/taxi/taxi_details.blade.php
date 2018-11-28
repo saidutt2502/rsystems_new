@@ -21,15 +21,15 @@
             </div>
             <div class="help-block col-xs-12 col-sm-reset inline">&nbsp;</div>
             <button class="btn btn-xs" type="button" data-toggle="modal" data-target="#vendor_modal">
-                    <i class="ace-icon fa fa-undo bigger-110"></i>
+                    <i class="ace-icon fa fa-eye bigger-110"></i>
                     Vendors List
                 </button>  
     </div>
     <hr />
 
                                             <!-- TAXI TYPE -->
-    <b>TAXI TYPE</b>  <button class="btn btn-xs" type="button" data-toggle="modal" data-target="#taxi_type_modal">
-                    <i class="ace-icon fa fa-undo bigger-110"></i>
+    <b>TAXI TYPE</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-xs" type="button" data-toggle="modal" data-target="#taxi_type_modal">
+                    <i class="ace-icon fa fa-eye bigger-110"></i>
                    Taxi Type
                 </button><br>
     *All unrelated fields must have the value 0

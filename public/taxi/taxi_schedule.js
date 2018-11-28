@@ -130,4 +130,20 @@ $(document).ready(function(){
         });
     });
 
+    $('.unassign-btn').click(function(){
+        
+        $.ajax({
+            type: 'post',
+            url: $('#url_ajax').val(),
+            data: {
+                function_name: 'unassign_taxi',
+                schedule_id: $(this).attr('data-uniqueID'),
+                '_token': $('input[name=_token]').val()
+            },
+            success: function (data) {
+              location.reload();
+            }
+        });
+    });
+
 });    

@@ -110,7 +110,7 @@
             <td><a href="#!">{{$schedule->place_from}}</a></td>
             <td><a href="#!">{{$schedule->place_to}}</a></td>
             <td><a href="#!">{{$schedule->scheduled_time}}</a></td>
-            <td><div class="search-actions text-center"><a class="btn btn-sm btn-block btn-danger assign-btn" data-uniqueID="{{$schedule->id}}">Delete!</a> </div></td>
+            <td><div class="search-actions text-center"><a class="btn btn-sm btn-block btn-danger unassign-btn" data-uniqueID="{{$schedule->id}}">Unassign!</a> </div></td>
 
         </tr>
         <tr class="detail-row">
