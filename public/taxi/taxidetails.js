@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-
     //Pre populate the fields
     $.ajax({
         type: 'post',
@@ -15,7 +14,9 @@ $(document).ready(function(){
             {
             $('#type_car').append('<option class="to_clear" value="'+data[i]['id']+'">'+data[i]['type']+'</option>');
 
-            var append= '<div class="widget-box widget-color-orange collapsed ui-sortable-handle">            <div class="widget-header widget-header-small"><h6 class="widget-title airport_titles">'+ data[i]['type']+'</h6><div class="widget-toolbar"><a data-action="close" class="delete_list" data-table="rs_taxi_type" data-id="'+data[i]['id']+'"><i class="ace-icon fa fa-times"></i></a></div></div></div>';
+            var append= '<tr><td>'+ data[i]['type']+'</td><td> '+ data[i]['base_cost']+'</td><td> '+ data[i]['km_cost']+'</td><td> '+ data[i]['night']+'</td><td> '+ data[i]['midnight']+'</td><td> '+ data[i]['waiting']+'</td><td><a data-action="close" class="delete_list" data-table="rs_taxi_type" data-id="'+data[i]['id']+'"><i class="ace-icon fa fa-times"></i></a></td></tr>';
+
+           /* var append= '<div class="widget-box widget-color-orange collapsed ui-sortable-handle to_clear"><div class="widget-header widget-header-small"><h6 class="widget-title airport_titles">'+ data[i]['type']+' | '+ data[i]['base_cost']+' | '+ data[i]['km_cost']+' | '+ data[i]['night']+' | '+ data[i]['midnight']+' | '+ data[i]['waiting']+' </h6><div class="widget-toolbar"></div></div></div>';*/
 
             $('#taxi_list_modal').append(append);
             }
@@ -152,7 +153,7 @@ $('.vendor_dd').change(function(){
         url: $('#url_ajax').val(),
         data: {
             function_name: 'find_type',
-            vendor: $('#vendor_car').val(),
+            vendor: $(this).val(),
             '_token': $('input[name=_token]').val()
         },
         success: function (data) {
@@ -160,7 +161,7 @@ $('.vendor_dd').change(function(){
             {
             $('#type_car').append('<option class="to_clear" value="'+data[i]['id']+'">'+data[i]['type']+'</option>');
 
-            var append= '<div class="widget-box widget-color-orange collapsed ui-sortable-handle">            <div class="widget-header widget-header-small"><h6 class="widget-title airport_titles">'+ data[i]['type']+'</h6><div class="widget-toolbar"><a data-action="close" class="delete_list" data-table="rs_taxi_type" data-id="'+data[i]['id']+'"><i class="ace-icon fa fa-times"></i></a></div></div></div>';
+            var append= '<tr><td>'+ data[i]['type']+'</td><td> '+ data[i]['base_cost']+'</td><td> '+ data[i]['km_cost']+'</td><td> '+ data[i]['night']+'</td><td> '+ data[i]['midnight']+'</td><td> '+ data[i]['waiting']+'</td><td><a data-action="close" class="delete_list" data-table="rs_taxi_type" data-id="'+data[i]['id']+'"><i class="ace-icon fa fa-times"></i></a></td></tr>';
 
             $('#taxi_list_modal').append(append);
                 update_taxi_number_list();
