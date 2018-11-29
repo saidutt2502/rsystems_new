@@ -31,7 +31,7 @@
     <b>TAXI TYPE</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-xs" type="button" data-toggle="modal" data-target="#taxi_type_modal">
                     <i class="ace-icon fa fa-eye bigger-110"></i>
                    Taxi Type
-                </button><br>
+                </button><br><br>
     *All unrelated fields must have the value 0
     <br><br><br>
     <div class="form-group">
@@ -132,7 +132,10 @@
                                               <!-- CARS -->
     <div class="row">   
     <div class="col-xs-12"><hr>
-    <b>CARS</b><br>
+    <b>CARS</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-xs" type="button" data-toggle="modal" data-target="#taxi_number_modal">
+                    <i class="ace-icon fa fa-eye bigger-110"></i>
+                   Cars
+                </button>
     <div class="form-group">
     <div class="col-sm-12 col-sm-offset-2">
     <div class="col-sm-3">
@@ -158,10 +161,7 @@
         <div class="col-sm-2">
         <label>Taxi No.</label>
         <input type="text" autocomplete="off" id="taxino" class="form-control"><br>
-        </div> <button class="btn btn-xs" type="button" data-toggle="modal" data-target="#taxi_number_modal">
-                    <i class="ace-icon fa fa-undo bigger-110"></i>
-                   Taxis
-                </button><br>
+        </div> <br>
 
     </div>
     </div>

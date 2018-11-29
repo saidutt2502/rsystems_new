@@ -66,15 +66,10 @@
             <table id="dynamic-table" class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th class="center hidden-480">
-                            <label class="pos-rel">
-                                <input type="checkbox" class="ace" />
-                                <span class="lbl"></span>
-                            </label>
-                        </th>
                         <th>Empoyee Code</th>
                         <th class="hidden-480">Name</th>
                         <th class="hidden-480">Email</th>
+                        <th class="hidden-480">User Type</th>
                         <th class="hidden-480">
                             <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
                             Updated
@@ -87,19 +82,16 @@
                 <tbody>
                     @if($users)
                         @foreach($users as $each_user)
+                        <?php
+                        $user_type=DB::table('users_type')->where('id',$each_user->user_type_id)->value('type');
+                        ?>
                     <tr>
-                        <td class="center hidden-480">
-                            <label class="pos-rel">
-                                <input type="checkbox" class="ace" />
-                                <span class="lbl"></span>
-                            </label>
-                        </td>
-
                         <td>
                             <a href="#">{{$each_user->emp_id}}</a>
                         </td>
                         <td class="hidden-480">{{$each_user->name}}</td>
                         <td class="hidden-480">{{$each_user->email}}</td>
+                        <td class="hidden-480">{{$user_type}}</td>
                         <td class="hidden-480">@if($each_user->updated_at){{ date("D, d F Y",strtotime($each_user->updated_at))}}@endif</td>
 
                         <td class="hidden-480">
