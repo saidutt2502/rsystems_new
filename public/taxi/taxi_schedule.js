@@ -133,13 +133,18 @@ $(document).ready(function(){
     });
 
     $('.unassign-btn').click(function(){
+        $('#schedule_id').val($(this).attr('data-uniqueID'));
+        $('#UnassignModal').modal();
+    });
+
+    $('#confirm_unassign').click(function(){
         
         $.ajax({
             type: 'post',
             url: $('#url_ajax').val(),
             data: {
                 function_name: 'unassign_taxi',
-                schedule_id: $(this).attr('data-uniqueID'),
+                schedule_id: $('#schedule_id').val(),
                 '_token': $('input[name=_token]').val()
             },
             success: function (data) {
@@ -167,5 +172,45 @@ $(document).ready(function(){
             }
         });
     });
+
+    $(".confirm_lead").click(function(){
+        var schedule_id=$(this).attr('schedule-id');
+        var radioValue = $("input[name='lead_"+schedule_id+"']:checked").val();
+      
+
+        $.ajax({
+            type: 'post',
+            url: $('#url_ajax').val(),
+            data: {
+                function_name: 'update_lead_passenger',
+                request_id: radioValue,
+                '_token': $('input[name=_token]').val()
+            },
+            success: function (data) {
+                location.reload();
+                
+            }
+        });
+        
+    });
+
+    // $('.delete_list').click(function(){
+
+    //     $.ajax({
+    //         type: 'post',
+    //         url: $('#url_ajax').val(),
+    //         data: {
+    //             function_name: 'unassign_single_trip',
+    //             request_id: $(this).attr('request-id'),
+    //             schedule_id: $(this).attr('schedule-id'),
+    //             '_token': $('input[name=_token]').val()
+    //         },
+    //         success: function (data) {
+                
+                
+    //         }
+    //     });
+        
+    // });
 
 });    

@@ -453,17 +453,63 @@ class TaxiController extends Controller
                 
                 case 'unassign_taxi':
 
-                $request_id=DB::table('rs_taxi_requests2schedules')->where('schedule_id',$request->schedule_id)->value('request_id');
-                DB::table('rs_taxi_requests')
-                              ->where('id', $request_id)
+                $request2schedule_entries=DB::table('rs_taxi_requests2schedules')->where('schedule_id',$request->schedule_id)->get();
+
+                foreach($request2schedule_entries as $each_entry)
+                {
+                  DB::table('rs_taxi_requests')
+                              ->where('id', $each_entry->request_id)
                               ->update([
                                   'status' => '2', 
-                              ]);  
-                DB::table('rs_taxi_requests2schedules')->where('schedule_id', $request->schedule_id)->delete();
+                              ]);
+                  DB::table('rs_taxi_requests2schedules')->where('request_id', $each_entry->request_id)->delete();            
+                }
+
                 DB::table('rs_taxi_schedules')->where('id', $request->schedule_id)->delete();                                              
 
                $data=1;
               break;
+
+              // case 'unassign_single_trip':
+
+              // $schedules=DB::table('rs_taxi_schedules')->where('id',$request->schedule_id)->first();
+              // $count=DB::table('rs_taxi_requests2schedules')->where('schedule_id', $request->schedule_id)->count('id');
+
+              // if($count==1)
+              // {}
+              // else
+              // {
+              //    // Check if Lead
+              // if($schedules->lead_trip_id==$request->request_id)
+              // {
+              //   $request2schedule_entries=DB::table('rs_taxi_requests2schedules')->where('schedule_id',$request->schedule_id)->get();
+
+              //   foreach($request2schedule_entries as $each_entry)
+              //   {
+              //     DB::table('rs_taxi_requests')
+              //                 ->where('id', $each_entry->request_id)
+              //                 ->update([
+              //                     'status' => '2', 
+              //                 ]);
+              //     DB::table('rs_taxi_requests2schedules')->where('request_id', $each_entry->request_id)->delete();            
+              //   }
+
+              //   DB::table('rs_taxi_schedules')->where('id', $request->schedule_id)->delete(); 
+              // }
+              // else
+              // {
+              //   $request2schedule_entries=DB::table('rs_taxi_requests2schedules')->where('request_id',$request->id)->delete();
+              //   DB::table('rs_taxi_requests')
+              //                 ->where('id', $request->request_id)
+              //                 ->update([
+              //                     'status' => '2', 
+              //                 ]);
+              // } 
+              // }
+              
+
+              //  $data=1;
+              // break;
 
           case 'add_trip':
 
@@ -479,6 +525,19 @@ class TaxiController extends Controller
  
                 $data=1;
                break;
+
+          case 'update_lead_passenger':
+
+          $schedule_id=DB::table('rs_taxi_requests2schedules')->where('request_id',$request->request_id)->value('schedule_id');
+
+          DB::table('rs_taxi_schedules')
+                           ->where('id', $schedule_id)
+                           ->update([
+                               'lead_trip_id' => $request->request_id, 
+                           ]);                      
+
+              $data=$request->request_id;
+             break;    
             
           case 'start_trip':
 

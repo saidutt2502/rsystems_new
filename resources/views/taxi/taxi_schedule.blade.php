@@ -128,8 +128,8 @@
 
                 <div class="input-group col-sm-7  col-sm-offset-5 hidden-480">
                 <button type="button" class="btn btn-purple btn-xs add_trip" scheduled-trip="{{$schedule->id}}">
-                    <span class="ace-icon fa fa-check icon-on-right bigger-110"></span>
-                    Add&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ace-icon fa fa-check icon-on-right bigger-110"></span>
+                    Add&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </button>
                 </div><br>
                 <?php
@@ -154,13 +154,19 @@
                                                         @else
                                                         <a href="#"><input type="radio" name="lead_{{$schedule->id}}" value="{{$passengerdetail->id}}" ></a>
                                                         @endif
+                                                        <!-- <a data-action="close" class="delete_list"  request-id="{{$passengerdetail->id}}" schedule-id="{{$schedule->id}}"><i class="ace-icon fa fa-times"></i></a> -->
                                                     </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                     @endforeach
-                @endif      
+                @endif
+                
+                <div class="input-group col-sm-7  col-sm-offset-5 hidden-480">
+                <br>
+                <input type="button" class="confirm_lead" schedule-id="{{$schedule->id}}" value="Confirm Lead">
+                </div>      
             </td>
         </tr>
         @endforeach
@@ -349,6 +355,26 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         <button type="button" id="confirm_delete" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Unassign Modal -->
+<div class="modal fade" id="UnassignModal" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">Unassign Taxi </h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to unassign this trip?</p>
+        <input class="form-control" type="hidden" id="schedule_id">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" id="confirm_unassign" class="btn btn-danger">Unassign</button>
       </div>
     </div>
   </div>
