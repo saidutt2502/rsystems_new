@@ -24,7 +24,7 @@ class AdminLoginController extends Controller
       // Validate the form data
       $this->validate($request, [
         'email'   => 'required|email',
-        'password' => 'required'
+        'password' => 'required|min:1'
       ]);
 
       // Attempt to log the user in
