@@ -235,8 +235,22 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <center><h4 class="modal-title">Taxi Type List</h4></center>
       </div>
-      <div id="taxi_list_modal" class="modal-body">
-          
+      <div  class="modal-body">
+      <table class="table table-striped table-bordered table-hover ">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Base Cost</th>
+                    <th>Cost/Km</th>
+                    <th>Night Charges</th>
+                    <th>Midnight Charges</th>
+                    <th>Waiting Charges</th>
+                    <th></th>
+                </tr>
+            </thead>
+        <tbody id="taxi_list_modal" >
+</tbody>
+</table>
     </div>
          <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
