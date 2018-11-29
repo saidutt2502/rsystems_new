@@ -56,9 +56,10 @@ $(document).ready(function(){
         success: function (data) {
             for(var i=0;i<data.count;i++)
             {
-                var append= '<div class="widget-box widget-color-orange collapsed ui-sortable-handle">            <div class="widget-header widget-header-small"><h6 class="widget-title airport_titles">'+ data[i]['taxino']+'</h6><div class="widget-toolbar"><a data-action="close" class="delete_list" data-table="rs_taxi_cars" data-id="'+data[i]['id']+'"><i class="ace-icon fa fa-times"></i></a></div></div></div>';
+                var append= '<div class="widget-box widget-color-orange collapsed ui-sortable-handle"><div class="widget-header widget-header-small"><h6 class="widget-title airport_titles">'+ data[i]['taxino']+'</h6><div class="widget-toolbar"><a data-action="close" class="delete_list" data-table="rs_taxi_cars" data-id="'+data[i]['id']+'"><i class="ace-icon fa fa-times"></i></a></div></div></div>';
 
                 $('#number_taxi_list').append(append);
+               
             }
         }
     });

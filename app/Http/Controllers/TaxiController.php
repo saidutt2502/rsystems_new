@@ -200,7 +200,7 @@ class TaxiController extends Controller
       $taxi_no = DB::table('rs_taxi_cars')
                  ->join('rs_taxi_vendors', 'rs_taxi_vendors.id', '=', 'rs_taxi_cars.vendor_id')
                  ->where('rs_taxi_vendors.location_id',session('location'))
-                 ->select('rs_taxi_cars.*')
+                 ->select('rs_taxi_cars.*','rs_taxi_vendors.name as v_name')
                  ->get();
       $taxi_schedule = DB::table('rs_taxi_schedules')
                        ->join('rs_taxi_requests', 'rs_taxi_requests.id', '=', 'rs_taxi_schedules.lead_trip_id')
@@ -381,7 +381,13 @@ class TaxiController extends Controller
                    $i++;
                  }
                  $data['count']=$i;
-                   break;       
+                   break;
+          case 'delete_taxi_request':
+
+                   DB::table('rs_taxi_requests')->where('id', $request->trip_id)->delete();                                              
+   
+                  $data=1;
+                 break;                
           
           case 'assign_taxi':
 

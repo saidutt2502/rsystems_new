@@ -59,6 +59,8 @@ $(document).ready(function(){
     });
 
     
+
+    
     $("input[name='lead']:checked").change(function(){
         alert('hi');
      });
@@ -142,6 +144,26 @@ $(document).ready(function(){
             },
             success: function (data) {
               location.reload();
+            }
+        });
+    });
+
+    $('.delete-btn').click(function(){
+        $('#trip_id').val($(this).attr('data-uniqueID'));
+        $('#DeleteModal').modal();
+    });
+
+    $('#confirm_delete').click(function(){
+        $.ajax({
+            type: 'post',
+            url: $('#url_ajax').val(),
+            data: {
+                function_name: 'delete_taxi_request',
+                trip_id: $('#trip_id').val(),
+                '_token': $('input[name=_token]').val()
+            },
+            success: function (data) {
+                location.reload();
             }
         });
     });

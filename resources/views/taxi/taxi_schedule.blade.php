@@ -62,8 +62,9 @@
                                                     Purpose:&nbsp;<b>{{$each_request->purpose}}</b>
                                                     </p>
                                     <div class="search-actions text-center">
-                                        <br><br>
-                                        <a class="btn btn-sm btn-block btn-info assign-btn" data-uniqueID="{{$each_request->id}}">Assign!</a>
+                                        <br>
+                                        <a class="btn btn-sm btn-block btn-info assign-btn" data-uniqueID="{{$each_request->id}}">Assign!</a><br><br>
+                                        <a class="btn btn-sm btn-block btn-danger delete-btn" data-uniqueID="{{$each_request->id}}">Delete!</a>
                                     </div>
                                 </div>
                             </div>
@@ -212,7 +213,7 @@
 </div>
 
 
-<!-- Modal -->
+<!-- Schedule Modal -->
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->
@@ -234,7 +235,10 @@
         <select id="taxino" class="chosen-container chosen-container-single chosen-select">
                         <option value="" disabled selected>Select Taxi</option>
                             @foreach($taxino as $each_taxino)
-                            <option value="{{$each_taxino->id}}">{{$each_taxino->taxino}}</option>
+                            <?php
+                            $type=DB::table('rs_taxi_type')->where('id',$each_taxino->type_id)->value('type');
+                            ?>
+                            <option value="{{$each_taxino->id}}">{{$each_taxino->taxino}}  ({{$each_taxino->v_name}} : {{$type}})</option>
                             @endforeach
                     </select>
       </div>
@@ -254,7 +258,7 @@
   </div>
 </div>
 
-<!-- Modal -->
+<!--  Validation Modal -->
 <div id="myModal_edit" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->
@@ -327,6 +331,26 @@
       </div>
     </div>
 
+  </div>
+</div>
+<!-- Delete Modal -->
+
+<div class="modal fade" id="DeleteModal" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">Delete Taxi Request</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this request?</p>
+        <input class="form-control" type="hidden" id="trip_id">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" id="confirm_delete" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
   </div>
 </div>
 
