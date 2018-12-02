@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Str;
+
+use App\Mail\AdminPasswordReset;
+use DB;
 
 class AdminLoginController extends Controller
 {
@@ -42,5 +46,48 @@ class AdminLoginController extends Controller
     {
         Auth::guard('admin')->logout();
         return redirect('/');
+    }
+
+    public function confirm_reset(Request $request)
+    {
+      if(DB::table('rs_reset_admin')->where('email', '=', $request->email)->where('random_str', '=', $request->str_random)->where('confirmed', '=',0)->exists()){
+        if($request->password == $request->password_confirmation){
+              
+            DB::table('rs_reset_admin')
+                    ->where('email', '=', $request->email)
+                    ->where('random_str', '=', $request->str_random)
+                    ->where('confirmed', '=',0)
+                    ->update(['confirmed' => 1]);
+
+            DB::table('admins')
+                ->where('email', $request->email)
+                ->update(['password' => bcrypt($request->password)]);
+        }
+
+      }
+        return view('auth.admin-login');
+
+    }
+
+    public function reset_password(Request $request)
+    {
+
+      if(DB::table('admins')->where('email', '=', $request->email)->exists()){
+
+              $random_str = Str::random(16);
+              $url = "/admin/reset-password";
+
+              DB::table('rs_reset_admin')->insert([
+                'email' => $request->email, 'random_str' => $random_str
+              ]);
+
+              $mailData = array(
+                'randomStr' => $random_str,
+                'url'     => $url,
+            );
+
+              \Mail::to($request->email)->queue(new AdminPasswordReset($mailData));
+        }
+          return view('auth.admin-login');
     }
 }

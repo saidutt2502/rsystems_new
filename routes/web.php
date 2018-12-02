@@ -19,12 +19,16 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
+Route::get('admin/reset-password', function () { return view('auth.passwords.reset-admin');});
+Route::post('admin/reset-password', function () { return view('auth.passwords.reset-admin');});
 
 
  /* ----------------------------------------Admin Routes------------------------------------ */
     Route::prefix('admin')->group(function() {
       Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
       Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
+      Route::post('/reset_admin','Auth\AdminLoginController@reset_password')->name('admin.reset.submit');
+      Route::post('/confirm_reset','Auth\AdminLoginController@confirm_reset')->name('admin.confirm_reset.submit');
       Route::get('/', 'AdminController@index')->name('admin.dashboard');
       Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
       Route::get('step-1', 'Admin\StepController@step_1');

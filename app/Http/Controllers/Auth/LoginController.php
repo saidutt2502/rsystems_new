@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
-
+use DB;
 use Session;
 
 class LoginController extends Controller
@@ -44,9 +44,15 @@ class LoginController extends Controller
         $user = Auth::user();
         $user_id=$user->id;
 
-        session(['user_id' => Auth::id()]); 
-        session(['location' => $request->location]); 
-        return redirect()->intended('/home');
+        if(DB::table('rs_location2users')->where('user_id', '=',  Auth::id())->where('location_id', '=',  $request->location)->exists()){
+            session(['user_id' => Auth::id()]); 
+            session(['location' => $request->location]); 
+            return redirect()->intended('/home');
+        }else{
+            Auth::guard('web')->logout();
+            return view('auth.access_denied');
+        }
+       
 
     }
 

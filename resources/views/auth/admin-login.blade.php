@@ -101,10 +101,10 @@
 
 										<div class="toolbar clearfix">
 											<div>
-												<!-- <a href="#" data-target="#forgot-box" class="forgot-password-link">
+												 <a href="#" data-target="#forgot-box" class="forgot-password-link">
 													<i class="ace-icon fa fa-arrow-left"></i>
 													I forgot my password
-												</a> -->
+												</a>
 											</div>
 
 											<div>
@@ -130,17 +130,18 @@
 												Enter your email and to receive instructions
 											</p>
 
-											<form>
+											<form method="POST" action="{{ route('admin.reset.submit') }}" autocomplete="off">
+											@csrf
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="Email" />
+															<input type="email" name="email" class="form-control" placeholder="Email" />
 															<i class="ace-icon fa fa-envelope"></i>
 														</span>
 													</label>
 
 													<div class="clearfix">
-														<button type="button" class="width-35 pull-right btn btn-sm btn-danger">
+														<button type="submit" class="width-35 pull-right btn btn-sm btn-danger">
 															<i class="ace-icon fa fa-lightbulb-o"></i>
 															<span class="bigger-110">Send Me!</span>
 														</button>
