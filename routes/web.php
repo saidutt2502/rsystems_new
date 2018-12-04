@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::group(['middleware' => ['auth']], function() {
+
 Route::get('/home', 'HomeController@index');
 Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 Route::get('admin/reset-password', function () { return view('auth.passwords.reset-admin');});
@@ -111,3 +113,4 @@ Route::post('admin/reset-password', function () { return view('auth.passwords.re
     Route::post('forms_safety_shoes', 'SafetyController@forms_safety_shoes');
         
 
+});
