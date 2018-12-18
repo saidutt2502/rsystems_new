@@ -46,11 +46,24 @@ trait ApprovalTraits
                 ]);  
 
                 //Updating in the parent table
+             if($src_table=='rs_stationaryrequests')
+             {
                 DB::table($src_table)
                             ->where('id', $insert_id)
                             ->update([
                                 'status' => 5,
                             ]);
+             }
+
+             else if($src_table=='rs_taxi_requests')
+             {
+                DB::table($src_table)
+                            ->where('id', $insert_id)
+                            ->update([
+                                'status' => 2,
+                            ]);
+             }
+                
 
         }else{
                 $higer_up_person = DB::table('rs_reporting')
