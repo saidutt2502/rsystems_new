@@ -18,11 +18,23 @@
 
        
 
-         <div class="form-group">
+         <!-- <div class="form-group">
             <label class="col-sm-3 control-label no-padding-right">Car No.</label>
         <div class="col-sm-4">
                 <select name="taxino" class="chosen-container chosen-container-single chosen-select" required>
                     <option disabled selected >Select Car No.</option>
+                    @foreach($taxinos as $taxino)
+                         <option value="{{$taxino->taxino}}">{{$taxino->taxino}}</option>
+                    @endforeach
+                </select>
+        </div>
+        </div> -->
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right">Vendor Name</label>
+        <div class="col-sm-4">
+                <select name="vendor_name" class="chosen-container chosen-container-single chosen-select" required>
+                    <option disabled selected >Select Vendor Name</option>
                     @foreach($taxinos as $taxino)
                          <option value="{{$taxino->taxino}}">{{$taxino->taxino}}</option>
                     @endforeach

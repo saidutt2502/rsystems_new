@@ -36,6 +36,12 @@ $production_admin=DB::table('rs_admin2modules')
 				  ->where('rs_admin2modules.module_id','5')
 				  ->first();
 $user_type=DB::table('users')->where('id',session('user_id'))->value('user_type_id');
+
+$user_admin=DB::table('admins')
+				  ->join('users','users.email','admins.email')
+				  ->where('users.id',session('user_id'))
+				  ->select('admins.*')
+				  ->first();
 ?>
 
 <!DOCTYPE html>
@@ -320,6 +326,47 @@ $user_type=DB::table('users')->where('id',session('user_id'))->value('user_type_
 
 						<b class="arrow"></b>
 					</li>
+					@if($user_admin)
+					@if($user_admin->user_type=='2')
+					<li class="">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-cog"></i>
+							<span class="menu-text"> Department  </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu" id="inception-nav-menu">
+							<li class="">
+								<a href="/admin/oc_structure">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Organisation Chart
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							<li class="" id="step2-menu-nav">
+								<a href="/admin/hod_cc">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Cost Centers
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							<li class="" id="step2-menu-nav">
+								<a href="/admin/assign-admins">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Module Information
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+						</ul>
+					</li>
+					@endif
+					@endif
 					<li id="approvals_menu_id" class="">
 						<a href="/approvals">
 							<i class="menu-icon fa fa-check-square-o  "></i>

@@ -319,44 +319,6 @@
 							</li>
 						</ul>
 					</li>
-					@else
-					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-cog"></i>
-							<span class="menu-text"> Department Settings </span>
-
-							<b class="arrow fa fa-angle-down"></b>
-						</a>
-
-						<b class="arrow"></b>
-
-						<ul class="submenu" id="inception-nav-menu">
-							<li class="">
-								<a href="/admin/oc_structure">
-									<i class="menu-icon fa fa-caret-right"></i>
-									Organisation Chart
-								</a>
-
-								<b class="arrow"></b>
-							</li>
-							<li class="" id="step2-menu-nav">
-								<a href="/admin/hod_cc">
-									<i class="menu-icon fa fa-caret-right"></i>
-									Cost Centers
-								</a>
-
-								<b class="arrow"></b>
-							</li>
-							<li class="" id="step2-menu-nav">
-								<a href="/admin/assign-admins">
-									<i class="menu-icon fa fa-caret-right"></i>
-									Module Information
-								</a>
-
-								<b class="arrow"></b>
-							</li>
-						</ul>
-					</li>
 					@endif
                     <li class="">
                             <a href="{{ route('logout') }}" class="waves-effect"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="menu-icon fa fa-power-off"></i>

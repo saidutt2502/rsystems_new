@@ -1,4 +1,4 @@
-@extends('layouts.admin-master')
+@extends('layouts.user-master')
 
 @section('css-files')
     <link rel="stylesheet" href="{{ asset('admins-section/steps/step.css') }}" />
