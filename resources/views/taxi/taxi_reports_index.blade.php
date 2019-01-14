@@ -82,7 +82,7 @@
                     <select required name="taxi_no" class="col-xs-10 col-sm-5" class="form-control" id="form-field-select-1">
                             <option value="0">Select Car Number</option>
                             @foreach($carnumber as $each_taxi)
-                                <option value="{{$each_taxi->id}}">{{$each_cc->taxino}}</option>
+                                <option value="{{$each_taxi->id}}">{{$each_taxi->taxino}}</option>
                             @endforeach
                     </select>
                 </div>								
