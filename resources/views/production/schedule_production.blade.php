@@ -14,7 +14,7 @@
 
 @section('page-header')
     <h1>Production
-        <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Settings</small>
+        <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Tracker</small>
     </h1>
 @endsection
 
@@ -27,7 +27,25 @@
                 <label class="col-sm-3 control-label no-padding-right">Date </label>
 
                 <div class="col-sm-4">
-                <input name="year"  class="col-xs-10 col-sm-4" type="text" autocomplete="off">
+                <select name="year">
+                    <?php
+                    $current_year=date("Y");
+                    ?>
+                    <option selected value="{{$current_year}}" >{{$current_year}}</option>
+                    <?php
+                    for($i=2019;$i<=2100;$i++)
+                    {
+                        if($i!=$current_year)
+                        {
+                    ?>
+                       
+                       <option value="{{$i}}">{{$i}}</option>
+                    <?php
+                        }
+                    }
+                    ?>           
+                              
+                    </select>
 
                 <div class="col-sm-5">
                 

@@ -229,6 +229,8 @@ class ProductionController extends Controller
               case 'update_planned':
  
               $achived=DB::table('rs_production_chart')->where('id',$request->id)->value('achived');
+              $table_entry=DB::table('rs_production_chart')->where('id',$request->id)->first();
+              $sum=0;
 
               DB::table('rs_production_chart')
                               ->where('id', $request->id)
@@ -237,11 +239,25 @@ class ProductionController extends Controller
                                   'difference' => $achived-$request->data,
                                   'last_edited' => session('user_id'), 
                               ]);
+              
+              for($day=$table_entry->day;$day>=1;$day--)
+              {
+                $running_difference = DB::table('rs_production_chart')->where('day',$day)->where('month',$table_entry->month)->where('year',$table_entry->year)->value('difference');
+                $sum += $running_difference;
+              }
+              
+              DB::table('rs_production_chart')
+                              ->where('id', $request->id)
+                              ->update([
+                                  'running_difference' => $sum, 
+                              ]);
               break;
 
               case 'update_achived':
  
               $planned=DB::table('rs_production_chart')->where('id',$request->id)->value('planned');
+              $table_entry=DB::table('rs_production_chart')->where('id',$request->id)->first();
+              $sum=0;
 
               DB::table('rs_production_chart')
                               ->where('id', $request->id)
@@ -250,7 +266,37 @@ class ProductionController extends Controller
                                   'difference' => $request->data-$planned,
                                   'last_edited' => session('user_id'), 
                               ]);
+
+                              for($day=$table_entry->day;$day>=1;$day--)
+                              {
+                                $running_difference = DB::table('rs_production_chart')->where('day',$day)->where('month',$table_entry->month)->where('year',$table_entry->year)->value('difference');
+                                $sum += $running_difference;
+                              }
+                              
+                              DB::table('rs_production_chart')
+                                              ->where('id', $request->id)
+                                              ->update([
+                                                  'running_difference' => $sum, 
+                                              ]);                
               break;
+
+              // case 'save_changes':
+ 
+              
+              // $table_entry=DB::table('rs_production_chart')->where('id',$request->id)->first();
+
+              //                 for($day=$table_entry->day;$day>=1;$day--)
+              //                 {
+              //                   $running_difference = DB::table('rs_production_chart')->where('day',$day)->where('month',$table_entry->month)->where('year',$table_entry->year)->value('difference');
+              //                   $sum += $running_difference;
+              //                 }
+                              
+              //                 DB::table('rs_production_chart')
+              //                                 ->where('id', $request->id)
+              //                                 ->update([
+              //                                     'running_difference' => $sum, 
+              //                                 ]);                
+              // break;
 
             }
 

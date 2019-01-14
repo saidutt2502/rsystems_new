@@ -14,7 +14,7 @@
 
 @section('page-header')
     <h1>Production
-        <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Settings</small>
+        <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Planners</small>
     </h1>
 @endsection
 
