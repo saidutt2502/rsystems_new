@@ -98,7 +98,15 @@ $(document).ready(function () {
                     },
                     success: function (data) {
                         if (data.success) {
-                                location.reload();
+
+                            var options = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' };
+                            var today  = new Date();
+
+                            $('.selected').html('<td data-type="code_edit" class="input-edit">'+$('#code_edit').val()+'</td><td data-type="name_edit" class="input-edit">'+$('#name_edit').val()+'</td><td data-type="available_edit" class="input-edit">'+$('#available_edit').val()+'</td><td data-type="costpu_edit" class="input-edit hidden-480">'+$('#costpu_edit').val()+'</td><td data-type="threshold_edit" class="input-edit hidden-480">'+$('#threshold_edit').val()+'</td><td>'+today.toLocaleDateString("en-US", options)+'</td></td><td></td>');
+
+                            $('.selected').removeClass('selected');
+
+                            $('.edit-btn').on('click');
                         }
                     }
                 }); 
@@ -107,6 +115,7 @@ $(document).ready(function () {
 
     $('#dynamic-table').on('click','.remove-btn',function(){
         var id = $(this).parent().parent().parent().parent().attr('data-id');
+        var obj = $(this);
         $('#confirm_delete_modal').modal();
 
         $('#confirm_delete').click(function(){
@@ -120,7 +129,8 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     if (data.success) {
-                         location.reload();
+                        obj.parent().parent().parent().parent().hide();
+                        $('#confirm_delete_modal').modal('toggle');
                     }
                 }
             });

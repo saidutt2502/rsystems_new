@@ -278,10 +278,54 @@ class TaxiController extends Controller
   
     return view('taxi.taxi_old_records_view')->withRecords($records)->withTotal($total)->withKms($kms)->withKms($kms);
 
-       
-
-    
  }
+
+    public function taxi_reports(Request $request)
+    {
+        $vendors=DB::table('rs_taxi_vendors')->where('location_id',session('location'))->get();
+
+        $cost_center = DB::table('rs_costcenters')
+        ->join('rs_departments', 'rs_costcenters.department', '=', 'rs_departments.id')
+        ->join('rs_location2department', 'rs_location2department.department', '=', 'rs_departments.id')
+        ->join('rs_locations', 'rs_location2department.location', '=', 'rs_locations.id')
+        ->select('rs_locations.name as l_name','rs_costcenters.*')
+        ->get();
+
+        $taxi_nos = DB::table('rs_taxi_cars')
+        ->join('rs_taxi_vendors', 'rs_taxi_vendors.id', '=', 'rs_taxi_cars.vendor_id')
+        ->where('rs_taxi_vendors.location_id',session('location'))
+         ->select('rs_taxi_cars.*')
+        ->get();    
+        
+        return view('taxi.taxi_reports_index')->withVendors($vendors)->withCc($cost_center)->withCarnumber($taxi_nos);
+    }
+
+    public function forms_report_taxi(Request $request)
+    {
+
+      //If Report Type is Cost Center
+            if($request->report_type == 1){
+
+                /*$query = DB::table('rs_taxi_requests'); 
+
+                if($request->cc_id == 0){
+                  //Get All Cost Centers
+                  $query->where('date_','>=',$request->start_date)->where('date_','<=',$request->end_date)->where('status','=','Completed');                  
+                }else if($request->cc_id){
+                  //Get Specific Cost Center
+                  $query->where('rs_taxi_requests.cc_id', '=', $request->cc_id);
+                }*/
+          }  
+          
+          $item_requests = DB::table('rs_stationaryrequests')
+          ->join('rs_items', 'rs_items.id', '=', 'rs_stationaryrequests.item_id')
+          ->join('rs_costcenters', 'rs_costcenters.id', '=', 'rs_stationaryrequests.costcenter_id')
+          ->select('rs_stationaryrequests.*', 'rs_items.name as item_name', 'rs_costcenters.number as cc_number')
+          ->get();
+
+
+      return view('taxi.taxi_report_final')->withResult($item_requests);
+    }
 
 
       // Ajax Calls 

@@ -17,8 +17,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['middleware' => ['auth']], function() {
-
 Route::get('/home', 'HomeController@index');
 Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 Route::get('admin/reset-password', function () { return view('auth.passwords.reset-admin');});
@@ -50,6 +48,7 @@ Route::post('admin/reset-password', function () { return view('auth.passwords.re
     //Admin-Step Ajax Calls
     Route::post('step', 'Admin\StepController@ajax_step_controller');
 
+Route::group(['middleware' => ['auth']], function() {
 
   /* ----------------------------------------Stationary Routes------------------------------------ */
         Route::get('items', 'StationaryController@index');
@@ -76,10 +75,12 @@ Route::post('admin/reset-password', function () { return view('auth.passwords.re
      Route::get('taxi-schedule', 'TaxiController@taxi_schedule');
      Route::get('taxi-closing', 'TaxiController@taxi_closing');
      Route::get('taxi-old_records', 'TaxiController@taxi_old_records');
+     Route::get('taxi-report', 'TaxiController@taxi_reports');
      //Module-Settings AJAX Calls
     Route::post('taxi-ajax', 'TaxiController@ajax_taxi_controller');
     //Forms Submit
     Route::post('forms_taxi', 'TaxiController@forms_taxi_functions');
+    Route::post('report_taxi', 'TaxiController@forms_report_taxi');
     Route::post('taxi_old_records_view', 'TaxiController@taxi_old_records_view');
 
 /* ----------------------------------------Gatepass Routes------------------------------------ */
