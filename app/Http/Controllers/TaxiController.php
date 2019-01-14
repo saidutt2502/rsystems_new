@@ -260,20 +260,20 @@ class TaxiController extends Controller
             ->join('users','users.emp_id','=','taxitrip.lead')
             ->where('taxitrip.taxino',$request->taxino)
             ->where('taxitrip.ddate','>=',$request->from)
-            ->where('taxitrip.ddate','<=',$request->from)
+            ->where('taxitrip.ddate','<=',$request->to)
             ->select('taxitrip.*','users.name as name')
             ->get();
     $total=DB::table('taxitrip')
             ->join('users','users.emp_id','=','taxitrip.lead')
             ->where('taxitrip.taxino',$request->taxino)
             ->where('taxitrip.ddate','>=',$request->from)
-            ->where('taxitrip.ddate','<=',$request->from)
+            ->where('taxitrip.ddate','<=',$request->to)
             ->sum('taxitrip.cost');
     $kms=DB::table('taxitrip')
             ->join('users','users.emp_id','=','taxitrip.lead')
             ->where('taxitrip.taxino',$request->taxino)
             ->where('taxitrip.ddate','>=',$request->from)
-            ->where('taxitrip.ddate','<=',$request->from)
+            ->where('taxitrip.ddate','<=',$request->to)
             ->sum('taxitrip.totalkm');                         
   
     return view('taxi.taxi_old_records_view')->withRecords($records)->withTotal($total)->withKms($kms)->withKms($kms);
