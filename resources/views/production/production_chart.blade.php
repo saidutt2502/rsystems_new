@@ -14,7 +14,7 @@
 
 @section('page-header')
     <h1>Production
-        <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Settings</small>
+        <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Tracker</small>
     </h1>
 @endsection
 
@@ -30,7 +30,22 @@ $edit_permission=DB::table('rs_production_user_list')->where('user_id',session('
                 <label class="col-sm-3 control-label no-padding-right">Date </label>
 
                 <div class="col-sm-4">
-                <input name="year" value="{{$year}}" class="col-xs-10 col-sm-4" type="text" autocomplete="off">
+                <select name="year">
+                    <option selected value="{{$year}}" >{{$year}}</option>
+                    <?php
+                    for($i=2019;$i<=2100;$i++)
+                    {
+                        if($i!=$year)
+                        {
+                    ?>
+                       
+                       <option value="{{$i}}">{{$i}}</option>
+                    <?php
+                        }
+                    }
+                    ?>           
+                              
+                    </select>
 
                 <div class="col-sm-5">
                 
@@ -112,8 +127,8 @@ $edit_permission=DB::table('rs_production_user_list')->where('user_id',session('
     
     <div class="col-md-offset-9 col-md-6">
                 <button class="btn btn-info" id="publish">
-                    <i class="ace-icon fa fa-download bigger-110"></i>
-                    Publish Production Tracker
+                    <i class="ace-icon fa fa-floppy-o"></i>
+                    Save Changes
                 </button>
             </div>
     <br><br><br>
@@ -152,8 +167,9 @@ $edit_permission=DB::table('rs_production_user_list')->where('user_id',session('
         
         <th>Day</th>
         <th>Planned</th>
-        <th>Achived</th>
+        <th>Achieved</th>
         <th>Difference</th>
+        <th>Running Difference</th>
         <th>Last Edited By</th>
     </tr>
     </thead>
@@ -173,10 +189,32 @@ $edit_permission=DB::table('rs_production_user_list')->where('user_id',session('
         @if($sunday_check=='Sunday')
         <tr bgcolor="yellow">
         <td>{{$each_entry->day}}</td>
+        @if($edit_permission)
+        <td class="planned_entry" entry-id="{{$each_entry->id}}" contenteditable>{{$each_entry->planned}}</td>
+        <td class="achived_entry" entry-id="{{$each_entry->id}}" contenteditable>{{$each_entry->achived}}</td>
+        @else
         <td>{{$each_entry->planned}}</td>
         <td>{{$each_entry->achived}}</td>
+        @endif
+        @if($each_entry->difference>0)
+        <td><font color="green">{{$each_entry->difference}}</font></td>
+        @endif
+        @if($each_entry->difference<0)
+        <td><font color="red">{{abs($each_entry->running_difference)}}</font></td>
+        @endif
+        @if($each_entry->difference==0)
         <td>{{$each_entry->difference}}</td>
-        <td>-</td>
+        @endif
+        @if($each_entry->running_difference>0)
+        <td><font color="green">{{$each_entry->running_difference}}</font></td>
+        @endif
+        @if($each_entry->running_difference<0)
+        <td><font color="red">{{abs($each_entry->running_difference)}}</font></td>
+        @endif
+        @if($each_entry->running_difference==0)
+        <td>{{$each_entry->difference}}</td>
+        @endif
+        <td>{{$user_name}}</td>
         </tr>
         @else
         <tr>
@@ -197,6 +235,15 @@ $edit_permission=DB::table('rs_production_user_list')->where('user_id',session('
         @if($each_entry->difference==0)
         <td>{{$each_entry->difference}}</td>
         @endif
+        @if($each_entry->running_difference>0)
+        <td><font color="green">{{$each_entry->running_difference}}</font></td>
+        @endif
+        @if($each_entry->running_difference<0)
+        <td><font color="red">{{abs($each_entry->running_difference)}}</font></td>
+        @endif
+        @if($each_entry->running_difference==0)
+        <td>{{$each_entry->running_difference}}</td>
+        @endif
         <td>{{$user_name}}</td>
         </tr>
         @endif
@@ -215,6 +262,7 @@ $edit_permission=DB::table('rs_production_user_list')->where('user_id',session('
                     @if($total_difference==0)
                     <td>Difference: {{$total_difference}}</td>
                     @endif
+                    <td>-</td>
                     <td>-</td>
                 </tr>
     

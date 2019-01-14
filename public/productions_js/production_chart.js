@@ -51,8 +51,25 @@ $(".achived_entry").blur(function(){
 });
 
 $('#publish').click(function(){
+
+    // $.ajax({
+    //     type: 'post',
+    //     url: $('#url_ajax').val(),
+    //     data: {
+    //         function_name: 'save_changes',
+    //         data: data_entered,
+    //         id: entry_id,
+    //         '_token': $('input[name=_token]').val()
+    //     },
+    //     success: function (data) {
+    //         if (data.success) {
+    //             location.reload();      
+    //         }
+    //     }
+    // });
+    location.reload();
     
- location.reload();
+ 
 });
 
 });

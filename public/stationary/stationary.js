@@ -64,7 +64,7 @@ $(document).ready(function () {
     });
 
     //Edit Item functionality
-    $('.edit-btn').click(function(){
+    $('#dynamic-table').on('click','.edit-btn',function(){
         var id = $(this).parent().parent().parent().parent().attr('data-id');
 
         //Disable clicking again
@@ -105,7 +105,7 @@ $(document).ready(function () {
         });
     });
 
-    $('.remove-btn').click(function(){
+    $('#dynamic-table').on('click','.remove-btn',function(){
         var id = $(this).parent().parent().parent().parent().attr('data-id');
         $('#confirm_delete_modal').modal();
 
