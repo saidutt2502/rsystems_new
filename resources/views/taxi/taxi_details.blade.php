@@ -279,6 +279,62 @@
 </div>   
 
 
+  <!-- taxi_detail_modal Modal -->
+  <div id="taxi_detail_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+      <div class="widget-box">
+            <div class="widget-header">
+                <h4 class="widget-title">Edit Taxi Details</h4>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main">
+                    <label class="inline">
+                        <span class="lbl"> Type</span>
+                        <input type="text" id="m_type" class="form-control">
+                        <input type="hidden" id="m_id" class="form-control">
+                    </label>
+                    <br>
+                    <label class="inline">
+                        <span class="lbl"> Base Cost</span>
+                        <input type="text" id="m_bcost" class="form-control">
+                    </label>
+                    <br>
+                    <label class="inline">
+                        <span class="lbl"> Cost/Kms</span>
+                        <input type="text" id="m_ckms" class="form-control">
+                    </label>
+                    <br>
+                    <label class="inline">
+                        <span class="lbl">Night Charges</span>
+                        <input type="text" id="m_ncharges" class="form-control">
+                    </label>
+                    <br>
+                    <label class="inline">
+                        <span class="lbl">MidNight Charges</span>
+                        <input type="text" id="m_mncharges" class="form-control">
+                    </label>
+                    <br>
+                    <label class="inline">
+                        <span class="lbl">Waiting Charges</span>
+                        <input type="text" id="m_wcharges" class="form-control">
+                    </label>
+                    <br>
+                </div>
+            </div>
+        </div>
+        </div>
+         <div class="modal-footer">
+        <button type="button" id="edit_save_modal" class="btn btn-success" data-dismiss="modal">Submit</button>
+      </div>
+    </div>
+</div>
+</div>   
+
+
 
 
 <!-- Ajax call url       -->

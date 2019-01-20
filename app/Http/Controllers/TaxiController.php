@@ -901,6 +901,11 @@ class TaxiController extends Controller
               $data=1;
                 break;
 
+             case 'edit_taxi_list':
+              DB::table('rs_taxi_type')->where('id', $request->id)->update(['type' => $request->type,'base_cost' => $request->base_cost,'km_cost' => $request->km_cost,'night' => $request->night,'midnight' => $request->midnight,'waiting' => $request->waiting]);
+              $data=1;
+                break;
+
              case 'find_taxi_number':
               
              $type = DB::table('rs_taxi_cars')->where('vendor_id',$request->vendor)->get();
@@ -909,6 +914,14 @@ class TaxiController extends Controller
              $data['count']=$count;
 
                 break;
+
+
+                case 'find_type_one':
+              
+                $type = DB::table('rs_taxi_type')->where('id',$request->id)->get();
+                $data=$type;
+                $data['count']=1;
+                  break;     
 
             }
 

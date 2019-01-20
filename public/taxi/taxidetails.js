@@ -162,7 +162,7 @@ $('.vendor_dd').change(function(){
             {
             $('#type_car').append('<option class="to_clear" value="'+data[i]['id']+'">'+data[i]['type']+'</option>');
 
-            var append= '<tr><td>'+ data[i]['type']+'</td><td> '+ data[i]['base_cost']+'</td><td> '+ data[i]['km_cost']+'</td><td> '+ data[i]['night']+'</td><td> '+ data[i]['midnight']+'</td><td> '+ data[i]['waiting']+'</td><td><a data-action="close" class="delete_list" data-table="rs_taxi_type" data-id="'+data[i]['id']+'"><i class="ace-icon fa fa-times"></i></a></td></tr>';
+            var append= '<tr><td>'+ data[i]['type']+'</td><td> '+ data[i]['base_cost']+'</td><td> '+ data[i]['km_cost']+'</td><td> '+ data[i]['night']+'</td><td> '+ data[i]['midnight']+'</td><td> '+ data[i]['waiting']+'</td><td><a data-action="close" class="delete_list btn btn-sm btn-danger" data-table="rs_taxi_type" data-id="'+data[i]['id']+'">Delete</a>&nbsp;&nbsp;<a class="edit_taxi btn btn-sm btn-success" data-table="rs_taxi_type" data-id="'+data[i]['id']+'">Edit</a></td></tr>';
 
             $('#taxi_list_modal').append(append);
                 update_taxi_number_list();
@@ -180,6 +180,59 @@ $('.vendor_dd').change(function(){
                         table: table,
                         id: id,
                         function_name: 'delete_taxi_list',
+                        '_token': $('input[name=_token]').val()
+                    },
+                    success: function (data) {
+                        location.reload();
+                    }
+                });
+            
+            });
+
+            $('.edit_taxi').click(function(){
+                
+                var id = $(this).attr('data-id');
+            
+                 $.ajax({
+                    type: 'post',
+                    url: $('#url_ajax').val(),
+                    data: {
+                        id: id,
+                        function_name: 'find_type_one',
+                        '_token': $('input[name=_token]').val()
+                    },
+                    success: function (data) {
+                        for(var i=0;i<data.count;i++)
+                        {
+                            $('#m_type').val(data[i]['type']);
+                            $('#m_bcost').val(data[i]['base_cost']);
+                            $('#m_ckms').val(data[i]['km_cost']);
+                            $('#m_ncharges').val(data[i]['night']);
+                            $('#m_mncharges').val(data[i]['midnight']);
+                            $('#m_wcharges').val(data[i]['waiting']);
+                            $('#m_id').val(id);
+                        }
+
+                        $('#taxi_detail_modal').modal('toggle');
+                    }
+                });
+            
+            });
+
+            $('#edit_save_modal').click(function(){
+            
+                 $.ajax({
+                    type: 'post',
+                    url: $('#url_ajax').val(),
+                    data: {
+                        id:  $('#m_id').val(),
+                        type:$('#m_type').val(),
+                        base_cost:$('#m_bcost').val(),
+                        km_cost:$('#m_ckms').val(),
+                        night:$('#m_ncharges').val(),
+                        midnight:$('#m_mncharges').val(),
+                        waiting:$('#m_wcharges').val(),
+                        function_name: 'edit_taxi_list',
                         '_token': $('input[name=_token]').val()
                     },
                     success: function (data) {
