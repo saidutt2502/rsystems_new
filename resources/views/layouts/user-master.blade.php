@@ -487,14 +487,14 @@ $user_admin=DB::table('admins')
 								<b class="arrow"></b>
 							</li>
 							@endif
-							<!-- <li class="">
+							<li class="">
 								<a href="/taxi-report">
 									<i class="menu-icon fa  fa-caret-right"></i>
 									Reports
 								</a>
 
 								<b class="arrow"></b>
-							</li> -->
+							</li>
 						</ul>
 					</li>
 

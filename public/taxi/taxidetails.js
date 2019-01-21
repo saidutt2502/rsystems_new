@@ -162,7 +162,9 @@ $('.vendor_dd').change(function(){
             {
             $('#type_car').append('<option class="to_clear" value="'+data[i]['id']+'">'+data[i]['type']+'</option>');
 
-            var append= '<tr><td>'+ data[i]['type']+'</td><td> '+ data[i]['base_cost']+'</td><td> '+ data[i]['km_cost']+'</td><td> '+ data[i]['night']+'</td><td> '+ data[i]['midnight']+'</td><td> '+ data[i]['waiting']+'</td><td><a data-action="close" class="delete_list btn btn-sm btn-danger" data-table="rs_taxi_type" data-id="'+data[i]['id']+'">Delete</a>&nbsp;&nbsp;<a class="edit_taxi btn btn-sm btn-success" data-table="rs_taxi_type" data-id="'+data[i]['id']+'">Edit</a></td></tr>';
+            var append= '<tr><td>'+ data[i]['type']+'</td><td> '+ data[i]['base_cost']+'</td><td> '+ data[i]['km_cost']+'</td><td> '+ data[i]['night']+'</td><td> '+ data[i]['midnight']+'</td><td> '+ data[i]['waiting']+'</td><td><a class="edit_taxi btn btn-sm btn-success" data-table="rs_taxi_type" data-id="'+data[i]['id']+'">Edit</a></td></tr>';
+
+            // <a data-action="close" class="delete_list btn btn-sm btn-danger" data-table="rs_taxi_type" data-id="'+data[i]['id']+'">Delete</a> 
 
             $('#taxi_list_modal').append(append);
                 update_taxi_number_list();

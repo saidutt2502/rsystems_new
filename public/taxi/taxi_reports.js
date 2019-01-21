@@ -68,11 +68,11 @@ jQuery(function($) {
                 $('.hide_default').hide();
 
                 if($('#r_type').val() == 1){
-                    $('.type_costcenter').show();  
+                    $('.type_vendor').show();  
                 }else if($('#r_type').val() == 2){
-                    $('.type_rented').show();  
+                    $('.type_car').show();  
                }else if($('#r_type').val() == 3){
-                    $('.type_extra').show();  
+                    $('.type_costcenter').show();  
                }
         });
     

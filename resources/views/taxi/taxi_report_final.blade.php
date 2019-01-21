@@ -17,24 +17,38 @@
 <table id="example" class="display" style="width:100%">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
+                <th>Date</th>
+                <th>Lead Passenger</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Total Kms</th>
+                <th>Wait Cost</th>
+                <th>Night Cost</th>
+                <th>Mid-Night Cost</th>
+                <th>Extra Cost</th>
+                <th>Total Cost</th>
+                <th>Remarks</th>
             </tr>
         </thead>
         <tbody>
 
             @foreach($result as $each_row)
             <tr>
-                <td>{{$each_row->item_name}}</td>
-                <td>{{$each_row->cc_number}}</td>
-                <td>{{$each_row->item_name}}</td>
+                <td>{{$each_row->start_date}}</td>
+                <td>{{$each_row->user_name}}</td>
+                <td>{{$each_row->place_from}}</td>
+                <td>{{$each_row->place_to}}</td>
+                <td>{{$each_row->start_time}}</td>
+                <td>{{$each_row->end_time}}</td>
+                <td>{{$each_row->total_km}}</td>
+                <td>{{$each_row->wait_time*$each_row->waiting}}</td>
+                <td>@if($each_row->night=='1'){{$each_row->night_charge}}@else 0 @endif</td>
+                <td>@if($each_row->midnight=='1'){{$each_row->midnight_charge}}@else 0 @endif</td>
+                <td>{{$each_row->extra_cost}}</td>
+                <td>{{$each_row->cost}}</td>
                 <td>{{$each_row->remarks}}</td>
-                <td>{{$each_row->item_name}}</td>
-                <td>{{$each_row->cc_number}}</td>
             </tr>
             @endforeach
 

@@ -26,12 +26,11 @@
                 <label class="col-md-offset-1 col-sm-3 control-label no-padding-right" for="form-field-1"> Report Type </label>
 
                 <div class="col-sm-8">
-                    <select required name="report_type" class="col-xs-10 col-sm-5" class="form-control" id="r_type">
+                    <select name="report_type" class="col-xs-10 col-sm-5" class="form-control" id="r_type" required>
                             <option value="0" selected >Select Type</option>
-                            <option value="1">Cost Center</option>
-                            <option value="2">Rented</option>
-                            <option value="3">Extra</option>
-                            <option value="4">Records</option>
+                            <option value="1">Vendor</option>
+                            <option value="2">Car</option>
+                            <option value="3">Cost Center</option>
                     </select>
                 </div>
 
@@ -40,11 +39,11 @@
             <div class="form-group">
                 <div class="col-md-offset-1 col-xs-9 col-sm-9">
                     <div class="input-daterange input-group">
-                        <input type="text" placeholder="Start Date" class="input-sm form-control" name="start_date">
+                        <input type="text" placeholder="Start Date" class="input-sm form-control" name="start_date" autocomplete="off" required>
                         <span class="input-group-addon">
                             <i class="fa fa-exchange"></i>
                         </span>
-                        <input type="text" placeholder="End Date" class="input-sm form-control" name="end_date">
+                        <input type="text" placeholder="End Date" class="input-sm form-control" name="end_date" autocomplete="off" required>
                     </div>
                 </div>										
             </div>
@@ -52,11 +51,11 @@
                     <hr>
             <br>
 
-            <div class="form-group hide_default type_extra  " style="display:none">
+            <div class="form-group hide_default type_vendor  " style="display:none">
                 <label class="col-sm-3 control-label no-padding-right col-md-offset-1" for="form-field-1"> Select vendor</label>
                 <div class="col-sm-8">
                     <select required name="vendor_id" class="col-xs-10 col-sm-5" class="form-control" id="form-field-select-1">
-                            <option value="0">Select Type</option>
+                            <option value="0" selected disabled>Select Vendor</option>
                             @foreach($vendors as $each_vendor)
                                 <option value="{{$each_vendor->id}}">{{$each_vendor->name}}</option>
                             @endforeach
@@ -68,7 +67,7 @@
                 <label class="col-sm-3 control-label no-padding-right col-md-offset-1" for="form-field-1"> Select Cost Center</label>
                 <div class="col-sm-8">
                     <select required name="cc_id" class="col-xs-10 col-sm-5" class="form-control" id="form-field-select-1">
-                            <option value="0">All Cost Center</option>
+                            <option value="0" selected disabled>Select Cost Center</option>
                             @foreach($cc as $each_cc)
                                 <option value="{{$each_cc->id}}">{{$each_cc->l_name}} - {{$each_cc->number}}</option>
                             @endforeach
@@ -76,11 +75,11 @@
                 </div>								
             </div>
 
-            <div class="form-group hide_default type_rented col-md-offset-1" style="display:none">
+            <div class="form-group hide_default type_car col-md-offset-1" style="display:none">
                 <label class="col-sm-3 control-label no-padding-right col-md-offset-1" for="form-field-1"> Select Car</label>
                 <div class="col-sm-8">
-                    <select required name="taxi_no" class="col-xs-10 col-sm-5" class="form-control" id="form-field-select-1">
-                            <option value="0">Select Car Number</option>
+                    <select required name="taxi_id" class="col-xs-10 col-sm-5" class="form-control" id="form-field-select-1">
+                            <option value="0" selected disabled>Select Car</option>
                             @foreach($carnumber as $each_taxi)
                                 <option value="{{$each_taxi->id}}">{{$each_taxi->taxino}}</option>
                             @endforeach

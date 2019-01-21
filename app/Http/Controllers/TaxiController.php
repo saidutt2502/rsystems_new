@@ -288,6 +288,7 @@ class TaxiController extends Controller
         ->join('rs_departments', 'rs_costcenters.department', '=', 'rs_departments.id')
         ->join('rs_location2department', 'rs_location2department.department', '=', 'rs_departments.id')
         ->join('rs_locations', 'rs_location2department.location', '=', 'rs_locations.id')
+        ->where('rs_location2department.location',session('location'))
         ->select('rs_locations.name as l_name','rs_costcenters.*')
         ->get();
 
@@ -303,28 +304,45 @@ class TaxiController extends Controller
     public function forms_report_taxi(Request $request)
     {
 
-      //If Report Type is Cost Center
+      //If Report Type is Vendor
             if($request->report_type == 1){
 
-                /*$query = DB::table('rs_taxi_requests'); 
+               $vendor_id=$request->vendor_id;
+               $trip_details= DB::table('rs_taxi_cars')
+               ->join('rs_taxi_schedules', 'rs_taxi_schedules.taxi_id', '=', 'rs_taxi_cars.id')
+               ->join('rs_taxi_vendors', 'rs_taxi_vendors.id', '=', 'rs_taxi_cars.vendor_id')
+               ->join('rs_taxi_type', 'rs_taxi_type.id', '=', 'rs_taxi_cars.type_id')
+               ->join('rs_taxi_requests2schedules', 'rs_taxi_schedules.id', '=', 'rs_taxi_requests2schedules.schedule_id')
+               ->join('rs_taxi_requests', 'rs_taxi_requests.id', '=', 'rs_taxi_requests2schedules.request_id')
+               ->join('users', 'rs_taxi_schedules.lead_trip_id', '=', 'users.id')
+               ->where('rs_taxi_vendors.id',$vendor_id)
+               ->where('rs_taxi_schedules.start_date','>=',$request->start_date)
+               ->where('rs_taxi_schedules.start_date','<=',$request->end_date)
+               ->select('rs_taxi_schedules.*','users.name as user_name','rs_taxi_requests.place_from as place_from','rs_taxi_requests.place_to as place_to','rs_taxi_type.night as night_charge','rs_taxi_type.midnight as midnight_charge','rs_taxi_type.waiting as waiting')
+               ->get();
 
-                if($request->cc_id == 0){
-                  //Get All Cost Centers
-                  $query->where('date_','>=',$request->start_date)->where('date_','<=',$request->end_date)->where('status','=','Completed');                  
-                }else if($request->cc_id){
-                  //Get Specific Cost Center
-                  $query->where('rs_taxi_requests.cc_id', '=', $request->cc_id);
-                }*/
-          }  
+               return view('taxi.taxi_report_final')->withResult($trip_details);
+
+          }
           
-          $item_requests = DB::table('rs_stationaryrequests')
-          ->join('rs_items', 'rs_items.id', '=', 'rs_stationaryrequests.item_id')
-          ->join('rs_costcenters', 'rs_costcenters.id', '=', 'rs_stationaryrequests.costcenter_id')
-          ->select('rs_stationaryrequests.*', 'rs_items.name as item_name', 'rs_costcenters.number as cc_number')
-          ->get();
+          if($request->report_type == 2){
+
+            $taxi_id=$request->taxi_id;
+            echo $taxi_id;
+            exit;
+          }
+
+       if($request->report_type == 3){
+
+        $cc_id=$request->cc_id;
+        echo $cc_id;
+        exit;
+        }
+          
+      
 
 
-      return view('taxi.taxi_report_final')->withResult($item_requests);
+      
     }
 
 
