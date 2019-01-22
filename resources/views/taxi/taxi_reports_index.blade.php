@@ -38,12 +38,12 @@
 
             <div class="form-group">
                 <div class="col-md-offset-1 col-xs-9 col-sm-9">
-                    <div class="input-daterange input-group">
-                        <input type="text" placeholder="Start Date" class="input-sm form-control" name="start_date" autocomplete="off" required>
+                    <div class="input-group">
+                        <input type="date" placeholder="Start Date" class="input-sm form-control" name="start_date" autocomplete="off" required>
                         <span class="input-group-addon">
                             <i class="fa fa-exchange"></i>
                         </span>
-                        <input type="text" placeholder="End Date" class="input-sm form-control" name="end_date" autocomplete="off" required>
+                        <input type="date" placeholder="End Date" class="input-sm form-control" name="end_date" autocomplete="off" required>
                     </div>
                 </div>										
             </div>

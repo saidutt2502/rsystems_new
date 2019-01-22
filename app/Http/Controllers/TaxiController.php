@@ -308,35 +308,142 @@ class TaxiController extends Controller
             if($request->report_type == 1){
 
                $vendor_id=$request->vendor_id;
-               $trip_details= DB::table('rs_taxi_cars')
-               ->join('rs_taxi_schedules', 'rs_taxi_schedules.taxi_id', '=', 'rs_taxi_cars.id')
+               $vendor_name=DB::table('rs_taxi_vendors')->where('id',$vendor_id)->value('name');
+
+               
+               
+               $trip_details= DB::table('rs_taxi_schedules')
+               ->join('rs_taxi_cars', 'rs_taxi_schedules.taxi_id', '=', 'rs_taxi_cars.id')
                ->join('rs_taxi_vendors', 'rs_taxi_vendors.id', '=', 'rs_taxi_cars.vendor_id')
                ->join('rs_taxi_type', 'rs_taxi_type.id', '=', 'rs_taxi_cars.type_id')
-               ->join('rs_taxi_requests2schedules', 'rs_taxi_schedules.id', '=', 'rs_taxi_requests2schedules.schedule_id')
-               ->join('rs_taxi_requests', 'rs_taxi_requests.id', '=', 'rs_taxi_requests2schedules.request_id')
-               ->join('users', 'rs_taxi_schedules.lead_trip_id', '=', 'users.id')
+               ->join('rs_taxi_requests', 'rs_taxi_requests.id', '=', 'rs_taxi_schedules.lead_trip_id')
+               ->join('users', 'rs_taxi_requests.user_id', '=', 'users.id')
                ->where('rs_taxi_vendors.id',$vendor_id)
-               ->where('rs_taxi_schedules.start_date','>=',$request->start_date)
-               ->where('rs_taxi_schedules.start_date','<=',$request->end_date)
+               ->where('rs_taxi_requests.status','7')
+               ->where('start_date','>=',$request->start_date)
+               ->where('start_date','<=',$request->end_date)
                ->select('rs_taxi_schedules.*','users.name as user_name','rs_taxi_requests.place_from as place_from','rs_taxi_requests.place_to as place_to','rs_taxi_type.night as night_charge','rs_taxi_type.midnight as midnight_charge','rs_taxi_type.waiting as waiting')
                ->get();
 
-               return view('taxi.taxi_report_final')->withResult($trip_details);
+               $cost= DB::table('rs_taxi_schedules')
+               ->join('rs_taxi_cars', 'rs_taxi_schedules.taxi_id', '=', 'rs_taxi_cars.id')
+               ->join('rs_taxi_vendors', 'rs_taxi_vendors.id', '=', 'rs_taxi_cars.vendor_id')
+               ->join('rs_taxi_type', 'rs_taxi_type.id', '=', 'rs_taxi_cars.type_id')
+               ->join('rs_taxi_requests', 'rs_taxi_requests.id', '=', 'rs_taxi_schedules.lead_trip_id')
+               ->join('users', 'rs_taxi_requests.user_id', '=', 'users.id')
+               ->where('rs_taxi_vendors.id',$vendor_id)
+               ->where('rs_taxi_requests.status','7')
+               ->where('start_date','>=',$request->start_date)
+               ->where('start_date','<=',$request->end_date)
+               ->sum('rs_taxi_schedules.cost');
+
+               $kms= DB::table('rs_taxi_schedules')
+               ->join('rs_taxi_cars', 'rs_taxi_schedules.taxi_id', '=', 'rs_taxi_cars.id')
+               ->join('rs_taxi_vendors', 'rs_taxi_vendors.id', '=', 'rs_taxi_cars.vendor_id')
+               ->join('rs_taxi_type', 'rs_taxi_type.id', '=', 'rs_taxi_cars.type_id')
+               ->join('rs_taxi_requests', 'rs_taxi_requests.id', '=', 'rs_taxi_schedules.lead_trip_id')
+               ->join('users', 'rs_taxi_requests.user_id', '=', 'users.id')
+               ->where('rs_taxi_vendors.id',$vendor_id)
+               ->where('rs_taxi_requests.status','7')
+               ->where('start_date','>=',$request->start_date)
+               ->where('start_date','<=',$request->end_date)
+               ->sum('rs_taxi_schedules.total_km');
+
+               
+
+               return view('taxi.taxi_report_final')->withResult($trip_details)->withValue('1')->withVendor($vendor_name)->withCost($cost)->withKms($kms);
 
           }
           
           if($request->report_type == 2){
 
             $taxi_id=$request->taxi_id;
-            echo $taxi_id;
-            exit;
+            $car_number=DB::table('rs_taxi_cars')->where('id',$taxi_id)->value('taxino');
+            
+            $trip_details= DB::table('rs_taxi_schedules')
+               ->join('rs_taxi_cars', 'rs_taxi_schedules.taxi_id', '=', 'rs_taxi_cars.id')
+               ->join('rs_taxi_type', 'rs_taxi_type.id', '=', 'rs_taxi_cars.type_id')
+               ->join('rs_taxi_requests', 'rs_taxi_requests.id', '=', 'rs_taxi_schedules.lead_trip_id')
+               ->join('users', 'rs_taxi_requests.user_id', '=', 'users.id')
+               ->where('rs_taxi_cars.id',$taxi_id)
+               ->where('rs_taxi_requests.status','7')
+               ->where('rs_taxi_schedules.start_date','>=',$request->start_date)
+               ->where('rs_taxi_schedules.start_date','<=',$request->end_date)
+               ->select('rs_taxi_schedules.*','users.name as user_name','rs_taxi_requests.place_from as place_from','rs_taxi_requests.place_to as place_to','rs_taxi_type.night as night_charge','rs_taxi_type.midnight as midnight_charge','rs_taxi_type.waiting as waiting')
+               ->get();
+
+               $cost= DB::table('rs_taxi_schedules')
+               ->join('rs_taxi_cars', 'rs_taxi_schedules.taxi_id', '=', 'rs_taxi_cars.id')
+               ->join('rs_taxi_type', 'rs_taxi_type.id', '=', 'rs_taxi_cars.type_id')
+               ->join('rs_taxi_requests', 'rs_taxi_requests.id', '=', 'rs_taxi_schedules.lead_trip_id')
+               ->join('users', 'rs_taxi_requests.user_id', '=', 'users.id')
+               ->where('rs_taxi_cars.id',$taxi_id)
+               ->where('rs_taxi_requests.status','7')
+               ->where('rs_taxi_schedules.start_date','>=',$request->start_date)
+               ->where('rs_taxi_schedules.start_date','<=',$request->end_date)
+               ->sum('rs_taxi_schedules.cost');
+
+               $kms= DB::table('rs_taxi_schedules')
+               ->join('rs_taxi_cars', 'rs_taxi_schedules.taxi_id', '=', 'rs_taxi_cars.id')
+               ->join('rs_taxi_type', 'rs_taxi_type.id', '=', 'rs_taxi_cars.type_id')
+               ->join('rs_taxi_requests', 'rs_taxi_requests.id', '=', 'rs_taxi_schedules.lead_trip_id')
+               ->join('users', 'rs_taxi_requests.user_id', '=', 'users.id')
+               ->where('rs_taxi_cars.id',$taxi_id)
+               ->where('rs_taxi_requests.status','7')
+               ->where('rs_taxi_schedules.start_date','>=',$request->start_date)
+               ->where('rs_taxi_schedules.start_date','<=',$request->end_date)
+               ->sum('rs_taxi_schedules.total_km');
+
+
+               return view('taxi.taxi_report_final')->withResult($trip_details)->withValue('2')->withCar($car_number)->withCost($cost)->withKms($kms);
           }
 
        if($request->report_type == 3){
 
         $cc_id=$request->cc_id;
-        echo $cc_id;
-        exit;
+        $cost_center = DB::table('rs_costcenters')
+        ->join('rs_departments', 'rs_costcenters.department', '=', 'rs_departments.id')
+        ->join('rs_location2department', 'rs_location2department.department', '=', 'rs_departments.id')
+        ->join('rs_locations', 'rs_location2department.location', '=', 'rs_locations.id')
+        ->where('rs_costcenters.id',$cc_id)
+        ->select('rs_locations.name as l_name','rs_costcenters.*')
+        ->first();
+        
+        $trip_details= DB::table('rs_taxi_schedules')
+               ->join('rs_taxi_cars', 'rs_taxi_schedules.taxi_id', '=', 'rs_taxi_cars.id')
+               ->join('rs_taxi_type', 'rs_taxi_type.id', '=', 'rs_taxi_cars.type_id')
+               ->join('rs_taxi_requests', 'rs_taxi_requests.id', '=', 'rs_taxi_schedules.lead_trip_id')
+               ->join('users', 'rs_taxi_requests.user_id', '=', 'users.id')
+               ->where('rs_taxi_requests.cc_id',$cc_id)
+               ->where('rs_taxi_requests.status','7')
+               ->where('rs_taxi_schedules.start_date','>=',$request->start_date)
+               ->where('rs_taxi_schedules.start_date','<=',$request->end_date)
+               ->select('rs_taxi_schedules.*','users.name as user_name','rs_taxi_requests.place_from as place_from','rs_taxi_requests.place_to as place_to','rs_taxi_type.night as night_charge','rs_taxi_type.midnight as midnight_charge','rs_taxi_type.waiting as waiting')
+               ->get();
+
+               $cost= DB::table('rs_taxi_schedules')
+               ->join('rs_taxi_cars', 'rs_taxi_schedules.taxi_id', '=', 'rs_taxi_cars.id')
+               ->join('rs_taxi_type', 'rs_taxi_type.id', '=', 'rs_taxi_cars.type_id')
+               ->join('rs_taxi_requests', 'rs_taxi_requests.id', '=', 'rs_taxi_schedules.lead_trip_id')
+               ->join('users', 'rs_taxi_requests.user_id', '=', 'users.id')
+               ->where('rs_taxi_requests.cc_id',$cc_id)
+               ->where('rs_taxi_requests.status','7')
+               ->where('rs_taxi_schedules.start_date','>=',$request->start_date)
+               ->where('rs_taxi_schedules.start_date','<=',$request->end_date)
+               ->sum('rs_taxi_schedules.cost');
+
+               $kms= DB::table('rs_taxi_schedules')
+               ->join('rs_taxi_cars', 'rs_taxi_schedules.taxi_id', '=', 'rs_taxi_cars.id')
+               ->join('rs_taxi_type', 'rs_taxi_type.id', '=', 'rs_taxi_cars.type_id')
+               ->join('rs_taxi_requests', 'rs_taxi_requests.id', '=', 'rs_taxi_schedules.lead_trip_id')
+               ->join('users', 'rs_taxi_requests.user_id', '=', 'users.id')
+               ->where('rs_taxi_requests.cc_id',$cc_id)
+               ->where('rs_taxi_requests.status','7')
+               ->where('rs_taxi_schedules.start_date','>=',$request->start_date)
+               ->where('rs_taxi_schedules.start_date','<=',$request->end_date)
+               ->sum('rs_taxi_schedules.total_km');
+
+               return view('taxi.taxi_report_final')->withResult($trip_details)->withValue('3')->withCc($cost_center)->withCost($cost)->withKms($kms);
         }
           
       

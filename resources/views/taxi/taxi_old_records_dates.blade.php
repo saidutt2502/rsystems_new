@@ -18,8 +18,8 @@
 
        
 
-         <!-- <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right">Car No.</label>
+          <div class="form-group">
+             <label class="col-sm-3 control-label no-padding-right">Car No.</label> 
         <div class="col-sm-4">
                 <select name="taxino" class="chosen-container chosen-container-single chosen-select" required>
                     <option disabled selected >Select Car No.</option>
@@ -28,9 +28,9 @@
                     @endforeach
                 </select>
         </div>
-        </div> -->
+        </div> 
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label class="col-sm-3 control-label no-padding-right">Vendor Name</label>
         <div class="col-sm-4">
                 <select name="vendor_name" class="chosen-container chosen-container-single chosen-select" required>
@@ -40,7 +40,7 @@
                     @endforeach
                 </select>
         </div>
-        </div>
+        </div> -->
 
         <div class="form-group">
             <label class="col-sm-3 control-label no-padding-right">From</label>

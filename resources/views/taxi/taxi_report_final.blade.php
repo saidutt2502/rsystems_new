@@ -16,6 +16,7 @@
 @section('main-content')
 <table id="example" class="display" style="width:100%">
         <thead>
+            <tr><th colspan="4"><h4>@if($value=='1')Vendor Name: {{$vendor}} @elseif($value=='2')Car Number: {{$car}} @elseif($value=='3')Cost Center: {{$cc->l_name}}-{{$cc->number}} @endif</h4></th><th colspan="4"><h4>Total Kms: {{$kms}}</h4></th><th colspan="4"><h4>Total Cost: {{$cost}}</h4></th></tr>
             <tr>
                 <th>Date</th>
                 <th>Lead Passenger</th>
@@ -24,10 +25,11 @@
                 <th>Start Time</th>
                 <th>End Time</th>
                 <th>Total Kms</th>
-                <th>Wait Cost</th>
-                <th>Night Cost</th>
-                <th>Mid-Night Cost</th>
-                <th>Extra Cost</th>
+                <th>Base Cost</th>
+                <!-- <th>Wait Cost</th> -->
+                <th>Night Cost/Mid-Night Cost</th>
+                <!-- <th>Mid-Night Cost</th> -->
+                <th>Extra Cost/Wait Cost</th>
                 <th>Total Cost</th>
                 <th>Remarks</th>
             </tr>
@@ -43,15 +45,15 @@
                 <td>{{$each_row->start_time}}</td>
                 <td>{{$each_row->end_time}}</td>
                 <td>{{$each_row->total_km}}</td>
-                <td>{{$each_row->wait_time*$each_row->waiting}}</td>
-                <td>@if($each_row->night=='1'){{$each_row->night_charge}}@else 0 @endif</td>
-                <td>@if($each_row->midnight=='1'){{$each_row->midnight_charge}}@else 0 @endif</td>
-                <td>{{$each_row->extra_cost}}</td>
+                <td>{{$each_row->cost-($each_row->night*$each_row->night_charge + $each_row->midnight*$each_row->midnight_charge + $each_row->extra_cost + $each_row->wait_time*$each_row->waiting)}}</td>
+                <!-- <td>{{$each_row->wait_time*$each_row->waiting}}</td> -->
+                <td>@if($each_row->night=='1'){{$each_row->night_charge}}@else 0 @endif/@if($each_row->midnight=='1'){{$each_row->midnight_charge}}@else 0 @endif</td>
+                <!-- <td>@if($each_row->midnight=='1'){{$each_row->midnight_charge}}@else 0 @endif</td> -->
+                <td>{{$each_row->extra_cost}}/{{$each_row->wait_time*$each_row->waiting}}</td>
                 <td>{{$each_row->cost}}</td>
-                <td>{{$each_row->remarks}}</td>
+                <td>@if($each_row->remarks){{$each_row->remarks}}@else - @endif</td>
             </tr>
             @endforeach
-
             </tbody>
     </table>
 @endsection
@@ -71,9 +73,10 @@
         $('#example').DataTable( {
             dom: 'Bfrtip',
             buttons: [
-                'copyHtml5',
-                'excelHtml5',
-                'csvHtml5',
+                // 'copyHtml5',
+                // 'excelHtml5',
+                // 'csvHtml5',
+                // 'printHtml5',
                 {
                     extend: 'pdfHtml5',
                     download: 'open'

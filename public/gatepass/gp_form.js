@@ -20,6 +20,8 @@ $(document).ready(function () {
 
 $('#submit').click(function(){
 
+    $('#submit').off('click');
+
     if($('#date').val()==''||$('#shift').val()==null||$('#purpose').val()==null||$('#reason').val()==''||$('#return').val()==null||$('#from').val()==''||($('#return').val()=='Yes' && $('#to').val()==''))
     {
         alert('Please Enter All Fields!');
