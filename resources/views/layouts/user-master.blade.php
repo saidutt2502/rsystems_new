@@ -479,6 +479,16 @@ $user_admin=DB::table('admins')
 							@endif
 							@if($taxi_admin)
 							<li class="">
+								<a href="/taxi-report">
+									<i class="menu-icon fa  fa-caret-right"></i>
+									Reports
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							@endif
+							@if($taxi_admin)
+							<li class="">
 								<a href="/taxi-old_records">
 									<i class="menu-icon fa  fa-caret-right"></i>
 									Old Records
@@ -487,14 +497,6 @@ $user_admin=DB::table('admins')
 								<b class="arrow"></b>
 							</li>
 							@endif
-							<li class="">
-								<a href="/taxi-report">
-									<i class="menu-icon fa  fa-caret-right"></i>
-									Reports
-								</a>
-
-								<b class="arrow"></b>
-							</li>
 						</ul>
 					</li>
 
