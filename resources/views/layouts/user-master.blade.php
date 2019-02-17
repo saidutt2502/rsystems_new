@@ -6,7 +6,7 @@ $stationary_admin=DB::table('rs_admin2modules')
 ->where('rs_location2department.location',session('location'))
 ->where('rs_admin2modules.user_id',session('user_id'))
 ->where('rs_admin2modules.module_id','1')
-->first();;
+->first();
 
 $taxi_admin=DB::table('rs_admin2modules')
 ->join('rs_location2department','rs_location2department.department','rs_admin2modules.department')

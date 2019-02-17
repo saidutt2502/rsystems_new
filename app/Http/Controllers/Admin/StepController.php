@@ -181,6 +181,24 @@ class StepController extends Controller
     return view('admin.admin_module_assign')->withDepartments($department)->withUsers($users)->withAdmins($assigned_admins);
   }
 
+//Holiday Calender
+  public function calender_locations()
+  {
+    $location = DB::table('rs_locations')
+    ->leftJoin('rs_location2users', 'rs_location2users.location_id', '=', 'rs_locations.id')
+    ->select('rs_locations.*', DB::raw("count(DISTINCT rs_location2users.user_id) as count"))
+    ->groupBy('rs_locations.id')
+    ->get();
+    return view('admin.calender_locations')->withLocation($location);
+  }
+
+  public function calender($id)
+  {
+    $location = DB::table('rs_locations')->where('id', $id)->value('name');
+
+    return view('admin.calender')->withId($id)->withName($location);
+  }
+
 
   // Ajax Calls 
   public function ajax_step_controller(Request $request)

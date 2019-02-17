@@ -43,6 +43,8 @@ Route::post('admin/reset-password', function () { return view('auth.passwords.re
       Route::get('hod_cc_allocation', 'Admin\StepController@hod_cc_allocation');
       Route::get('assign-admins', 'Admin\StepController@assign_module_admins');
       Route::get('module_info', 'Admin\StepController@assign_module_admins');
+      Route::get('holiday_calender', 'Admin\StepController@calender_locations');
+      Route::get('/calender/{id}', 'Admin\StepController@calender');
     });
     
     //Admin-Step Ajax Calls

@@ -19,6 +19,7 @@
 @endsection
 
 @section('main-content')
+
     <div class="col-xs-12 col-sm-12">
         <form class="form-horizontal" role="form"  method="POST" action="{{URL::to('report_taxi')}}" >
         @csrf

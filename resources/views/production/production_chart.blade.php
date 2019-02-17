@@ -190,11 +190,11 @@ $edit_permission=DB::table('rs_production_user_list')->where('user_id',session('
         <tr bgcolor="yellow">
         <td>{{$each_entry->day}}</td>
         @if($edit_permission)
-        <td class="planned_entry" entry-id="{{$each_entry->id}}" contenteditable>{{$each_entry->planned}}</td>
-        <td class="achived_entry" entry-id="{{$each_entry->id}}" contenteditable>{{$each_entry->achived}}</td>
+        <td class="planned_entry" entry-id="{{$each_entry->id}}" contenteditable>@if($each_entry->planned=='0') @else{{$each_entry->planned}}@endif</td>
+        <td class="achived_entry" entry-id="{{$each_entry->id}}" contenteditable>@if($each_entry->achived=='0') @else{{$each_entry->achived}}@endif</td>
         @else
-        <td>{{$each_entry->planned}}</td>
-        <td>{{$each_entry->achived}}</td>
+        <td>@if($each_entry->planned=='0') @else{{$each_entry->planned}}@endif</td>
+        <td>@if($each_entry->achived=='0') @else{{$each_entry->achived}}@endif</td>
         @endif
         @if($each_entry->difference>0)
         <td><font color="green">{{$each_entry->difference}}</font></td>
@@ -216,15 +216,16 @@ $edit_permission=DB::table('rs_production_user_list')->where('user_id',session('
         @endif
         <td>{{$user_name}}</td>
         </tr>
+        <!-- end if -->
         @else
         <tr>
         <td>{{$each_entry->day}}</td>
         @if($edit_permission)
-        <td class="planned_entry" entry-id="{{$each_entry->id}}" contenteditable>{{$each_entry->planned}}</td>
-        <td class="achived_entry" entry-id="{{$each_entry->id}}" contenteditable>{{$each_entry->achived}}</td>
+        <td class="planned_entry" entry-id="{{$each_entry->id}}" contenteditable>@if($each_entry->planned=='0') @else{{$each_entry->planned}}@endif</td>
+        <td class="achived_entry" entry-id="{{$each_entry->id}}" contenteditable>@if($each_entry->achived=='0') @else{{$each_entry->achived}}@endif</td>
         @else
-        <td>{{$each_entry->planned}}</td>
-        <td>{{$each_entry->achived}}</td>
+        <td>@if($each_entry->planned=='0') @else{{$each_entry->planned}}@endif</td>
+        <td>@if($each_entry->achived=='0') @else{{$each_entry->achived}}@endif</td>
         @endif
         @if($each_entry->difference>0)
         <td><font color="green">{{$each_entry->difference}}</font></td>
@@ -280,6 +281,24 @@ $edit_permission=DB::table('rs_production_user_list')->where('user_id',session('
    
 <!-- Ajax call url       -->
 <input type="hidden" value="{{URL::to('production_ajax')}}" id="url_ajax">
+
+
+
+<div id="confirm_changes" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        <h4 class="modal-title">Changes Saved</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="confirm_save">Ok</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 
 @endsection
