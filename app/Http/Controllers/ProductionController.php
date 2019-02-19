@@ -7,6 +7,8 @@ use App\Http\Traits\ApprovalTraits;
 use DB;
 use Session;
 
+use App\Mail\ProductionUpdated;
+
 
 
 class ProductionController extends Controller
@@ -297,6 +299,30 @@ class ProductionController extends Controller
               //                                     'running_difference' => $sum, 
               //                                 ]);                
               // break;
+
+              case 'publish_list':
+                  $user_prod=DB::table('rs_production_user_list')
+                      ->join('users','users.id','=','rs_production_user_list.user_id')
+                      ->where('rs_production_user_list.location_id',session('location'))
+                      ->select('users.emal as email')
+                      ->get();
+
+                  $userClicked = DB::table('users')
+                                  ->where('id',session('user_id'))
+                                  ->value('name');
+
+                  $deptName =  DB::table('rs_production_dept')->where('id', $request->deptid)->value('department');
+
+                      $mailData = array(
+                        'dept'=>  $deptName,
+                        'user'=> $userClicked
+                       );
+
+                        foreach ($user_prod as $eachUser) {
+                           \Mail::to($eachUser->email)->send(new ProductionUpdated($mailData));
+                        }
+
+              break;
 
             }
 

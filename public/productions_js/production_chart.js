@@ -57,6 +57,30 @@ $('#publish').click(function(){
  
 });
 
+$('#publish_confirm').click(function(){
+
+    $('#confirm_publish').modal('toggle');
+    
+ 
+});
+
+$('#publish_btn').click(function(){
+    $.ajax({
+        type: 'post',
+        url: $('#url_ajax').val(),
+        data: {
+            function_name: 'publish_list',
+            deptid:$('#dept_selected').val(),
+            '_token': $('input[name=_token]').val()
+        },
+        success: function (data) {
+                 $('#confirm_publish').modal('toggle');
+        }
+    });
+    
+ 
+});
+
 $('#confirm_save').click(function(){
 
     location.reload();
