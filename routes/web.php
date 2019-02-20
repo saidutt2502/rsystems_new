@@ -50,6 +50,9 @@ Route::post('admin/reset-password', function () { return view('auth.passwords.re
     //Admin-Step Ajax Calls
     Route::post('step', 'Admin\StepController@ajax_step_controller');
 
+    //Form Submit
+    Route::post('holiday_calender_save', 'Admin\StepController@calender_function');
+
 Route::group(['middleware' => ['auth']], function() {
 
   /* ----------------------------------------Stationary Routes------------------------------------ */

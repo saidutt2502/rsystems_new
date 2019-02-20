@@ -72,15 +72,25 @@
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" name="email" class="form-control" placeholder="Email" />
+															<input type="text" name="email" class="form-control" placeholder="Email" required autofocus />
 															<i class="ace-icon fa fa-user"></i>
+															@if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" name="password" class="form-control" placeholder="Password" />
+															<input type="password" name="password" class="form-control" placeholder="Password" required />
 															<i class="ace-icon fa fa-lock"></i>
+															@if ($errors->has('password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
 														</span>
 													</label>
 
