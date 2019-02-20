@@ -232,7 +232,8 @@ class ProductionController extends Controller
  
               $achived=DB::table('rs_production_chart')->where('id',$request->id)->value('achived');
               $table_entry=DB::table('rs_production_chart')->where('id',$request->id)->first();
-              $sum=0;
+              $no_day=cal_days_in_month(CAL_GREGORIAN, $table_entry->month, $table_entry->year);
+              
 
               DB::table('rs_production_chart')
                               ->where('id', $request->id)
@@ -241,25 +242,32 @@ class ProductionController extends Controller
                                   'difference' => $achived-$request->data,
                                   'last_edited' => session('user_id'), 
                               ]);
-              
-              for($day=$table_entry->day;$day>=1;$day--)
+              for($i=1;$i<=$no_day;$i++)
               {
+                $sum=0;
+                for($day=$i;$day>=1;$day--)
+                {
                 $running_difference = DB::table('rs_production_chart')->where('day',$day)->where('month',$table_entry->month)->where('year',$table_entry->year)->value('difference');
                 $sum += $running_difference;
-              }
-              
-              DB::table('rs_production_chart')
-                              ->where('id', $request->id)
+                 }
+                 DB::table('rs_production_chart')
+                              ->where('day',$i)
+                              ->where('month',$table_entry->month)
+                              ->where('year',$table_entry->year)
                               ->update([
                                   'running_difference' => $sum, 
                               ]);
+              }                
+              
+              
               break;
 
               case 'update_achived':
  
               $planned=DB::table('rs_production_chart')->where('id',$request->id)->value('planned');
               $table_entry=DB::table('rs_production_chart')->where('id',$request->id)->first();
-              $sum=0;
+              $no_day=cal_days_in_month(CAL_GREGORIAN, $table_entry->month, $table_entry->year);
+               
 
               DB::table('rs_production_chart')
                               ->where('id', $request->id)
@@ -269,17 +277,24 @@ class ProductionController extends Controller
                                   'last_edited' => session('user_id'), 
                               ]);
 
-                              for($day=$table_entry->day;$day>=1;$day--)
-                              {
-                                $running_difference = DB::table('rs_production_chart')->where('day',$day)->where('month',$table_entry->month)->where('year',$table_entry->year)->value('difference');
-                                $sum += $running_difference;
-                              }
-                              
-                              DB::table('rs_production_chart')
-                                              ->where('id', $request->id)
-                                              ->update([
-                                                  'running_difference' => $sum, 
-                                              ]);                
+                  for($i=1;$i<=$no_day;$i++)
+              {
+                $sum=0;
+                for($day=$i;$day>=1;$day--)
+                {
+                $running_difference = DB::table('rs_production_chart')->where('day',$day)->where('month',$table_entry->month)->where('year',$table_entry->year)->value('difference');
+                $sum += $running_difference;
+                 }
+                 DB::table('rs_production_chart')
+                              ->where('day',$i)
+                              ->where('month',$table_entry->month)
+                              ->where('year',$table_entry->year)
+                              ->update([
+                                  'running_difference' => $sum, 
+                              ]);
+              }   
+
+                                          
               break;
 
               // case 'save_changes':
