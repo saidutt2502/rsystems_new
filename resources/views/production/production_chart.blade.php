@@ -99,7 +99,7 @@ $edit_permission=DB::table('rs_production_user_list')->where('user_id',session('
             <label class="col-sm-3 control-label no-padding-right">Department </label>
 
             <div class="col-sm-4">
-            <select name="department" class="chosen-container chosen-container-single chosen-select ">
+            <select name="department" id="dept_selected" class="chosen-container chosen-container-single chosen-select ">
                               <option value="{{$departmentid}}" selected>{{$departmentname}}</option>
                                @foreach($dept as $each_dept)
                                @if($each_dept->id!=$departmentid)
@@ -129,6 +129,10 @@ $edit_permission=DB::table('rs_production_user_list')->where('user_id',session('
                 <button class="btn btn-info" id="publish">
                     <i class="ace-icon fa fa-floppy-o"></i>
                     Save Changes
+                </button>
+                <button class="btn btn-success" id="publish_confirm">
+                    <i class="ace-icon  fa fa-check-square-o"></i>
+                   Publish Changes
                 </button>
             </div>
     <br><br><br>
@@ -294,6 +298,22 @@ $edit_permission=DB::table('rs_production_user_list')->where('user_id',session('
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="confirm_save">Ok</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="confirm_publish" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        <h4 class="modal-title">Publish and Send Mails?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="publish_btn">Confirm</button>
       </div>
     </div>
 
