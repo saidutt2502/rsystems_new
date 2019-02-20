@@ -197,13 +197,15 @@ class StepController extends Controller
     $location = DB::table('rs_locations')->where('id', $id)->value('name');
 
     $check_table= DB::table('rs_holiday_calender')->where('location_id',$id)->get();
+    $count= DB::table('rs_holiday_calender')->where('location_id',$id)->count('location_id');
 
-    return view('admin.calender')->withId($id)->withName($location)->withExist($check_table);
+    return view('admin.calender')->withId($id)->withName($location)->withExist($check_table)->withCount($count);
   }
 
   public function calender_function(Request $request)
   {
   
+    DB::table('rs_holiday_calender')->where('location_id', '=', $request->location_id)->delete();
     for($i=0;$i<sizeof($request->holiday_name);$i++)
     {
       $id = DB::table('rs_holiday_calender')->insert([
@@ -213,6 +215,7 @@ class StepController extends Controller
         'updated_by' => session('admin_id'),
     ]);
     }
+    return redirect()->action('Admin\StepController@calender', ['id'=> $request->location_id]); 
     
   }
 

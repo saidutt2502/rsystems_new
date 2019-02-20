@@ -13,37 +13,47 @@
 
 @section('main-content')
 
-
-@if($exist)
-
 <form class="form-horizontal" role="form" action="{{URL::to('holiday_calender_save')}}" method="POST">
-    @csrf
-   <div class="form-group clone-this">
+@csrf
+@if($count!='0')
+
+   <?php $i=0?>
    @foreach($exist as $each_exist)
+   <div class="form-group">
    <div class="col-sm-3">
    </div>
    <div class="col-sm-3">
    <br>
                 <span class="input-icon">
-                            <input value="{{$each_exist->holiday_name}}" id="update_qty" placeholder="Holiday Name" name="holiday_name[]" type="text" autofocus required>
+                            <input value="{{$each_exist->holiday_name}}" id="update_qty" placeholder="Holiday Name" name="holiday_name[]" type="text" autofocus required autocomplete="off">
                             <i class="ace-icon glyphicon glyphicon-th-list blue"></i>
                     </span>
                 </div>
                 <div class="col-sm-3">
                 <br>
                 <span class="input-icon">
-                            <input value="{{$each_exist->holiday_date}}" id="update_qty" placeholder="Quantity" name="holiday_date[]" type="date" required>
+                            <input value="{{$each_exist->holiday_date}}" id="update_qty" placeholder="Quantity" name="holiday_date[]" type="date" required autocomplete="off">
                             <i class="ace-icon fa fa-calendar blue"></i>
                     </span>
                 </div>
-                <!-- <div class="col-sm-1 col-md-1">
+                @if($i=='0')
+                <div class="col-sm-1 col-md-1">
                 <br>
                     <button type="button" class="btn btn-warning btn-block btn-xs btn-clone">
                         <i class="ace-icon fa fa-plus bigger-110 icon-only"></i>
                     </button>
-                </div> -->
+                </div>
+                @else
+                <div class="col-sm-10 col-md-1">
+                <button type="button" class="btn delete_item btn-danger btn-block btn-xs">
+                <i class="ace-icon fa fa-close bigger-110 icon-only"></i>
+                </button>
+                </div>
+                @endif
         </div>
+        <?php $i++ ?>
         @endforeach
+        <div class="clone-this"></div>
 
         <div class="clearfix form-actions">
             <div class="col-md-offset-5 col-md-6">
@@ -60,14 +70,11 @@
             </div>
 		</div>
 
-         <!-- Location Id -->
-         <input type="hidden" value="{{ $id }}" name="location_id">
-                </form>
+       
+                
 
 @else
 
-<form class="form-horizontal" role="form" action="{{URL::to('holiday_calender_save')}}" method="POST">
-    @csrf
    <div class="form-group clone-this">
    <div class="col-sm-3">
    </div>
@@ -110,11 +117,12 @@
 		</div>
 
          <!-- Location Id -->
-         <input type="hidden" value="{{ $id }}" name="location_id">
-                </form>
+         
+                
 
 @endif
-   
+<input type="hidden" value="{{ $id }}" name="location_id">
+</form>
 
    
 

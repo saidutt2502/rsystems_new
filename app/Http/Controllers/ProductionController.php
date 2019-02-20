@@ -301,10 +301,10 @@ class ProductionController extends Controller
               // break;
 
               case 'publish_list':
-                  $user_prod=DB::table('rs_production_user_list')
-                      ->join('users','users.id','=','rs_production_user_list.user_id')
-                      ->where('rs_production_user_list.location_id',session('location'))
-                      ->select('users.emal as email')
+                  $user_prod=DB::table('rs_users_production')
+                      ->join('users','users.id','=','rs_users_production.user_id')
+                      ->where('rs_users_production.production_dept_id',$request->deptid)
+                      ->select('users.email as email')
                       ->get();
 
                   $userClicked = DB::table('users')
@@ -321,6 +321,8 @@ class ProductionController extends Controller
                         foreach ($user_prod as $eachUser) {
                            \Mail::to($eachUser->email)->send(new ProductionUpdated($mailData));
                         }
+
+                        $data=1;
 
               break;
 

@@ -4,8 +4,8 @@
 	<title>Production List Updated | RSystems</title>
 </head>
 <body>
-    <h1><center><b>{{$inputs['dept']}}</b></center></h1>
+    <h1><center><b><?php echo($inputs['dept'])?></b></center></h1>
     <hr>
-	<h2>{{$inputs['user']}} has updated the Production List now.</h2>
+	<h2><?php echo($inputs['user'])?> has updated the Production List.</h2>
 </body>
 </html>

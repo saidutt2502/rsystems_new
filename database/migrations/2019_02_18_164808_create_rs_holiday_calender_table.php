@@ -16,7 +16,7 @@ class CreateRsHolidayCalenderTable extends Migration
         Schema::create('rs_holiday_calender', function (Blueprint $table) {
             $table->increments('id');
             $table->string('holiday_name');
-            $table->date('holiday_date');
+            $table->string('holiday_date');
             $table->integer('location_id');
             $table->string('updated_by');
             $table->timestamps();

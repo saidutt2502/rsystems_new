@@ -124,18 +124,21 @@ $edit_permission=DB::table('rs_production_user_list')->where('user_id',session('
     </form>
     <br><br>
     <div class="hr hr-20 hr-dotted"></div>
-    
+    @if($edit_permission)
     <div class="col-md-offset-9 col-md-6">
                 <button class="btn btn-info" id="publish">
                     <i class="ace-icon fa fa-floppy-o"></i>
-                    Save Changes
+                    Save 
                 </button>
                 <button class="btn btn-success" id="publish_confirm">
                     <i class="ace-icon  fa fa-check-square-o"></i>
-                   Publish Changes
+                   Publish 
                 </button>
+                <br><br>
             </div>
-    <br><br><br>
+    @endif        
+                  
+    
     <table id="simple-table" class="table  table-bordered table-hover">
     <thead>
     <tr>
@@ -189,7 +192,55 @@ $edit_permission=DB::table('rs_production_user_list')->where('user_id',session('
         <?php
         $sunday_check=date("l", mktime(0, 0, 0, $monthid, $each_entry->day, $year));
         $user_name=DB::table('users')->where('id',$each_entry->last_edited)->value('name');
+        if($monthid<10 && $each_entry->day>9)
+        {
+            $public_date=$year.'-0'.$monthid.'-'.$each_entry->day;
+        }
+        else if($each_entry->day<10 && $monthid>9)
+        {
+            $public_date=$year.'-'.$monthid.'-0'.$each_entry->day;
+        }
+        else if ($each_entry->day<10 && $monthid<10)
+        {
+            $public_date=$year.'-0'.$monthid.'-0'.$each_entry->day;
+        }
+        else
+        {
+            $public_date=$year.'-'.$monthid.'-'.$each_entry->day;
+        }
+        $public_holiday=DB::table('rs_holiday_calender')->where('holiday_date',$public_date)->where('location_id',session('location'))->first();
         ?>
+        @if($public_holiday)
+        <tr bgcolor="lightblue">
+        <td>{{$each_entry->day}}</td>
+        @if($edit_permission)
+        <td class="planned_entry" entry-id="{{$each_entry->id}}" contenteditable>@if($each_entry->planned=='0') @else{{$each_entry->planned}}@endif</td>
+        <td class="achived_entry" entry-id="{{$each_entry->id}}" contenteditable>@if($each_entry->achived=='0') @else{{$each_entry->achived}}@endif</td>
+        @else
+        <td>@if($each_entry->planned=='0') @else{{$each_entry->planned}}@endif</td>
+        <td>@if($each_entry->achived=='0') @else{{$each_entry->achived}}@endif</td>
+        @endif
+        @if($each_entry->difference>0)
+        <td><font color="green">{{$each_entry->difference}}</font></td>
+        @endif
+        @if($each_entry->difference<0)
+        <td><font color="red">{{abs($each_entry->running_difference)}}</font></td>
+        @endif
+        @if($each_entry->difference==0)
+        <td>{{$each_entry->difference}}</td>
+        @endif
+        @if($each_entry->running_difference>0)
+        <td><font color="green">{{$each_entry->running_difference}}</font></td>
+        @endif
+        @if($each_entry->running_difference<0)
+        <td><font color="red">{{abs($each_entry->running_difference)}}</font></td>
+        @endif
+        @if($each_entry->running_difference==0)
+        <td>{{$each_entry->difference}}</td>
+        @endif
+        <td>{{$user_name}}</td>
+        </tr>
+        @endif
         @if($sunday_check=='Sunday')
         <tr bgcolor="yellow">
         <td>{{$each_entry->day}}</td>
@@ -252,6 +303,7 @@ $edit_permission=DB::table('rs_production_user_list')->where('user_id',session('
         <td>{{$user_name}}</td>
         </tr>
         @endif
+        <!-- end if -->
         @endforeach
         @endif
         <tr>

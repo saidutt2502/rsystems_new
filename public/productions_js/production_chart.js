@@ -65,6 +65,7 @@ $('#publish_confirm').click(function(){
 });
 
 $('#publish_btn').click(function(){
+    $('#publish_btn').off('click');
     $.ajax({
         type: 'post',
         url: $('#url_ajax').val(),

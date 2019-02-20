@@ -93,7 +93,7 @@
             <div class="col-md-offset-5 col-md-6">
                 <button class="btn btn-info" type="submit">
                     <i class="ace-icon fa fa-check bigger-110"></i>
-                    Submit
+                    Search
                 </button>
 
                 &nbsp; &nbsp; &nbsp;
