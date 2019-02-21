@@ -16,7 +16,7 @@
     <div class="col-sm-12">
         <div class="tabbable">
             <ul class="nav nav-tabs" id="myTab">
-                <li id="home_tab_first" class="active">
+                <li id="home_tab_first">
                     <a data-toggle="tab" href="#schedule_taxi">
                         Schedule Taxi
                         <span class="badge badge-danger">{{$count}}</span>

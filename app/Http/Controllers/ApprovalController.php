@@ -20,8 +20,7 @@ class ApprovalController extends Controller
         ->orderBy('rs_approvals.updated_at','desc')
         ->get();
 
-        echo $approve_request;
-        exit;
+        
 
         $count_approvals = DB::table('rs_approvals')
                                     ->where('user_id',session('user_id'))

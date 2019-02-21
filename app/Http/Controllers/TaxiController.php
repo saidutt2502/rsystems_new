@@ -218,6 +218,7 @@ class TaxiController extends Controller
                     ->join('users', 'users.id', '=', 'rs_taxi_requests.user_id')
                     ->where('rs_taxi_requests.location',session('location'))
                     ->where('rs_taxi_requests.status','7')
+                    ->orderBy('date_', 'desc')
                     ->select('rs_taxi_schedules.*','rs_taxi_requests.date_ as date_','rs_taxi_requests.place_from as place_from','rs_taxi_requests.place_to as place_to','rs_taxi_cars.taxino as taxino', 'users.name as name', 'users.emp_id as emp_id')
                     ->get();                 
       
