@@ -40,6 +40,10 @@ $(document).ready(function(){
     
     $('#reset').click(function(){
         $('.remove').remove();
+    });
+    
+    $('#submitt').click(function(){
+        $('#submitt').off('click');
     }); 
 });     
 

@@ -28,6 +28,9 @@ $(document).ready(function(){
     });
 
     $('#confirm_assign').click(function(){
+        if($('#taxino').val() && $('#time').val())
+        {
+        $('#confirm_assign').off('click');
         $.ajax({
             type: 'post',
             url: $('#url_ajax').val(),
@@ -43,6 +46,7 @@ $(document).ready(function(){
                 location.reload();
             }
         });
+    }
     });
 
     $('.trip_to_add').on("change",function(){
@@ -75,18 +79,25 @@ $(document).ready(function(){
 
     $('.validate-btn').click(function(){
         var validate_trip = $(this).attr('data-validate');
+        $('#trip_id').val(validate_trip);
+        $('#myModal_validate').modal();
+    });
+
+    $('#confirm_validation').click(function(){
+        $('#confirm_validate').off('click');
         $.ajax({
             type: 'post',
             url: $('#url_ajax').val(),
             data: {
                 function_name: 'validate_trip',
-                trip_id: validate_trip,
+                trip_id: $('#trip_id').val(),
                 '_token': $('input[name=_token]').val()
             },
             success: function (data) {
                 location.reload();
             }
         });
+    
     });
 
     $('.edit-btn').click(function(){
@@ -117,27 +128,35 @@ $(document).ready(function(){
     });
 
     $('#confirm_finish').click(function(){
-        $.ajax({
-            type: 'post',
-            url: $('#url_ajax').val(),
-            data: {
-                function_name: 'edit_trip_schedule',
-                trip_id: $('#schedule_id').val(),
-                start_date: $('#start_date').val(),
-                close_date: $('#date_close').val(),
-                start_time: $('#start_time').val(),
-                close_time: $('#time_close').val(),
-                start_kms: $('#start_kms').val(),
-                close_kms: $('#close_kms').val(),
-                extra_costs: $('#extra_costs').val(),
-                wait_time: $('#wait_time').val(),
-                remarks: $('#remarks').val(),
-                '_token': $('input[name=_token]').val()
-            },
-            success: function (data) {
-              location.reload();
-            }
-        });
+        if($('#date_close').val()==''||$('#time_close').val()==''||$('#close_kms').val()==''||$('#extra_costs').val()==''||$('#wait_time').val()==''||$('#start_date').val()==''||$('#start_time').val()==''||$('#start_kms').val()=='')
+        {
+            alert("Please Enter All Necessary Fields!");
+        }
+        else
+        {
+            $('#confirm_finish').off('click');
+            $.ajax({
+                type: 'post',
+                url: $('#url_ajax').val(),
+                data: {
+                    function_name: 'edit_trip_schedule',
+                    trip_id: $('#schedule_id').val(),
+                    start_date: $('#start_date').val(),
+                    close_date: $('#date_close').val(),
+                    start_time: $('#start_time').val(),
+                    close_time: $('#time_close').val(),
+                    start_kms: $('#start_kms').val(),
+                    close_kms: $('#close_kms').val(),
+                    extra_costs: $('#extra_costs').val(),
+                    wait_time: $('#wait_time').val(),
+                    remarks: $('#remarks').val(),
+                    '_token': $('input[name=_token]').val()
+                },
+                success: function (data) {
+                  location.reload();
+                }
+            });
+        }
     });
 
     $('.unassign-btn').click(function(){
@@ -146,7 +165,7 @@ $(document).ready(function(){
     });
 
     $('#confirm_unassign').click(function(){
-        
+        $('#confirm_assign').off('click');
         $.ajax({
             type: 'post',
             url: $('#url_ajax').val(),

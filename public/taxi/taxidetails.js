@@ -36,7 +36,7 @@ $(document).ready(function(){
                         '_token': $('input[name=_token]').val()
                     },
                     success: function (data) {
-                        location.reload();
+                        $("#vendor_"+id).remove();
                     }
                 });
             
@@ -68,6 +68,7 @@ $(document).ready(function(){
 
     //Ends here
 $('#add_vendor').click(function(){
+    $('#add_vendor').off('click');
     $.ajax({
         type: 'post',
         url: $('#url_ajax').val(),
@@ -98,7 +99,7 @@ $('.delete_list').click(function(){
             '_token': $('input[name=_token]').val()
         },
         success: function (data) {
-            location.reload();
+            $("#vendor_"+id).remove();
         }
     });
 
@@ -106,6 +107,9 @@ $('.delete_list').click(function(){
 
 $('#submit').click(function(){
 
+    if($('#vendor').val()!='' && $('#type').val()!='' && $('#base_kms').val()!='' && $('#per_km').val()!='' && $('#night').val()!='' && $('#midnight').val()!='' && $('#wait').val()!='') 
+    {
+    $('#submit').off('click');
     var airport_location = new Array();
     var airport_charge = new Array();
     $(".airport_details_input").each(function(){
@@ -133,6 +137,11 @@ $('#submit').click(function(){
             location.reload();
         }
     });
+    }
+    else
+{
+    alert('Please Enter All Fields!');
+}
 });
 
 $('#reset').click(function(){
@@ -248,7 +257,9 @@ $('.vendor_dd').change(function(){
     });
 });
 $('#submit_car').click(function(){
-
+    if($('#vendor_car').val()!=='' && $('#type_car').val()!='' && $('#taxino').val()!='')
+    {
+    $('#submit_car').off('click');
     $.ajax({
         type: 'post',
         url: $('#url_ajax').val(),
@@ -263,6 +274,11 @@ $('#submit_car').click(function(){
             location.reload();
         }
     });
+}
+else
+{
+    alert('Please Enter All Fields!');
+}
 });
 
 $('#reset_car').click(function(){
@@ -283,7 +299,7 @@ function update_taxi_number_list(){
         success: function (data) {
             for(var i=0;i<data.count;i++)
             {
-                var append= '<div class="widget-box widget-color-orange collapsed ui-sortable-handle">            <div class="widget-header widget-header-small"><h6 class="widget-title airport_titles">'+ data[i]['taxino']+'</h6><div class="widget-toolbar"><a data-action="close" class="delete_list" data-table="rs_taxi_cars" data-id="'+data[i]['id']+'"><i class="ace-icon fa fa-times"></i></a></div></div></div>';
+                var append= '<div class="widget-box widget-color-orange collapsed ui-sortable-handle"><div class="widget-header widget-header-small"><h6 class="widget-title airport_titles">'+ data[i]['taxino']+'</h6><div class="widget-toolbar"><a data-action="close" class="delete_list" data-table="rs_taxi_cars" data-id="'+data[i]['id']+'"><i class="ace-icon fa fa-times"></i></a></div></div></div>';
 
                 $('#number_taxi_list').append(append);
             }

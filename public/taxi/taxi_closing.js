@@ -26,6 +26,7 @@ $(document).ready(function(){
         }
         else
         {
+            $('#confirm_start').off('click');
             $.ajax({
                 type: 'post',
                 url: $('#url_ajax').val(),
@@ -63,6 +64,7 @@ $(document).ready(function(){
         }
         else
         {
+            $('#confirm_close').off('click');
             $.ajax({
                 type: 'post',
                 url: $('#url_ajax').val(),

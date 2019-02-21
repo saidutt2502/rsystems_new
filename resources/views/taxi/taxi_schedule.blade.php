@@ -339,6 +339,28 @@
 
   </div>
 </div>
+
+
+<!-- Validate Modal -->
+<div class="modal fade" id="myModal_validate" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">Validate Taxi Trip</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to validate this trip?</p>
+        <input class="form-control" type="hidden" id="trip_id">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" id="confirm_validation" class="btn btn-success">Validate</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Delete Modal -->
 
 <div class="modal fade" id="DeleteModal" role="dialog">

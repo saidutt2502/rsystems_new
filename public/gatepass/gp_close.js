@@ -12,6 +12,9 @@ $(document).ready(function(){
     });
 
     $('#confirm_close').click(function(){
+        if($('#date').val()!='' &&  $('#time').val()!='')
+        {
+        $('#confirm_close').off('click');
         $.ajax({
             type: 'post',
             url: $('#url_ajax').val(),
@@ -26,6 +29,11 @@ $(document).ready(function(){
                 location.reload();
             }
         });
+        }
+        else
+        {
+            alert('Please Enter All Fields!')
+        }
     });
 
 
@@ -41,6 +49,9 @@ $(document).ready(function(){
     });
 
     $('#confirm_close_in').click(function(){
+        if($('#date1').val()!='' &&  $('#time1').val()!='')
+        {
+        $('#confirm_close_in').off('click');
         $.ajax({
             type: 'post',
             url: $('#url_ajax').val(),
@@ -55,6 +66,11 @@ $(document).ready(function(){
                 location.reload();
             }
         });
+    }
+    else
+    {
+        alert('Please Enter All Fields!')
+    }
     });
 
   });

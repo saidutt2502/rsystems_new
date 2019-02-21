@@ -220,7 +220,7 @@
 				//})
 				.on('finished.fu.wizard', function(e) {
 					bootbox.dialog({
-						message: "Thank you! Your information was successfully saved!", 
+						message: "Your information was successfully saved!", 
 						buttons: {
 							"success" : {
 								"label" : "OK",

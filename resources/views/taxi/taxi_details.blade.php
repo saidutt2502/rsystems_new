@@ -22,7 +22,7 @@
             <div class="help-block col-xs-12 col-sm-reset inline">&nbsp;</div>
             <button class="btn btn-xs" type="button" data-toggle="modal" data-target="#vendor_modal">
                     <i class="ace-icon fa fa-eye bigger-110"></i>
-                    Vendors List
+                    Vendor List
                 </button>  
     </div>
     <hr />
@@ -197,7 +197,7 @@
       <div class="modal-body">
       @foreach($vendors as $vendor)
             <div class="widget-box widget-color-orange collapsed ui-sortable-handle">
-                <div class="widget-header widget-header-small">
+                <div class="widget-header widget-header-small" id="vendor_{{$vendor->id}}">
                     <h6 class="widget-title airport_titles">
                         {{$vendor->name}}
                     </h6>

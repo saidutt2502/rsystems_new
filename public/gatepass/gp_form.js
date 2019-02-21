@@ -20,7 +20,7 @@ $(document).ready(function () {
 
 $('#submit').click(function(){
 
-    $('#submit').off('click');
+    
 
     if($('#date').val()==''||$('#shift').val()==null||$('#purpose').val()==null||$('#reason').val()==''||$('#return').val()==null||$('#from').val()==''||($('#return').val()=='Yes' && $('#to').val()==''))
     {
@@ -49,6 +49,7 @@ $('#submit').click(function(){
                     }
                     else
                     {
+                        
                         var date = $('#date').val()
                         var year = date.substring(0, 4);
                         var month = date.substring(5, 7);
@@ -77,7 +78,7 @@ $('#submit').click(function(){
                                     }
                                 else
                                {   
-                    
+                                    $('#submit').off('click');
                                     $.ajax({
                                     type: 'post',
                                     url: $('#url_ajax').val(),
@@ -112,6 +113,7 @@ $('#submit').click(function(){
     }
     else
     {
+        $('#submit').off('click');
         $.ajax({
             type: 'post',
             url: $('#url_ajax').val(),

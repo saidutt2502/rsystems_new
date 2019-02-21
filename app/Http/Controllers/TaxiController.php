@@ -187,6 +187,7 @@ class TaxiController extends Controller
               ->join('rs_costcenters', 'rs_costcenters.id', '=', 'rs_taxi_requests.cc_id')
               ->join('rs_status', 'rs_status.id', '=', 'rs_taxi_requests.status')
               ->join('users', 'users.id', '=', 'rs_taxi_requests.user_id')
+              ->orderBy('rs_taxi_requests.date_', 'desc')
               ->select('rs_taxi_requests.*', 'rs_costcenters.number as cc_number','rs_status.html_string as html_status', 'users.name as name', 'users.emp_id as emp_id')
               ->where('rs_taxi_requests.location',session('location'))
               ->where('rs_taxi_requests.status','2')
@@ -207,6 +208,7 @@ class TaxiController extends Controller
                        ->join('rs_taxi_cars', 'rs_taxi_cars.id', '=', 'rs_taxi_schedules.taxi_id')
                        ->where('rs_taxi_requests.location',session('location'))
                        ->where('rs_taxi_requests.status','8')
+                       ->orderBy('rs_taxi_requests.date_', 'desc')
                        ->select('rs_taxi_schedules.*','rs_taxi_requests.date_ as date_','rs_taxi_requests.place_from as place_from','rs_taxi_requests.place_to as place_to','rs_taxi_cars.taxino as taxino')
                        ->get();
 
@@ -218,7 +220,7 @@ class TaxiController extends Controller
                     ->join('users', 'users.id', '=', 'rs_taxi_requests.user_id')
                     ->where('rs_taxi_requests.location',session('location'))
                     ->where('rs_taxi_requests.status','7')
-                    ->orderBy('date_', 'desc')
+                    ->orderBy('rs_taxi_requests.date_', 'desc')
                     ->select('rs_taxi_schedules.*','rs_taxi_requests.date_ as date_','rs_taxi_requests.place_from as place_from','rs_taxi_requests.place_to as place_to','rs_taxi_cars.taxino as taxino', 'users.name as name', 'users.emp_id as emp_id')
                     ->get();                 
       
@@ -236,6 +238,7 @@ class TaxiController extends Controller
                        ->join('rs_taxi_cars', 'rs_taxi_cars.id', '=', 'rs_taxi_schedules.taxi_id')
                        ->where('rs_taxi_requests.location',session('location'))
                        ->whereIn('rs_taxi_requests.status',['8','9'])
+                       ->orderBy('rs_taxi_requests.date_', 'desc')
                        ->select('rs_taxi_schedules.*','rs_taxi_requests.date_ as date_','rs_taxi_requests.place_from as place_from','rs_taxi_requests.place_to as place_to','rs_taxi_requests.status as status','rs_taxi_cars.taxino as taxino')
                        ->get();
                        return view('taxi.taxi_closing')->withTaxischedule($taxi_schedule);

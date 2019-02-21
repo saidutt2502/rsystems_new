@@ -110,17 +110,14 @@ $user_admin=DB::table('admins')
 				</button>
 
 				<div class="navbar-header pull-left">
-					<a href="/home" class="navbar-brand">
-						<small>
-							<i class="fa fa-leaf"></i>
-							Rsystems | User
-						</small>
-					</a>
+					
+						<img src="/images/logo.jpg" height="44.5px" width="170px">
+					
 				</div>
 
 				<div class="navbar-buttons navbar-header pull-right" role="navigation">
 					<ul class="nav ace-nav">
-					<li class="grey dropdown-modal">
+					<!-- <li class="grey dropdown-modal">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="ace-icon fa fa-tasks"></i>
 								<span class="badge badge-grey">4</span>
@@ -156,9 +153,9 @@ $user_admin=DB::table('admins')
 									</a>
 								</li>
 							</ul>
-						</li>
+						</li> -->
 
-						<li class="purple dropdown-modal">
+						<!-- <li class="purple dropdown-modal">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="ace-icon fa fa-bell icon-animated-bell"></i>
 								<span class="badge badge-important">8</span>
@@ -193,9 +190,9 @@ $user_admin=DB::table('admins')
 									</a>
 								</li>
 							</ul>
-						</li>
+						</li> -->
 
-						<li class="green dropdown-modal">
+						<!-- <li class="green dropdown-modal">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
 								<span class="badge badge-success">5</span>
@@ -235,7 +232,7 @@ $user_admin=DB::table('admins')
 									</a>
 								</li>
 							</ul>
-						</li>
+						</li> -->
 
 						<li class="light-blue dropdown-modal">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
@@ -251,7 +248,7 @@ $user_admin=DB::table('admins')
 							</a>
 
 							<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-								<li>
+								<!-- <li>
 									<a href="#">
 										<i class="ace-icon fa fa-cog"></i>
 										Settings
@@ -263,7 +260,7 @@ $user_admin=DB::table('admins')
 										<i class="ace-icon fa fa-user"></i>
 										Profile
 									</a>
-								</li>
+								</li> -->
 
 								<li class="divider"></li>
 
@@ -287,26 +284,30 @@ $user_admin=DB::table('admins')
 					try{ace.settings.loadState('sidebar')}catch(e){}
 				</script>
 
-				<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+				<div class="sidebar-shortcuts" id="sidebar-shortcuts">				
+				
 					<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-						<button class="btn btn-success">
-							<i class="ace-icon fa fa-signal"></i>
+					    
+						<button class="btn btn-warning" id="taxi">
+						<i class="ace-icon fa fa-taxi"></i>
+						</button>
+						
+                        
+						<button class="btn btn-info" id="stationary">
+						<i class="ace-icon fa fa-pencil"></i>
+						</button>
+						
+
+						<button class="btn btn-success" id="gatepass">
+							<i class="ace-icon fa fa-sticky-note-o"></i>
 						</button>
 
-						<button class="btn btn-info">
-							<i class="ace-icon fa fa-pencil"></i>
-						</button>
-
-						<button class="btn btn-warning">
-							<i class="ace-icon fa fa-users"></i>
-						</button>
-
-						<button class="btn btn-danger">
-							<i class="ace-icon fa fa-cogs"></i>
+						<button class="btn btn-danger" id="safety">
+							<i class="ace-icon fa fa-exclamation-triangle"></i>
 						</button>
 					</div>
 
-					<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+					<!-- <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
 						<span class="btn btn-success"></span>
 
 						<span class="btn btn-info"></span>
@@ -314,7 +315,7 @@ $user_admin=DB::table('admins')
 						<span class="btn btn-warning"></span>
 
 						<span class="btn btn-danger"></span>
-					</div>
+					</div> -->
 				</div><!-- /.sidebar-shortcuts -->
 
 				<ul class="nav nav-list">
@@ -487,7 +488,7 @@ $user_admin=DB::table('admins')
 								<b class="arrow"></b>
 							</li>
 							@endif
-							@if($taxi_admin)
+							<!-- @if($taxi_admin)
 							<li class="">
 								<a href="/taxi-old_records">
 									<i class="menu-icon fa  fa-caret-right"></i>
@@ -496,7 +497,7 @@ $user_admin=DB::table('admins')
 
 								<b class="arrow"></b>
 							</li>
-							@endif
+							@endif -->
 						</ul>
 					</li>
 
@@ -612,11 +613,11 @@ $user_admin=DB::table('admins')
 							</li>
 						</ul>
                     </li>
-                    <li class="">
+                    <!-- <li class="">
                             <a href="{{ route('logout') }}" class="waves-effect"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="menu-icon fa fa-power-off"></i>
 							<span class="menu-text">Logout </span></a><form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
 						<b class="arrow"></b>
-					</li>
+					</li> -->
 				</ul><!-- /.nav-list -->
 
 				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
@@ -689,6 +690,8 @@ $user_admin=DB::table('admins')
 		<!-- chosen scripts -->
 		<script src="/core/js/chosen.jquery.min.js"></script>
 		<script src="/core/js/menu.js"></script>
+
+		 <script src="{{ asset('master/user.js') }}" defer></script>
 		
 
 		<!-- inline scripts related to this page -->
