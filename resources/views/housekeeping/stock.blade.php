@@ -1,12 +1,12 @@
 @extends('layouts.user-master')
 
 @section('breadcrumb')
-    <li class="active">Stationary</li>
+    <li class="active">Housekeeping</li>
 @endsection
 
 
 @section('page-header')
-    <h1>Stationary
+    <h1>Housekeeping
         <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Stock</small>
     </h1>
 @endsection
@@ -106,7 +106,7 @@
 
         
 <!-- Ajax call url       -->
-<input type="hidden" value="{{URL::to('stationary_ajax')}}" id="url_ajax">
+<input type="hidden" value="{{URL::to('hk_ajax')}}" id="url_ajax">
 
     <!-- Modal -->
 <div id="confirm_delete_modal" class="modal fade" role="dialog">
@@ -176,7 +176,7 @@
 @section('js-files')
     <!-- Custom File -->
     <script src="{{ asset('admins-section/steps/initialize_datatables.js') }}" defer></script>
-    <script src="{{ asset('stationary/stationary.js') }}" defer></script>
+    <script src="{{ asset('housekeeping/hk_stock.js') }}" defer></script>
 
     <script src="/core/js/jquery-ui.min.js"></script>
     <script src="/core/js/jquery.ui.touch-punch.min.js"></script>

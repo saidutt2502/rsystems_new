@@ -22,8 +22,8 @@ $(document).ready(function () {
         $('.updated_qty').each(function(){
                  item_qty.push($(this).val());
         });
-
-
+ 
+        
         $.ajax({
             type: 'post',
             url: $('#url_ajax').val(),
@@ -39,6 +39,7 @@ $(document).ready(function () {
                 }
             }
         });
+        
     });
 
 
@@ -64,8 +65,8 @@ $(document).ready(function () {
                 }
             }
         });
-    }
-    else
+        }
+        else
         {
             alert('Please Enter All Fields!');
         }

@@ -1,5 +1,12 @@
 $(document).ready(function () {
 
+
+     //Setting Menu items to active
+     $('li').removeClass('active');
+     $('#st_request_li_to_be').addClass('active');
+     $('#item-nav-menu_st').css("display","block");
+     $('#item-nav-menu_st').removeClass('nav-hide');
+     $('#item-nav-menu_st').addClass('nav-show');
     
     $('.btn-clone').click(function(){
 

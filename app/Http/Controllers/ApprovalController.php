@@ -35,10 +35,10 @@ class ApprovalController extends Controller
 
         $stationary_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'))->where('module_id','1')->first();
         $safety_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'))->where('module_id','4')->first();
+        $hk_admin=DB::table('rs_admin2modules')->where('user_id',session('user_id'))->where('module_id','6')->first();
 
-        if($stationary_admin && !$safety_admin)
+        if($stationary_admin)
         {
-            $shoes_issue_requests=null;
             $issue_requests = DB::table('rs_stationaryrequests')
         ->join('users', 'users.id', '=', 'rs_stationaryrequests.user_id')
         ->join('rs_items', 'rs_items.id', '=', 'rs_stationaryrequests.item_id')
@@ -51,13 +51,14 @@ class ApprovalController extends Controller
         ->where('rs_stationaryrequests.issue_status','5')
         ->where('rs_stationaryrequests.location_id',session('location'))
         ->get();
-
-        return view('approvals.issues_approvals')->withIssues($issue_requests)->withShoesissues($shoes_issue_requests);
         }
-
-        if(!$stationary_admin && $safety_admin)
+        else
         {
             $issues=null;
+        }    
+
+        if($safety_admin)
+        {
             $shoes_issue_requests = DB::table('rs_safety_requests')
         ->join('users', 'users.id', '=', 'rs_safety_requests.user_id')
         ->join('rs_safety_shoes', 'rs_safety_shoes.id', '=', 'rs_safety_requests.shoes_id')
@@ -67,37 +68,94 @@ class ApprovalController extends Controller
         ->where('rs_safety_requests.issue_status','5')
         ->where('rs_safety_shoes.location_id',session('location'))
         ->get();
-
-        return view('approvals.issues_approvals')->withShoesissues($shoes_issue_requests)->withIssues($issues);
         }
-
-        if($stationary_admin && $safety_admin)
+        else
         {
-            $issue_requests = DB::table('rs_stationaryrequests')
-        ->join('users', 'users.id', '=', 'rs_stationaryrequests.user_id')
-        ->join('rs_items', 'rs_items.id', '=', 'rs_stationaryrequests.item_id')
-        ->join('rs_locations', 'rs_locations.id', '=', 'rs_stationaryrequests.location_id')
-        ->join('rs_costcenters', 'rs_costcenters.id', '=', 'rs_stationaryrequests.costcenter_id')
-        ->select('rs_stationaryrequests.id as main_id','users.name as name','users.emp_id as emp_id', 'rs_items.name as item_name', 'rs_items.id as item_id', 'rs_locations.name as loc_name','rs_costcenters.number as cost_center','rs_stationaryrequests.quantity as quantity','rs_stationaryrequests.remarks as remarks',
-        'rs_stationaryrequests.pickup_date as p_date','rs_stationaryrequests.updated_at as updt_date',
-        'rs_stationaryrequests.time_slot as time_slot')
-        ->where('rs_stationaryrequests.status','5')
-        ->where('rs_stationaryrequests.issue_status','5')
-        ->where('rs_stationaryrequests.location_id',session('location'))
-        ->get();
-
-        $shoes_issue_requests = DB::table('rs_safety_requests')
-        ->join('users', 'users.id', '=', 'rs_safety_requests.user_id')
-        ->join('rs_safety_shoes', 'rs_safety_shoes.id', '=', 'rs_safety_requests.shoes_id')
-        ->join('rs_locations', 'rs_locations.id', '=', 'rs_safety_shoes.location_id')
-        ->select('rs_safety_requests.*', 'rs_safety_shoes.brand as brand_name','rs_safety_shoes.size as size','users.name as name','users.emp_id as emps_id','rs_locations.name as loc_name')
-        ->where('rs_safety_requests.status','5')
-        ->where('rs_safety_requests.issue_status','5')
-        ->where('rs_safety_shoes.location_id',session('location'))
-        ->get();
-
-        return view('approvals.issues_approvals')->withIssues($issue_requests)->withShoesissues($shoes_issue_requests);
+            $shoes_issue_requests=null;
         }
+
+        if($hk_admin)
+        {
+            $hk_issue_requests = DB::table('rs_hkrequests')
+        ->join('users', 'users.id', '=', 'rs_hkrequests.user_id')
+        ->join('rs_hk_stock', 'rs_hk_stock.id', '=', 'rs_hkrequests.item_id')
+        ->join('rs_locations', 'rs_locations.id', '=', 'rs_hk_stock.location_id')
+        ->select('rs_hkrequests.id as main_id','users.name as name','users.emp_id as emp_id', 'rs_hk_stock.name as item_name', 'rs_hk_stock.id as item_id', 'rs_locations.name as loc_name','rs_hkrequests.quantity as quantity',
+        'rs_hkrequests.pickup_date as p_date','rs_hkrequests.updated_at as updt_date')
+        ->where('rs_hkrequests.status','5')
+        ->where('rs_hkrequests.issue_status','5')
+        ->where('rs_hk_stock.location_id',session('location'))
+        ->get();
+        }
+        else
+        {
+            $hk_issue_requests=null;
+        }
+
+        return view('approvals.issues_approvals')->withIssues($issue_requests)->withShoesissues($shoes_issue_requests)->withHkissues($hk_issue_requests);
+
+        // if($stationary_admin && !$safety_admin)
+        // {
+        //     $shoes_issue_requests=null;
+        //     $issue_requests = DB::table('rs_stationaryrequests')
+        // ->join('users', 'users.id', '=', 'rs_stationaryrequests.user_id')
+        // ->join('rs_items', 'rs_items.id', '=', 'rs_stationaryrequests.item_id')
+        // ->join('rs_locations', 'rs_locations.id', '=', 'rs_stationaryrequests.location_id')
+        // ->join('rs_costcenters', 'rs_costcenters.id', '=', 'rs_stationaryrequests.costcenter_id')
+        // ->select('rs_stationaryrequests.id as main_id','users.name as name','users.emp_id as emp_id', 'rs_items.name as item_name', 'rs_items.id as item_id', 'rs_locations.name as loc_name','rs_costcenters.number as cost_center','rs_stationaryrequests.quantity as quantity','rs_stationaryrequests.remarks as remarks',
+        // 'rs_stationaryrequests.pickup_date as p_date','rs_stationaryrequests.updated_at as updt_date',
+        // 'rs_stationaryrequests.time_slot as time_slot')
+        // ->where('rs_stationaryrequests.status','5')
+        // ->where('rs_stationaryrequests.issue_status','5')
+        // ->where('rs_stationaryrequests.location_id',session('location'))
+        // ->get();
+
+        // return view('approvals.issues_approvals')->withIssues($issue_requests)->withShoesissues($shoes_issue_requests);
+        // }
+
+        // if(!$stationary_admin && $safety_admin)
+        // {
+        //     $issues=null;
+        //     $shoes_issue_requests = DB::table('rs_safety_requests')
+        // ->join('users', 'users.id', '=', 'rs_safety_requests.user_id')
+        // ->join('rs_safety_shoes', 'rs_safety_shoes.id', '=', 'rs_safety_requests.shoes_id')
+        // ->join('rs_locations', 'rs_locations.id', '=', 'rs_safety_shoes.location_id')
+        // ->select('rs_safety_requests.*', 'rs_safety_shoes.brand as brand_name','rs_safety_shoes.size as size','rs_safety_shoes.id as shoes_id','users.name as name','users.emp_id as emps_id','rs_locations.name as loc_name')
+        // ->where('rs_safety_requests.status','5')
+        // ->where('rs_safety_requests.issue_status','5')
+        // ->where('rs_safety_shoes.location_id',session('location'))
+        // ->get();
+
+        // return view('approvals.issues_approvals')->withShoesissues($shoes_issue_requests)->withIssues($issues);
+        // }
+
+        // if($stationary_admin && $safety_admin)
+        // {
+        //     $issue_requests = DB::table('rs_stationaryrequests')
+        // ->join('users', 'users.id', '=', 'rs_stationaryrequests.user_id')
+        // ->join('rs_items', 'rs_items.id', '=', 'rs_stationaryrequests.item_id')
+        // ->join('rs_locations', 'rs_locations.id', '=', 'rs_stationaryrequests.location_id')
+        // ->join('rs_costcenters', 'rs_costcenters.id', '=', 'rs_stationaryrequests.costcenter_id')
+        // ->select('rs_stationaryrequests.id as main_id','users.name as name','users.emp_id as emp_id', 'rs_items.name as item_name', 'rs_items.id as item_id', 'rs_locations.name as loc_name','rs_costcenters.number as cost_center','rs_stationaryrequests.quantity as quantity','rs_stationaryrequests.remarks as remarks',
+        // 'rs_stationaryrequests.pickup_date as p_date','rs_stationaryrequests.updated_at as updt_date',
+        // 'rs_stationaryrequests.time_slot as time_slot')
+        // ->where('rs_stationaryrequests.status','5')
+        // ->where('rs_stationaryrequests.issue_status','5')
+        // ->where('rs_stationaryrequests.location_id',session('location'))
+        // ->get();
+
+        // $shoes_issue_requests = DB::table('rs_safety_requests')
+        // ->join('users', 'users.id', '=', 'rs_safety_requests.user_id')
+        // ->join('rs_safety_shoes', 'rs_safety_shoes.id', '=', 'rs_safety_requests.shoes_id')
+        // ->join('rs_locations', 'rs_locations.id', '=', 'rs_safety_shoes.location_id')
+        // ->select('rs_safety_requests.*', 'rs_safety_shoes.brand as brand_name','rs_safety_shoes.size as size','users.name as name','users.emp_id as emps_id','rs_locations.name as loc_name')
+        // ->where('rs_safety_requests.status','5')
+        // ->where('rs_safety_requests.issue_status','5')
+        // ->where('rs_safety_shoes.location_id',session('location'))
+        // ->get();
+
+        // return view('approvals.issues_approvals')->withIssues($issue_requests)->withShoesissues($shoes_issue_requests);
+        // }
         
 
 
@@ -190,6 +248,23 @@ class ApprovalController extends Controller
             DB::table('rs_safety_shoes')
                         ->where('id', $request->shoes_id)
                         ->decrement('available',$request->shoes_qty);
+
+            break;
+
+            case 'hk_issue_request':
+            //Updating in the parent table
+            DB::table('rs_hkrequests')
+                        ->where('id', $request->id)
+                        ->update([
+                            'status' => 4,
+                            'issue_status' => 4,
+                            'issued_by' => session('user_id'),
+                            'issued_date' => DB::raw('CURRENT_TIMESTAMP')
+                        ]);
+            
+            DB::table('rs_hk_stock')
+                        ->where('id', $request->item_id)
+                        ->decrement('available',$request->item_qty);
 
             break;
 

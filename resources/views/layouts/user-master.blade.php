@@ -511,7 +511,7 @@ $user_admin=DB::table('admins')
 
 						<b class="arrow"></b>
 
-						<ul class="submenu" id="item-nav-menu">
+						<ul class="submenu" id="item-nav-menu_gp">
 						@if($gatepass_admin)
 							<li class="">
 								<a href="/gp_settings">
@@ -522,7 +522,7 @@ $user_admin=DB::table('admins')
 								<b class="arrow"></b>
 							</li>
 							@endif
-							<li class="" id="stationary_request_li_to_be">
+							<li class="" id="gp_request_li_to_be">
 								<a href="/my-request_gp">
 									<i class="menu-icon fa fa-caret-right"></i>
 									 Request Form
@@ -531,7 +531,7 @@ $user_admin=DB::table('admins')
 								<b class="arrow"></b>
 							</li>
 							@if($gatepass_admin || $user_type=='2')
-							<li class="" id="stationary_request_li_to_be">
+							<li class="">
 								<a href="/gp_close">
 									<i class="menu-icon fa fa-caret-right"></i>
 									Gatepass Closing
@@ -552,9 +552,9 @@ $user_admin=DB::table('admins')
 
 						<b class="arrow"></b>
 
-						<ul class="submenu" id="item-nav-menu">
+						<ul class="submenu" id="item-nav-menu_st">
 						@if($safety_admin)
-							<li class="" id="stationary_request_li_to_be">
+							<li class="">
 								<a href="/shoes">
 									<i class="menu-icon fa fa-caret-right"></i>
 									 Stock Master
@@ -564,7 +564,7 @@ $user_admin=DB::table('admins')
 							</li>
 							@endif
 
-							<li class="" id="stationary_request_li_to_be">
+							<li class="" id="st_request_li_to_be">
 								<a href="/my-request_shoes">
 									<i class="menu-icon fa fa-caret-right"></i>
 									 Request Form
@@ -613,6 +613,38 @@ $user_admin=DB::table('admins')
 							</li>
 						</ul>
                     </li>
+
+					<li class="">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-pencil "></i>
+							<span class="menu-text"> Housekeeping </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu" id="item-nav-menu_hk">
+						@if($stationary_admin)
+							<li class="">
+								<a href="/housekeeping_master">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Stock Master
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+						@endif	
+							<li class="" id="hk_request_li_to_be">
+								<a href="/my-request_hk">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Request Form&nbsp;
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+						</ul>
+					</li>
                     <!-- <li class="">
                             <a href="{{ route('logout') }}" class="waves-effect"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="menu-icon fa fa-power-off"></i>
 							<span class="menu-text">Logout </span></a><form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>

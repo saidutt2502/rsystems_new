@@ -117,6 +117,16 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('safety_ajax', 'SafetyController@ajax_safety_controller');
     //Forms Submit
     Route::post('forms_safety_shoes', 'SafetyController@forms_safety_shoes');
+
+/* ----------------------------------------HouseKeeping------------------------------------ */
+    Route::get('housekeeping_master', 'HousekeepingController@index');
+    Route::get('my-request_hk', 'HousekeepingController@my_request');
+    Route::get('item_request_hk', 'HousekeepingController@item_request');
+    //Ajax Call 
+    Route::post('hk_ajax', 'HousekeepingController@ajax_stationary_controller');
+    //Forms Submit
+    Route::post('forms_hk', 'HousekeepingController@forms_hk_functions');
+    
         
 
 });

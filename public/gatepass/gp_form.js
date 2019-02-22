@@ -1,6 +1,12 @@
 $(document).ready(function () {
 
-    
+    //Setting Menu items to active
+    $('li').removeClass('active');
+    $('#gp_request_li_to_be').addClass('active');
+    $('#item-nav-menu_gp').css("display","block");
+    $('#item-nav-menu_gp').removeClass('nav-hide');
+    $('#item-nav-menu_gp').addClass('nav-show');
+
     $('#return').change(function(){
     $(".timing").remove();
     if($('#return').val()=='No')

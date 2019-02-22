@@ -33,7 +33,7 @@
                             <div class="media search-media">
                                 <div class="media-left">
                                     <a href="#">
-                                        <img class="media-object" data-src="holder.js/72x72" alt="72x72" style="width: 72px; height: 72px;" src="/core/images/avatars/avatar2.png" data-holder-rendered="true">
+                                        <!-- <img class="media-object" data-src="holder.js/72x72" alt="72x72" style="width: 72px; height: 72px;" src="/core/images/avatars/avatar2.png" data-holder-rendered="true"> -->
                                     </a>
                                 </div>
 
@@ -60,7 +60,7 @@
                             <div class="media search-media">
                                 <div class="media-left">
                                     <a href="#">
-                                        <img class="media-object" data-src="holder.js/72x72" alt="72x72" style="width: 72px; height: 72px;" src="/core/images/avatars/avatar2.png" data-holder-rendered="true">
+                                        <!-- <img class="media-object" data-src="holder.js/72x72" alt="72x72" style="width: 72px; height: 72px;" src="/core/images/avatars/avatar2.png" data-holder-rendered="true"> -->
                                     </a>
                                 </div>
 
@@ -77,6 +77,33 @@
                                     <div class="search-actions text-center">
                                     <br>
                                         <a data-uniqueID="{{$each_issues->id}}" data-shoes_id="{{$each_issues->shoes_id}}" data-shoes_qty="{{$each_issues->quantity}}" class="btn btn-sm btn-block btn-info shoes_issue-btn">Issue!</a>
+                                    </div>
+                                </div>
+                            </div>
+                           @endforeach
+                        @endif
+                        @if($hkissues)
+                                @foreach($hkissues as $each_issues)
+                            <div class="media search-media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <!-- <img class="media-object" data-src="holder.js/72x72" alt="72x72" style="width: 72px; height: 72px;" src="/core/images/avatars/avatar2.png" data-holder-rendered="true"> -->
+                                    </a>
+                                </div>
+
+                               <div class="media-body">
+                                    <div>
+                                        <h4 class="media-heading">
+											<a href="#" class="blue">Housekeeping&nbsp;&nbsp;|&nbsp;&nbsp;{{$each_issues->loc_name}}</a></span>
+										</h4>
+                                    </div>
+                                        <p>
+                                            User:&nbsp;<b>{{$each_issues->name}}&nbsp;(Employee Code:&nbsp;{{$each_issues->emp_id}})</b>&nbsp;&nbsp;|&nbsp;&nbsp;Requested:&nbsp;<b>{{$each_issues->quantity}} {{$each_issues->item_name}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Pickup Date:&nbsp;<b>{{ date("D, d F Y",strtotime($each_issues->p_date))}}</b>
+                                
+                                        </p>
+                                    <div class="search-actions text-center">
+                                    <br>
+                                        <a data-uniqueID="{{$each_issues->main_id}}" data-hk_id="{{$each_issues->item_id}}" data-hk_qty="{{$each_issues->quantity}}" class="btn btn-sm btn-block btn-info hk_issue-btn">Issue!</a>
                                     </div>
                                 </div>
                             </div>
