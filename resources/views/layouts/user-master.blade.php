@@ -8,6 +8,13 @@ $stationary_admin=DB::table('rs_admin2modules')
 ->where('rs_admin2modules.module_id','1')
 ->first();
 
+$hk_admin=DB::table('rs_admin2modules')
+->join('rs_location2department','rs_location2department.department','rs_admin2modules.department')
+->where('rs_location2department.location',session('location'))
+->where('rs_admin2modules.user_id',session('user_id'))
+->where('rs_admin2modules.module_id','6')
+->first();
+
 $taxi_admin=DB::table('rs_admin2modules')
 ->join('rs_location2department','rs_location2department.department','rs_admin2modules.department')
 ->where('rs_location2department.location',session('location'))
@@ -614,6 +621,7 @@ $user_admin=DB::table('admins')
 						</ul>
                     </li>
 
+                   @if($hk_admin || $user_type=='3')
 					<li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-pencil "></i>
@@ -625,7 +633,7 @@ $user_admin=DB::table('admins')
 						<b class="arrow"></b>
 
 						<ul class="submenu" id="item-nav-menu_hk">
-						@if($stationary_admin)
+						@if($hk_admin)
 							<li class="">
 								<a href="/housekeeping_master">
 									<i class="menu-icon fa fa-caret-right"></i>
@@ -645,6 +653,7 @@ $user_admin=DB::table('admins')
 							</li>
 						</ul>
 					</li>
+					@endif
                     <!-- <li class="">
                             <a href="{{ route('logout') }}" class="waves-effect"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="menu-icon fa fa-power-off"></i>
 							<span class="menu-text">Logout </span></a><form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
