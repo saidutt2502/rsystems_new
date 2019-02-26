@@ -15,6 +15,7 @@
 @endsection
 
 @section('main-content')
+
 <br><br>
     <div class="clearfix">
         <div class="pull-right tableTools-container"></div>
@@ -33,11 +34,14 @@
             <tbody>
                 @if($requests)
                     @foreach($requests as $each_request)
+                    <?php
+                    $schedule_time = DB::table('rs_taxi_schedules')->where('lead_trip_id',$each_request->id)->value('scheduled_time');
+                    ?>
                         <tr>
                             <td>{{ date("D, d F Y",strtotime($each_request->date_))}}</td>
                             <td>{{$each_request->place_from}}</td>
                             <td>{{$each_request->place_to}}</td>
-                            <td>10:00:00</td>
+                            <td>@if($schedule_time){{$schedule_time}} @else Taxi Not Scheduled @endif</td>
                             <td>{!!html_entity_decode($each_request->html_status)!!}</td>
                         </tr>
                     @endforeach
