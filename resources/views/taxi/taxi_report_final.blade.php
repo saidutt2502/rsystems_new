@@ -16,7 +16,7 @@
 @section('main-content')
 <table id="example" class="display" style="width:100%">
         <thead>
-            <tr><th colspan="4"><h4>@if($value=='1')Vendor Name: {{$vendor}} @elseif($value=='2')Car Number: {{$car}} @elseif($value=='3')Cost Center: {{$cc->l_name}}-{{$cc->number}} @endif</h4></th><th colspan="4"><h4>Total Kms: {{$kms}}</h4></th><th colspan="4"><h4>Total Cost: {{$cost}}</h4></th></tr>
+            <tr id="checkText"><th colspan="4"><h4>@if($value=='1')Vendor Name: {{$vendor}} @elseif($value=='2')Car Number: {{$car}} @elseif($value=='3')Cost Center: {{$cc->l_name}}-{{$cc->number}} @endif</h4></th><th colspan="4"><h4>Total Kms: {{$kms}}</h4></th><th colspan="4"><h4>Total Cost: {{$cost}}</h4></th></tr>
             <tr>
                 <th>Date</th>
                 <th>Lead Passenger</th>
@@ -51,7 +51,7 @@
                 <!-- <td>@if($each_row->midnight=='1'){{$each_row->midnight_charge}}@else 0 @endif</td> -->
                 <td>{{$each_row->extra_cost}}/{{$each_row->wait_time*$each_row->waiting}}</td>
                 <td>{{$each_row->cost}}</td>
-                <td>@if($each_row->remarks){{$each_row->remarks}}@else - @endif</td>
+                <td colspan="2">@if($each_row->remarks){{$each_row->remarks}}@else - @endif</td>
             </tr>
             @endforeach
             </tbody>
@@ -79,7 +79,10 @@
                 // 'printHtml5',
                 {
                     extend: 'pdfHtml5',
-                    download: 'open'
+                    download: 'open',
+                    messageTop: $('#checkText').text(),
+                    orientation: 'landscape',
+                    pageSize: 'A4'
                 }
 
             ]
