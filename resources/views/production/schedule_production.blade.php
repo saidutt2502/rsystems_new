@@ -24,9 +24,10 @@
 
 
         <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right">Date </label>
+                <label class="col-sm-3 control-label no-padding-right">Month &amp Year </label>
 
                 <div class="col-sm-4">
+                <!-- <label class="control-label no-padding-right">Year</label> -->
                 <select name="year">
                     <?php
                     $current_year=date("Y");

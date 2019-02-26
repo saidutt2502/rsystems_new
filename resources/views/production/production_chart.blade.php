@@ -27,7 +27,7 @@ $edit_permission=DB::table('rs_production_user_list')->where('user_id',session('
 
 
         <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right">Date </label>
+                <label class="col-sm-3 control-label no-padding-right">Month &amp Year</label>
 
                 <div class="col-sm-4">
                 <select name="year">
@@ -309,7 +309,7 @@ $edit_permission=DB::table('rs_production_user_list')->where('user_id',session('
         <tr>
                     <td>Monthly Total</td>
                     <td>Planned: {{$total_planned}}</td>
-                    <td>Achived: {{$total_achived}}</td>
+                    <td>Achieved: {{$total_achived}}</td>
                     @if($total_difference>0)
                     <td>Difference: <font color="green">{{$total_difference}}</font></td>
                     @endif

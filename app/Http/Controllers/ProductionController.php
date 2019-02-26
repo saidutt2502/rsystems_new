@@ -247,7 +247,7 @@ class ProductionController extends Controller
                 $sum=0;
                 for($day=$i;$day>=1;$day--)
                 {
-                $running_difference = DB::table('rs_production_chart')->where('day',$day)->where('month',$table_entry->month)->where('year',$table_entry->year)->value('difference');
+                $running_difference = DB::table('rs_production_chart')->where('day',$day)->where('month',$table_entry->month)->where('year',$table_entry->year)->where('subdept_id',$table_entry->subdept_id)->value('difference');
                 $sum += $running_difference;
                  }
                  DB::table('rs_production_chart')
@@ -282,7 +282,7 @@ class ProductionController extends Controller
                 $sum=0;
                 for($day=$i;$day>=1;$day--)
                 {
-                $running_difference = DB::table('rs_production_chart')->where('day',$day)->where('month',$table_entry->month)->where('year',$table_entry->year)->value('difference');
+                $running_difference = DB::table('rs_production_chart')->where('day',$day)->where('month',$table_entry->month)->where('year',$table_entry->year)->where('subdept_id',$table_entry->subdept_id)->value('difference');
                 $sum += $running_difference;
                  }
                  DB::table('rs_production_chart')
