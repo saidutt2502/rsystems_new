@@ -16,7 +16,7 @@
 @section('main-content')
 <table id="example" class="display" style="width:100%">
         <thead>
-            <tr id="checkText"><th colspan="4"><h4>@if($value=='1')Vendor Name: {{$vendor}} @elseif($value=='2')Car Number: {{$car}} @elseif($value=='3')Cost Center: {{$cc->l_name}}-{{$cc->number}} @endif</h4></th><th colspan="4"><h4>Total Kms: {{$kms}}</h4></th><th colspan="4"><h4>Total Cost: {{$cost}}</h4></th></tr>
+            <tr id="checkText"><th colspan="4"><h4>@if($value=='1')Vendor Name: {{$vendor}} @elseif($value=='2')Car Number: {{$car}} @elseif($value=='3')Cost Center: {{$cc->l_name}}-{{$cc->number}} @endif</h4></th><th colspan="4"><h4>&nbsp&nbsp&nbsp&nbspTotal Kms: {{$kms}}</h4></th><th colspan="4"><h4>&nbsp&nbsp&nbsp&nbspTotal Cost: {{$cost}}</h4></th></tr>
             <tr>
                 <th>Date</th>
                 <th>Lead Passenger</th>
