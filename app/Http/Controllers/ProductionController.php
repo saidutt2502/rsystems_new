@@ -34,11 +34,14 @@ class ProductionController extends Controller
         //Deleting
         DB::table('rs_production_user_list')->where('location_id', session('location'))->delete();
 
+           if($request->user_list)
+          {
         foreach($request->user_list as $each_user){
           DB::table('rs_production_user_list')->insert(
             ['user_id' => $each_user,'location_id' => session('location'),'last_edited' => session('user_id')]
           );
         }
+      }
       }else{
         //Deleting
         DB::table('rs_production_user_list')->where('location_id', session('location'))->delete();
@@ -182,6 +185,7 @@ class ProductionController extends Controller
                 $users=DB::table('users')
                     ->join('rs_location2users','rs_location2users.user_id','=','users.id')
                     ->where('rs_location2users.location_id',session('location'))
+                    ->where('users.user_type_id','1')
                     ->select('users.name as name','users.id as id')
                     ->get();
                     $data=$users;
@@ -204,6 +208,7 @@ class ProductionController extends Controller
               $all_users=DB::table('users')
                   ->join('rs_location2users','rs_location2users.user_id','=','users.id')
                   ->where('rs_location2users.location_id',session('location'))
+                  ->where('users.user_type_id','1')
                   ->select('users.name as name','users.id as id')
                   ->get();
 

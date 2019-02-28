@@ -44,6 +44,7 @@ $(document).ready(function () {
 
     //Add Item functionality
     $('#add_item').click(function(){
+       
         if($('#code').val()!='' && $('#name').val()!='' && $('#costpu').val()!='' && $('#threshold').val()!='')
         {
         $('#add_item').off('click');

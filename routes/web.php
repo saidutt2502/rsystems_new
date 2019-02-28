@@ -126,6 +126,16 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('hk_ajax', 'HousekeepingController@ajax_stationary_controller');
     //Forms Submit
     Route::post('forms_hk', 'HousekeepingController@forms_hk_functions');
+
+/* ----------------------------------------Tool Management------------------------------------ */
+Route::get('tms_deptadmin', 'TMSController@deptadmin');
+Route::get('tms_sup', 'TMSController@sup');
+//Ajax Call 
+Route::post('tms_ajax', 'TMSController@ajax_tms_controller');
+//Forms Submit
+Route::post('add_deptadmin', 'TMSController@add_deptadmin');
+Route::post('add_sup', 'TMSController@add_sup');
+ 
     
         
 

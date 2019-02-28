@@ -581,6 +581,40 @@ $user_admin=DB::table('admins')
 							</li>
 						</ul>
                     </li>
+
+					@if($hk_admin || $user_type=='3')
+					<li class="">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-pencil "></i>
+							<span class="menu-text"> Housekeeping </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu" id="item-nav-menu_hk">
+						@if($hk_admin)
+							<li class="">
+								<a href="/housekeeping_master">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Stock Master
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+						@endif	
+							<li class="" id="hk_request_li_to_be">
+								<a href="/my-request_hk">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Request Form&nbsp;
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+						</ul>
+					</li>
+					@endif
                     <li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-th-list"></i>
@@ -621,39 +655,39 @@ $user_admin=DB::table('admins')
 						</ul>
                     </li>
 
-                   @if($hk_admin || $user_type=='3')
 					<li class="">
 						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-pencil "></i>
-							<span class="menu-text"> Housekeeping </span>
+							<i class="menu-icon fa fa-exclamation-triangle"></i>
+							<span class="menu-text"> Tool Management </span>
 
 							<b class="arrow fa fa-angle-down"></b>
 						</a>
 
 						<b class="arrow"></b>
 
-						<ul class="submenu" id="item-nav-menu_hk">
-						@if($hk_admin)
+						<ul class="submenu" id="item-nav-menu_st">
+						
 							<li class="">
-								<a href="/housekeeping_master">
+								<a href="/tms_deptadmin">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Stock Master
+									 Departments &amp Administrators
 								</a>
 
 								<b class="arrow"></b>
 							</li>
-						@endif	
-							<li class="" id="hk_request_li_to_be">
-								<a href="/my-request_hk">
+
+							<li class="">
+								<a href="/tms_sup">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Request Form&nbsp;
+									 Supervisors
 								</a>
 
 								<b class="arrow"></b>
 							</li>
+							
 						</ul>
-					</li>
-					@endif
+                    </li>
+
                     <!-- <li class="">
                             <a href="{{ route('logout') }}" class="waves-effect"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="menu-icon fa fa-power-off"></i>
 							<span class="menu-text">Logout </span></a><form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
