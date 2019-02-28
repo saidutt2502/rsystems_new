@@ -88,6 +88,15 @@ class TMSController extends Controller
 
         switch ($request->function_name) {
 
+          case 'get_dept_session':
+            $data = session('TMS_DEPT_ID');
+          break;
+
+          case 'set_dept_session':
+            session(['TMS_DEPT_ID' => $request->dept_id]); 
+            $data = session('TMS_DEPT_ID');
+          break;
+
           case 'get_all_users':
                 $users=DB::table('users')
                     ->join('rs_location2users','rs_location2users.user_id','=','users.id')

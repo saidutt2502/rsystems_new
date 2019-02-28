@@ -49,6 +49,13 @@ $user_admin=DB::table('admins')
 				  ->where('users.id',session('user_id'))
 				  ->select('admins.*')
 				  ->first();
+
+
+$depts = DB::table('rs_tms_users2dept')
+			->join('rs_tms_departments','rs_tms_departments.id','=','rs_tms_users2dept.dept_id')
+			->where('rs_tms_users2dept.user_id',session('user_id'))
+			->select('rs_tms_departments.id as id','rs_tms_departments.name as name')
+			->get();
 ?>
 
 <!DOCTYPE html>
@@ -709,6 +716,15 @@ $user_admin=DB::table('admins')
                         </li>
                            @yield('breadcrumb')
 						</ul><!-- /.breadcrumb -->
+						
+						<span class="pull-right" style="width:250px">
+							<select  id="select_dept" name="select_dept" class="chosen-container chosen-container-single chosen-select">
+							@foreach($depts as $eachDept)
+								<option value="{{$eachDept->id}}">{{$eachDept->name}}</option>
+							@endforeach
+							</select>
+						</span>
+						<span class="pull-right"><strong>Department:</strong> &nbsp;&nbsp;&nbsp;</span>
                     </div>
                     
                     
