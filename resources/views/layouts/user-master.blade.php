@@ -125,7 +125,7 @@ $depts = DB::table('rs_tms_users2dept')
 
 				<div class="navbar-header pull-left">
 					
-						<img src="/images/logo.jpg" height="44.5px" width="170px">
+						<img src="/images/logo.jpg" height="44.5px" width="180px">
 					
 				</div>
 
@@ -276,7 +276,7 @@ $depts = DB::table('rs_tms_users2dept')
 									</a>
 								</li> -->
 
-								<li class="divider"></li>
+								<!-- <li class="divider"></li> -->
 
 								<li>
                                         <a href="{{ route('logout') }}" class="waves-effect"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="ace-icon fa fa-power-off"></i>Logout</a><form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
@@ -316,8 +316,8 @@ $depts = DB::table('rs_tms_users2dept')
 							<i class="ace-icon fa fa-sticky-note-o"></i>
 						</button>
 
-						<button class="btn btn-danger" id="safety">
-							<i class="ace-icon fa fa-exclamation-triangle"></i>
+						<button class="btn btn-danger" id="issues">
+							<i class="ace-icon fa fa-registered"></i>
 						</button>
 					</div>
 
@@ -592,7 +592,7 @@ $depts = DB::table('rs_tms_users2dept')
 					@if($hk_admin || $user_type=='3')
 					<li class="">
 						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-pencil "></i>
+							<i class="menu-icon fa fa-angellist "></i>
 							<span class="menu-text"> Housekeeping </span>
 
 							<b class="arrow fa fa-angle-down"></b>
@@ -662,9 +662,32 @@ $depts = DB::table('rs_tms_users2dept')
 						</ul>
                     </li>
 
+
 					<li class="">
 						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-exclamation-triangle"></i>
+							<i class="menu-icon fa fa-registered  "></i>
+							<span class="menu-text"> Rsystem Issues </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu" id="">
+							<li class="">
+								<a href="/issue-tracker">
+									<i class="menu-icon fa  fa-caret-right"></i>
+									Tracker
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+						</ul>
+					</li>
+
+					<li class="">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa fa-wrench"></i>
 							<span class="menu-text"> Tool Management </span>
 
 							<b class="arrow fa fa-angle-down"></b>
@@ -672,7 +695,7 @@ $depts = DB::table('rs_tms_users2dept')
 
 						<b class="arrow"></b>
 
-						<ul class="submenu" id="item-nav-menu_st">
+						<ul class="submenu" id="item-nav-menu_tms">
 						
 							<li class="">
 								<a href="/tms_deptadmin">
@@ -691,7 +714,28 @@ $depts = DB::table('rs_tms_users2dept')
 
 								<b class="arrow"></b>
 							</li>
-							
+
+							<li class="">
+								<a href="/tms_wlp">
+									<i class="menu-icon fa fa-caret-right"></i>
+									 Workstations,Lines &amp Products
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+
+							<li id="dept">
+								<a href="/tms_wlp">
+									<i class="menu-icon fa fa-caret-right"></i>
+									 Tools
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+
+						
+
+
 						</ul>
                     </li>
 
@@ -716,15 +760,6 @@ $depts = DB::table('rs_tms_users2dept')
                         </li>
                            @yield('breadcrumb')
 						</ul><!-- /.breadcrumb -->
-						
-						<span class="pull-right" style="width:250px">
-							<select  id="select_dept" name="select_dept" class="chosen-container chosen-container-single chosen-select">
-							@foreach($depts as $eachDept)
-								<option value="{{$eachDept->id}}">{{$eachDept->name}}</option>
-							@endforeach
-							</select>
-						</span>
-						<span class="pull-right"><strong>Department:</strong> &nbsp;&nbsp;&nbsp;</span>
                     </div>
                     
                     
@@ -738,6 +773,34 @@ $depts = DB::table('rs_tms_users2dept')
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
                                         @yield('main-content')
+										<!-- Modal -->
+<div id="myModal_selectdept" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+ <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Department</h4>
+      </div>
+      <div class="modal-body">
+      <label>Select Department</label>
+      <div class="input-group col-sm-12">
+      <select  id="select_dept" name="select_dept" class="chosen-container chosen-container-single chosen-select">
+	   @foreach($depts as $eachDept)
+		<option value="{{$eachDept->id}}">{{$eachDept->name}}</option>
+	   @endforeach
+	  </select> 
+      </div>
+      </div>
+      <br><br><br>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="confirm_proceed">Proceed</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal End -->
 								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
 						</div><!-- /.row -->

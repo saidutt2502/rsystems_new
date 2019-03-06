@@ -130,13 +130,23 @@ Route::group(['middleware' => ['auth']], function() {
 /* ----------------------------------------Tool Management------------------------------------ */
 Route::get('tms_deptadmin', 'TMSController@deptadmin');
 Route::get('tms_sup', 'TMSController@sup');
+Route::get('tms_wlp', 'TMSController@wlp');
+Route::get('tms_tools', 'TMSController@tools');
 //Ajax Call 
 Route::post('tms_ajax', 'TMSController@ajax_tms_controller');
 //Forms Submit
 Route::post('add_deptadmin', 'TMSController@add_deptadmin');
 Route::post('add_sup', 'TMSController@add_sup');
+Route::post('add_wlp', 'TMSController@add_wlp');
  
-    
+/* ----------------------------------------Services------------------------------------ */
+Route::get('issue-tracker', 'IssueController@issue_request');
+Route::get('issue-request-form', 'IssueController@issue_requests_form');
+//Ajax Call 
+// Route::post('tms_ajax', 'TMSController@ajax_tms_controller');
+//Forms Submit
+Route::post('forms_issues', 'IssueController@forms_issue_functions');
+
         
 
 });
