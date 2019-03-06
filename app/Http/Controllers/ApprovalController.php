@@ -268,6 +268,24 @@ class ApprovalController extends Controller
 
             break;
 
+            case 'delete_request':
+            DB::table('rs_stationaryrequests')
+                        ->where('id', $request->id)
+                        ->delete();
+            break;
+
+            case 'hk_delete_request':
+            DB::table('rs_hk-requests')
+                        ->where('id', $request->id)
+                        ->delete();
+            break;
+
+            case 'shoes_delete_request':
+            DB::table('rs_safety_requests')
+                        ->where('id', $request->id)
+                        ->delete();
+            break;
+
              default:
              $data['success'] = 'false';
 

@@ -48,8 +48,9 @@
                                         Time slot:<b>{{$each_issues->time_slot}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Pickup Date:&nbsp;<b>{{ date("D, d F Y",strtotime($each_issues->p_date))}}</b>
                                         </p>
                                     <div class="search-actions text-center">
-                                    <br>
-                                        <a data-uniqueID="{{$each_issues->main_id}}" data-item_id="{{$each_issues->item_id}}" data-item_qty="{{$each_issues->quantity}}" class="btn btn-sm btn-block btn-info issue-btn">Issue!</a>
+                                    
+                                        <a data-uniqueID="{{$each_issues->main_id}}" data-item_id="{{$each_issues->item_id}}" data-item_qty="{{$each_issues->quantity}}" class="btn btn-sm btn-block btn-info issue-btn">Issue</a><br><br>
+                                        <a data-uniqueID="{{$each_issues->main_id}}" class="btn btn-sm btn-block btn-danger delete-btn">Delete</a>
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +77,8 @@
                                         </p>
                                     <div class="search-actions text-center">
                                     <br>
-                                        <a data-uniqueID="{{$each_issues->id}}" data-shoes_id="{{$each_issues->shoes_id}}" data-shoes_qty="{{$each_issues->quantity}}" class="btn btn-sm btn-block btn-info shoes_issue-btn">Issue!</a>
+                                        <a data-uniqueID="{{$each_issues->id}}" data-shoes_id="{{$each_issues->shoes_id}}" data-shoes_qty="{{$each_issues->quantity}}" class="btn btn-sm btn-block btn-info shoes_issue-btn">Issue</a>
+                                        <a data-uniqueID="{{$each_issues->id}}" class="btn btn-sm btn-block btn-danger shoes_delete-btn">Delete</a>
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +105,8 @@
                                         </p>
                                     <div class="search-actions text-center">
                                     <br>
-                                        <a data-uniqueID="{{$each_issues->main_id}}" data-hk_id="{{$each_issues->item_id}}" data-hk_qty="{{$each_issues->quantity}}" class="btn btn-sm btn-block btn-info hk_issue-btn">Issue!</a>
+                                        <a data-uniqueID="{{$each_issues->main_id}}" data-hk_id="{{$each_issues->item_id}}" data-hk_qty="{{$each_issues->quantity}}" class="btn btn-sm btn-block btn-info hk_issue-btn">Issue</a>
+                                        <a data-uniqueID="{{$each_issues->main_id}}" class="btn btn-sm btn-block btn-danger hk_delete-btn">Delete</a>
                                     </div>
                                 </div>
                             </div>

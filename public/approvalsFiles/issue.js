@@ -62,4 +62,58 @@ $(document).ready(function () {
         });
     });
 
+    $('.delete-btn').click(function(){
+        $('.delete-btn').off('click');
+        $.ajax({
+            type: 'post',
+            url: $('#url_ajax').val(),
+            data: {
+                function_name: 'delete_request',
+                id: $(this).attr('data-uniqueID'),
+                '_token': $('input[name=_token]').val()
+            },
+            success: function (data) {
+                if (data.success) {
+                        location.reload();
+                }
+            }
+        });
+    });
+
+    $('.hk_delete-btn').click(function(){
+        $('.hk_delete-btn').off('click');
+        $.ajax({
+            type: 'post',
+            url: $('#url_ajax').val(),
+            data: {
+                function_name: 'hk_delete_request',
+                id: $(this).attr('data-uniqueID'),
+                '_token': $('input[name=_token]').val()
+            },
+            success: function (data) {
+                if (data.success) {
+                        location.reload();
+                }
+            }
+        });
+    });
+
+    $('.shoes_delete-btn').click(function(){
+        $('.shoes_delete-btn').off('click');
+        $.ajax({
+            type: 'post',
+            url: $('#url_ajax').val(),
+            data: {
+                function_name: 'shoes_delete_request',
+                id: $(this).attr('data-uniqueID'),
+                '_token': $('input[name=_token]').val()
+            },
+            success: function (data) {
+                if (data.success) {
+                        location.reload();
+                }
+            }
+        });
+    });
+
 });
