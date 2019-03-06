@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="bakover" lang="en">
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
@@ -35,29 +35,25 @@
 		<![endif]-->
 	</head>
 
-	<body class="login-layout light-login ">
-		<div class="main-container">
+	<body class="login-layout light-login">
+		<div class="main-container bakover">
 			<div class="main-content">
 				<div class="row">
 					<div class="col-sm-10 col-sm-offset-1">
 						<div class="login-container">
 							<div class="center">
-								<h1>
-									<i class="ace-icon fa fa-leaf green"></i>
-									<span class="red">User</span>
-									<span class="white grey" id="id-text2">RSystems</span>
-								</h1>
-								<h4 class="blue" id="id-company-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Rosenberger | India</h4>
+							<img src="/images/logo.jpg" height="70px" width="350px">
+								<!-- <h4 class="blue" id="id-company-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Rosenberger | India</h4> -->
 							</div>
 
-							<div class="space-6"></div>
+							<div class="space-24"></div>
 
 							<div class="position-relative">
 								<div id="login-box" class="login-box visible widget-box no-border">
 									<div class="widget-body">
 										<div class="widget-main">
-											<h4 class="header blue lighter bigger">
-												<i class="ace-icon fa fa-coffee green"></i>
+											<h4 class="header black lighter bigger">
+											<i class="ace-icon fa fa-user red"></i>
 												Login
 											</h4>
 
@@ -73,7 +69,7 @@
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
 															<input type="text" name="email" class="form-control" placeholder="Email" required autofocus />
-															<i class="ace-icon fa fa-user"></i>
+															<i class="ace-icon fa fa-envelope"></i>
 															@if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -113,8 +109,8 @@
 															<span class="lbl"> Remember Me</span>
 														</label>
 
-														<button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
-															<i class="ace-icon fa fa-key"></i>
+														<button type="submit" class="width-35 pull-right btn btn-sm btn-danger">
+															
 															<span class="bigger-110">Login</span>
 														</button>
 													</div>
@@ -127,7 +123,7 @@
 										<div class="toolbar clearfix">
 											<div>
 												<a href="#" data-target="#forgot-box" class="forgot-password-link">
-													<i class="ace-icon fa fa-arrow-left"></i>
+													
 													I forgot my password
 												</a>
 											</div>
@@ -135,7 +131,7 @@
 											<div>
 												<a href="#" data-target="#signup-box" class="user-signup-link">
 													I want to register
-													<i class="ace-icon fa fa-arrow-right"></i>
+													
 												</a>
 											</div>
 										</div>
@@ -191,8 +187,8 @@
 								<div id="signup-box" class="signup-box widget-box no-border">
 									<div class="widget-body">
 										<div class="widget-main">
-											<h4 class="header green lighter bigger">
-												<i class="ace-icon fa fa-users blue"></i>
+											<h4 class="header black lighter bigger">
+												<i class="ace-icon fa fa-users red"></i>
 												New User Registration
 											</h4>
 
@@ -216,7 +212,7 @@
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
 															<input id="emp_id" type="text" class="form-control" placeholder="Employee ID" />
-															<i class="ace-icon fa fa-user"></i>
+															<i class="ace-icon fa fa-list-alt"></i>
 														</span>
 													</label>
 
@@ -247,14 +243,14 @@
 
 													<div class="clearfix">
 														<button type="reset" class="width-30 pull-left btn btn-sm">
-															<i class="ace-icon fa fa-refresh"></i>
+															
 															<span class="bigger-110">Reset</span>
 														</button>
 
-														<button id="add_user" type="button" class="width-65 pull-right btn btn-sm btn-success">
+														<button id="add_user" type="button" class="width-65 pull-right btn btn-sm btn-danger">
 															<span class="bigger-110">Register</span>
 
-															<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+															
 														</button>
 													</div>
 												</fieldset>
@@ -262,7 +258,6 @@
 
 										<div class="toolbar center">
 											<a href="#" data-target="#login-box" class="back-to-login-link">
-												<i class="ace-icon fa fa-arrow-left"></i>
 												Back to login
 											</a>
 										</div>
@@ -328,6 +323,6 @@
 	
 					});
 				});
-		</script>
+		</script>	
 	</body>
 </html>

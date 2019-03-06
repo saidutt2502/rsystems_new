@@ -142,6 +142,7 @@ Route::post('add_wlp', 'TMSController@add_wlp');
 /* ----------------------------------------Services------------------------------------ */
 Route::get('issue-tracker', 'IssueController@issue_request');
 Route::get('issue-request-form', 'IssueController@issue_requests_form');
+Route::get('issue-tracker_serv', 'IssueController@issue_request_serv');
 //Ajax Call 
 // Route::post('tms_ajax', 'TMSController@ajax_tms_controller');
 //Forms Submit

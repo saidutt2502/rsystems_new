@@ -9,9 +9,7 @@
     <h1>Issue Tracker
         <small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;&nbsp;&nbsp;Issues Reported</small>
     </h1>
-    <div class="input-field pull-right">
-        <a href="/issue-request-form"><button class="btn btn-danger pull-right">Report Issue<i class="ace-icon fa fa-arrow-right icon-on-right"></i></button></a>
-    </div>
+    
 @endsection
 
 @section('main-content')
@@ -28,9 +26,10 @@
                     <th>Department</th>
                     <th>Issue</th>
                     <th>Remarks</th>
-                    <!-- <th>Reported By</th> -->
+                    <th>Reported By</th>
                     <th>Target Date</th>
                     <th>Status</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -39,15 +38,17 @@
                     <?php
                     $dept_name= DB::table('rs_modules_programmer')->where('id',$each_request->department)->value('module_name');
                     $status= DB::table('rs_status')->where('id',$each_request->status)->value('html_string');
+                    $username= DB::table('users')->where('id',$each_request->reporter_id)->value('name');
                     ?>
                         <tr>
                             <td>{{ date("D, d F Y",strtotime($each_request->reported_on))}}</td>
                             <td>{{$dept_name}}</td>
                             <td>{{$each_request->issue}}</td>
                             <td>@if($each_request->remark){{$each_request->remark}}@else - @endif</td>
-                            <!-- <td>{{$each_request->reporter_id}}</td> -->
+                            <td>{{$username}}</td>
                             <td>@if($each_request->target_date){{date("D, d F Y",strtotime($each_request->target_date))}}@else Not Fixed @endif</td>
                             <td>{!!html_entity_decode($status)!!}</td>
+                            <th></th>
                         </tr>
                     @endforeach
                 @endif

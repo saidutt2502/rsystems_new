@@ -17,6 +17,15 @@ class IssueController extends Controller
       return view('issue_tracker.issues')->withIssues($issues);
     }
 
+    public function issue_request_serv()
+    {
+      $issues = DB::table('rs_serv_issues')->get();
+
+      
+
+      return view('issue_tracker.issues_serv')->withIssues($issues);
+    }
+
     public function issue_requests_form()
     {
       
