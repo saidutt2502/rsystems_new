@@ -129,6 +129,11 @@ class StationaryController extends Controller
                 DB::table('rs_items')->where('id', $request->id)->delete();
                  break;
 
+          case 'check_qty':
+                 $available = DB::table('rs_items')->where('id',$request->item_id)->value('available');
+                  $data['available'] = $available;
+                  break;      
+
             default:
                 $data['success'] = 'false';
         }

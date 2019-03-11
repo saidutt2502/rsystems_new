@@ -92,6 +92,8 @@ $(document).ready(function () {
 
             //AJAX call to update values
             $('.done-btn').click(function(){
+                if($('#code_edit').val()!='' && $('#name_edit').val()!='' && $('#costpu_edit').val()!='' && $('#threshold_edit').val()!='' && $('#available_edit').val()!='')
+        {
                 $.ajax({
                     type: 'post',
                     url: $('#url_ajax').val(),
@@ -118,7 +120,12 @@ $(document).ready(function () {
                             $('.edit-btn').on('click');
                         }
                     }
-                }); 
+                });
+            }
+            else
+            {
+                alert('Please Enter All Fields!');
+            } 
         });
     });
 

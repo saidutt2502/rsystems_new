@@ -28,6 +28,7 @@
                     <th>From</th>
                     <th>To</th>
                     <th>Scheduled Time</th>
+                    <th>Taxi Number</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -36,12 +37,15 @@
                     @foreach($requests as $each_request)
                     <?php
                     $schedule_time = DB::table('rs_taxi_schedules')->where('lead_trip_id',$each_request->id)->value('scheduled_time');
+                    $taxi_id = DB::table('rs_taxi_schedules')->where('lead_trip_id',$each_request->id)->value('taxi_id');
+                    $taxino = DB::table('rs_taxi_cars')->where('id',$taxi_id)->value('taxino');
                     ?>
                         <tr>
                             <td>{{ date("D, d F Y",strtotime($each_request->date_))}}</td>
                             <td>{{$each_request->place_from}}</td>
                             <td>{{$each_request->place_to}}</td>
                             <td>@if($schedule_time){{$schedule_time}} @else Taxi Not Scheduled @endif</td>
+                            <td>@if($taxino){{$taxino}} @else Taxi Not Assigned @endif</td>
                             <td>{!!html_entity_decode($each_request->html_status)!!}</td>
                         </tr>
                     @endforeach

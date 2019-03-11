@@ -99,6 +99,9 @@
 		</div>
         *Please click SUBMIT only once and allow a few seconds for form submission. 
     </form>
+
+    <!-- Ajax call url       -->
+<input type="hidden" value="{{URL::to('stationary_ajax')}}" id="url_ajax">
         
 
 @endsection

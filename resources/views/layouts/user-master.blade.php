@@ -592,7 +592,7 @@ $depts = DB::table('rs_tms_users2dept')
 					@if($hk_admin || $user_type=='3')
 					<li class="">
 						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-odnoklassniki  "></i>
+							<i class="menu-icon fa fa-odnoklassniki"></i>
 							<span class="menu-text"> Housekeeping </span>
 
 							<b class="arrow fa fa-angle-down"></b>
