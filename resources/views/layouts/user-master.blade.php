@@ -63,7 +63,7 @@ $depts = DB::table('rs_tms_users2dept')
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
-		<title> User | Rsystems </title>
+		<title>Rsystems </title>
 
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -549,6 +549,16 @@ $depts = DB::table('rs_tms_users2dept')
 								<a href="/gp_close">
 									<i class="menu-icon fa fa-caret-right"></i>
 									Gatepass Closing
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							@endif
+							@if($gatepass_admin)
+							<li class="">
+								<a href="/gp_reports">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Reports
 								</a>
 
 								<b class="arrow"></b>

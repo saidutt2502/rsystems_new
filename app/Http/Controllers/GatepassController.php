@@ -98,6 +98,66 @@ class GatepassController extends Controller
       return view('gatepass.gp_close')->withDetails($gp_details);
   }
 
+  public function reports()
+  {
+        $user_list = DB::table('users')
+                     ->join('rs_location2users', 'rs_location2users.user_id', '=', 'users.id')
+                     ->where('rs_location2users.location_id',session('location'))
+                     ->select('users.*')
+                     ->get();           
+
+                   
+        return view('gatepass.reports_index')->withUsers($user_list);
+  }
+
+  public function forms_report_gatepass(Request $request)
+  {
+
+    //If Report Type is Vendor
+          if($request->report_type == 1){
+
+            $details_gatepass = DB::table('rs_gp_entries')
+                                ->join('users', 'users.id', '=', 'rs_gp_entries.user_id')
+                                ->join('rs_locations', 'rs_locations.id', '=', 'rs_gp_entries.location_id')
+                                ->join('rs_gp_settings', 'rs_gp_settings.id', '=', 'rs_gp_entries.shift_id')
+                                ->select('users.name as name','users.emp_id as emp_id', 'rs_gp_entries.*','rs_locations.name as loc_name','rs_gp_settings.name as shift_name')
+                                ->where('rs_gp_entries.actualdatef','>=',$request->start_date)
+                                ->where('rs_gp_entries.actualdatef','<=',$request->end_date)
+                                ->where('rs_gp_entries.status','7')
+                                ->where('rs_locations.id',session('location'))
+                                ->get();
+
+             
+
+             return view('gatepass.gatepass_report_final')->withResult($details_gatepass);
+
+        }
+        
+        if($request->report_type == 2){
+
+
+            $details_gatepass = DB::table('rs_gp_entries')
+                                ->join('users', 'users.id', '=', 'rs_gp_entries.user_id')
+                                ->join('rs_locations', 'rs_locations.id', '=', 'rs_gp_entries.location_id')
+                                ->join('rs_gp_settings', 'rs_gp_settings.id', '=', 'rs_gp_entries.shift_id')
+                                ->select('users.name as name','users.emp_id as emp_id', 'rs_gp_entries.*','rs_locations.name as loc_name','rs_gp_settings.name as shift_name')
+                                ->where('rs_gp_entries.actualdatef','>=',$request->start_date)
+                                ->where('rs_gp_entries.actualdatef','<=',$request->end_date)
+                                ->where('rs_gp_entries.status','7')
+                                ->where('rs_locations.id',session('location'))
+                                ->where('rs_gp_entries.user_id',$request->user_id)
+                                ->get();
+
+             
+
+             return view('gatepass.gatepass_report_final')->withResult($details_gatepass);
+         
+
+             return view('taxi.gatepass_report_final');
+        }
+
+    }
+
 
    // Ajax Calls 
    public function ajax_gatepass_controller(Request $request)

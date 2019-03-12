@@ -98,7 +98,13 @@ class StepController extends Controller
 
   public function oc_structure()
   {
-    $department = DB::table('rs_departments')->where('hod_id',session('user_id'))->get();
+    $department = DB::table('rs_departments')
+                 ->join('rs_location2department','rs_location2department.department','=','rs_departments.id')
+                 ->join('rs_locations','rs_locations.id','=','rs_location2department.location')
+                 ->where('rs_departments.hod_id',session('user_id'))
+                 ->where('rs_locations.id',session('location'))
+                 ->select('rs_departments.*','rs_locations.name as l_name')
+                 ->get();
     return view('admin.oc_structure')->withDepartments($department)->withHodid(session('user_id'));
   }
 
@@ -152,7 +158,13 @@ class StepController extends Controller
 
   public function hod_cc()
   {
-    $department = DB::table('rs_departments')->where('hod_id',session('user_id'))->get();
+    $department = DB::table('rs_departments')
+                 ->join('rs_location2department','rs_location2department.department','=','rs_departments.id')
+                 ->join('rs_locations','rs_locations.id','=','rs_location2department.location')
+                 ->where('rs_departments.hod_id',session('user_id'))
+                 ->where('rs_locations.id',session('location'))
+                 ->select('rs_departments.*','rs_locations.name as l_name')
+                 ->get();
     return view('admin.hod_cc')->withDepartments($department);
   }
 
@@ -163,6 +175,7 @@ class StepController extends Controller
     ->join('users','users.id','=','rs_reporting.reportee')
     ->join('rs_location2users','rs_location2users.user_id','=','users.id')
     ->where('reporter',session('user_id'))
+    ->where('rs_location2users.location_id',session('location'))
     ->select('users.name','users.emp_id','users.id','rs_location2users.location_id as location')
     ->get();
                
@@ -172,7 +185,13 @@ class StepController extends Controller
   public function assign_module_admins()
   {
     $users = session('user_id');
-    $department = DB::table('rs_departments')->where('hod_id',$users)->get();
+    $department = DB::table('rs_departments')
+                 ->join('rs_location2department','rs_location2department.department','=','rs_departments.id')
+                 ->join('rs_locations','rs_locations.id','=','rs_location2department.location')
+                 ->where('rs_departments.hod_id',session('user_id'))
+                 ->where('rs_locations.id',session('location'))
+                 ->select('rs_departments.*','rs_locations.name as l_name','rs_locations.id as l_id')
+                 ->get();
 
     
 

@@ -32,11 +32,8 @@
     @if($departments)
         @foreach($departments as $department)
         <?php
-        $dept2loc = DB::table('rs_location2department')->where('department',$department->id)->first();
-        $deptname = DB::table('rs_departments')->where('id',$dept2loc->department)->value('name');
-        $location = DB::table('rs_locations')->where('id',$dept2loc->location)->value('name');
-        $modules = DB::table('rs_modules_programmer')->where('department_name',$deptname)->get();
-        $users=DB::table('users')->join('rs_location2users','rs_location2users.user_id','=','users.id')->where('rs_location2users.location_id',$dept2loc->location)->select('users.*')->get();
+        $modules = DB::table('rs_modules_programmer')->where('department_name',$department->name)->get();
+        $users=DB::table('users')->join('rs_location2users','rs_location2users.user_id','=','users.id')->where('rs_location2users.location_id',$department->l_id)->select('users.*')->get();
     ?>   
         <tr>
             <td class="center">
@@ -48,9 +45,9 @@
                 </div>
             </td>
             <td>
-                <a href="#!">{{$deptname}}</a>
+                <a href="#!">{{$department->name}}</a>
             </td>
-            <td><a href="#!">{{$location}}</a></td>
+            <td><a href="#!">{{$department->l_name}}</a></td>
 
         </tr>
         <tr class="detail-row">

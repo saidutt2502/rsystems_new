@@ -22,6 +22,8 @@ class ApprovalController extends Controller
 
         
 
+        
+
         $count_approvals = DB::table('rs_approvals')
                                     ->where('user_id',session('user_id'))
                                     ->where('status','1')

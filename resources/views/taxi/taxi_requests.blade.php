@@ -36,8 +36,9 @@
                 @if($requests)
                     @foreach($requests as $each_request)
                     <?php
-                    $schedule_time = DB::table('rs_taxi_schedules')->where('lead_trip_id',$each_request->id)->value('scheduled_time');
-                    $taxi_id = DB::table('rs_taxi_schedules')->where('lead_trip_id',$each_request->id)->value('taxi_id');
+                    $schedule_id = DB::table('rs_taxi_requests2schedules')->where('request_id',$each_request->id)->value('schedule_id');
+                    $schedule_time = DB::table('rs_taxi_schedules')->where('id',$schedule_id)->value('scheduled_time');
+                    $taxi_id = DB::table('rs_taxi_schedules')->where('id',$schedule_id)->value('taxi_id');
                     $taxino = DB::table('rs_taxi_cars')->where('id',$taxi_id)->value('taxino');
                     ?>
                         <tr>

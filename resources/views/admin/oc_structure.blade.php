@@ -42,12 +42,12 @@
                                             <option value="" disabled selected>Select Department</option>
                                             @if($departments)
                                                  @foreach($departments as $department)
-                                                     <?php
-                                                     $dept2loc = DB::table('rs_location2department')->where('department',$department->id)->first();
-                                                     $deptname = DB::table('rs_departments')->where('id',$dept2loc->department)->value('name');
-                                                     $location = DB::table('rs_locations')->where('id',$dept2loc->location)->value('name');
-                                                     ?>
-                                                     <option value="{{$department->id}}">{{$deptname}} ({{$location}})</option>
+                                                    <?php
+                                                    //  $dept2loc = DB::table('rs_location2department')->where('department',$department->id)->first();
+                                                    //  $deptname = DB::table('rs_departments')->where('id',$dept2loc->department)->value('name');
+                                                    //  $location = DB::table('rs_locations')->where('id',$dept2loc->location)->value('name');
+                                                     ?> 
+                                                     <option value="{{$department->id}}">{{$department->name}} ({{$department->l_name}})</option>
                                                  @endforeach
                                             @endif         
                                             </select>

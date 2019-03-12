@@ -93,10 +93,12 @@ Route::group(['middleware' => ['auth']], function() {
      Route::get('my-request_gp', 'GatepassController@my_request');
      Route::get('gp-request', 'GatepassController@gp_request');
      Route::get('gp_close', 'GatepassController@gp_close');
+     Route::get('gp_reports', 'GatepassController@reports');
      //Ajax Call 
      Route::post('gatepass_ajax', 'GatepassController@ajax_gatepass_controller');
      //Forms Submit
      Route::post('gatepass_settings', 'GatepassController@settings');
+     Route::post('report_gatepass', 'GatepassController@forms_report_gatepass');
      
 /* ----------------------------------------Productions Routes------------------------------------ */
         Route::get('production', 'ProductionController@index');

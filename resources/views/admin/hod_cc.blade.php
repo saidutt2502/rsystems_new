@@ -34,11 +34,8 @@
     @if($departments)
         @foreach($departments as $department)
         <?php
-        $dept2loc = DB::table('rs_location2department')->where('department',$department->id)->first();
-        $deptname = DB::table('rs_departments')->where('id',$dept2loc->department)->value('name');
-        $location = DB::table('rs_locations')->where('id',$dept2loc->location)->value('name');
         $costcenters = DB::table('rs_costcenters')->where('department',$department->id)->get();
-    ?>   
+        ?>   
         <tr>
             <td class="center">
                 <div class="action-buttons">
@@ -49,9 +46,9 @@
                 </div>
             </td>
             <td>
-                <a href="#!">{{$deptname}}</a>
+                <a href="#!">{{$department->name}}</a>
             </td>
-            <td><a href="#!">{{$location}}</a></td>
+            <td><a href="#!">{{$department->l_name}}</a></td>
 
         </tr>
         <tr class="detail-row">
