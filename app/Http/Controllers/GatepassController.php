@@ -30,8 +30,8 @@ class GatepassController extends Controller
 
     public function index()
     {
-        $entries = DB::table('rs_gp_settings')->get();
-        $entry = DB::table('rs_gp_settings')->first();
+        $entries = DB::table('rs_gp_settings')->where('location_id',session('location'))->get();
+        $entry = DB::table('rs_gp_settings')->where('location_id',session('location'))->first();
         $count=count($entries);
         $counter=$count;
         if($entry)
@@ -53,7 +53,7 @@ class GatepassController extends Controller
 
     public function settings(Request $request)
   {
-    DB::table('rs_gp_settings')->delete();
+    DB::table('rs_gp_settings')->where('location_id',session('location'))->delete();
     for($i=0;$i< count($request->name);$i++)
     {
         DB::table('rs_gp_settings')->insert([
@@ -61,7 +61,8 @@ class GatepassController extends Controller
             'from' => $request->from[$i],
             'to'=> $request->to[$i],
             'hours' => $request->hours,
-            'user_id' => session('user_id')
+            'user_id' => session('user_id'),
+            'location_id' => session('location')
         ]);
     }
     return redirect()->action('GatepassController@index');
@@ -79,7 +80,7 @@ class GatepassController extends Controller
 
   public function gp_request()
   {
-      $shifts = DB::table('rs_gp_settings')->get();
+      $shifts = DB::table('rs_gp_settings')->where('location_id',session('location'))->get();
 
       $user = DB::table('users')
                     ->where('id',session('user_id'))
