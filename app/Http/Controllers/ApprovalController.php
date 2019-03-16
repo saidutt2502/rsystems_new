@@ -8,6 +8,9 @@ use App\rs_stationaryrequests;
 use App\rs_hkrequests;
 use App\rs_safety_requests;
 
+
+use App\Mail\StationaryThreshold;
+
 use Session;
 
 use DB;
@@ -236,6 +239,44 @@ class ApprovalController extends Controller
             DB::table('rs_items')
                         ->where('id', $request->item_id)
                         ->decrement('available',$request->item_qty);
+
+            $available =  DB::table('rs_items')
+                        ->where('id', $request->item_id)
+                        ->value('available');
+
+            $threshold =  DB::table('rs_items')
+                        ->where('id', $request->item_id)
+                        ->value('threshold');
+
+
+            if($threshold < $available ){
+
+             $name =  DB::table('rs_items')
+                    ->where('id', $request->item_id)
+                    ->value('name');
+
+            
+
+             $all_dept = DB::table('rs_location2department')->where('location',session('location'))->get();
+
+            foreach ($all_dept as $eachDept) {
+
+                $user_id = DB::table('rs_admin2modules')->where('module_id','1')->where('department',$eachDept->department)->get();
+
+                    foreach ($user_id as $eachUser) {
+
+                        $admin_email = DB::table('users')->where('id',$eachUser->user_id)->value('email');
+
+                        $mailData = array(
+                            'item_name'=>  $name,
+                           );
+                         \Mail::to($admin_email)->queue(new StationaryThreshold($mailData));
+                    }
+               
+            }
+
+              
+            }
 
             break;
 

@@ -342,7 +342,7 @@ class ProductionController extends Controller
                        );
 
                         foreach ($user_prod as $eachUser) {
-                           \Mail::to($eachUser->email)->send(new ProductionUpdated($mailData));
+                           \Mail::to($eachUser->email)->queue(new ProductionUpdated($mailData));
                         }
 
                         $data=1;

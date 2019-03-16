@@ -110,14 +110,15 @@ $(document).ready(function () {
                     success: function (data) {
                         if (data.success) {
 
-                            var options = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' };
-                            var today  = new Date();
+                            // var options = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' };
+                            // var today  = new Date();
 
-                            $('.selected').html('<td data-type="code_edit" class="input-edit">'+$('#code_edit').val()+'</td><td data-type="name_edit" class="input-edit">'+$('#name_edit').val()+'</td><td data-type="available_edit" class="input-edit">'+$('#available_edit').val()+'</td><td data-type="costpu_edit" class="input-edit hidden-480">'+$('#costpu_edit').val()+'</td><td data-type="threshold_edit" class="input-edit hidden-480">'+$('#threshold_edit').val()+'</td><td>'+today.toLocaleDateString("en-US", options)+'</td></td><td></td>');
+                            // $('.selected').html('<td data-type="code_edit" class="input-edit">'+$('#code_edit').val()+'</td><td data-type="name_edit" class="input-edit">'+$('#name_edit').val()+'</td><td data-type="available_edit" class="input-edit">'+$('#available_edit').val()+'</td><td data-type="costpu_edit" class="input-edit hidden-480">'+$('#costpu_edit').val()+'</td><td data-type="threshold_edit" class="input-edit hidden-480">'+$('#threshold_edit').val()+'</td><td>'+today.toLocaleDateString("en-US", options)+'</td></td><td></td>');
 
-                            $('.selected').removeClass('selected');
+                            // $('.selected').removeClass('selected');
 
-                            $('.edit-btn').on('click');
+                            // $('.edit-btn').on('click');
+                            location.reload();
                         }
                     }
                 });
