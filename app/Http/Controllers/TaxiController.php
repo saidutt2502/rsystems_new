@@ -64,7 +64,7 @@ class TaxiController extends Controller
 
     public function taxi_details()
     {
-      $vendors=DB::table('rs_taxi_vendors')->where('location_id',session('location'))->get();
+      $vendors=DB::table('rs_taxi_vendors')->where('location_id',session('location'))->whereNull('deleted_at')->get();
       $airports=DB::table('rs_taxisettings')->where('location_id',session('location'))->first(); 
            
       return view('taxi.taxi_details')->withVendors($vendors)->withAirports($airports);

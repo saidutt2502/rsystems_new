@@ -19,7 +19,7 @@ class ProductionController extends Controller
 
     public function index()
     {
-      $depts = DB::table('rs_production_dept')->where('location_id',session('location'))->select('department','id')
+      $depts = DB::table('rs_production_dept')->where('location_id',session('location'))->select('department','id')->whereNull('deleted_at')
       ->get();
       return view('production.add_production')->withDept($depts);
     }

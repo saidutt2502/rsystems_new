@@ -15,6 +15,7 @@ class HousekeepingController extends Controller
     {
         $items = DB::table('rs_hk_stock')
                     ->where('location_id',session('location'))
+                    ->whereNull('deleted_at')
                     ->get();
 
         return view('housekeeping.stock')->withItem($items);

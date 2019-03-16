@@ -16,7 +16,7 @@ class TMSController extends Controller
 {
     public function deptadmin()
     {
-      $depts = DB::table('rs_tms_departments')->where('location_id',session('location'))->select('name','id')
+      $depts = DB::table('rs_tms_departments')->where('location_id',session('location'))->select('name','id')->whereNull('deleted_at')
       ->get();
       return view('tms.deptadmin')->withDept($depts);
     }

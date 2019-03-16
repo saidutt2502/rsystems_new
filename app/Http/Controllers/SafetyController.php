@@ -16,6 +16,7 @@ class SafetyController extends Controller
     {
         $shoes = DB::table('rs_safety_shoes')
                     ->where('location_id',session('location'))
+                    ->whereNull('deleted_at')
                     ->get();
 
         return view('safety.stockmaster')->withShoes($shoes);

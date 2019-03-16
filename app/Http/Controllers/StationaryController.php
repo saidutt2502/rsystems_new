@@ -37,6 +37,7 @@ class StationaryController extends Controller
     {
         $items = DB::table('rs_items')
                     ->where('location_id',session('location'))
+                    ->whereNull('deleted_at')
                     ->get();
 
         return view('stationary.items')->withItem($items);
