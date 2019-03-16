@@ -63,6 +63,11 @@
 													{{ session('status') }}
 												</div>
 											@endif
+											@if(session('message_session'))
+												<div class="alert alert-danger">
+												{{ session('message_session') }}
+												</div>
+											@endif
 											<form method="POST" action="{{ route('login') }}" autocomplete="off">
                                                 @csrf
 												<fieldset>

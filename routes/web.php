@@ -53,7 +53,7 @@ Route::post('admin/reset-password', function () { return view('auth.passwords.re
     //Form Submit
     Route::post('holiday_calender_save', 'Admin\StepController@calender_function');
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth','SessionTimeout']], function() {
 
   /* ----------------------------------------Stationary Routes------------------------------------ */
         Route::get('items', 'StationaryController@index');
