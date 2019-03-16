@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Traits\ApprovalTraits;
+use App\rs_gp_settings;
 
 use Session;
 use DB;
@@ -53,7 +54,7 @@ class GatepassController extends Controller
 
     public function settings(Request $request)
   {
-    DB::table('rs_gp_settings')->where('location_id',session('location'))->delete();
+    rs_gp_settings::where('location_id',session('location'))->delete();
     for($i=0;$i< count($request->name);$i++)
     {
         DB::table('rs_gp_settings')->insert([

@@ -6,7 +6,12 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Traits\ApprovalTraits;
 use DB;
 use Session;
-
+use App\rs_taxisettings;
+use App\rs_taxi_requests;
+use App\rs_taxi_requests2schedules;
+use App\rs_taxi_schedules;
+use App\rs_taxi_cars;
+use App\rs_taxi_type;
 
 
 class TaxiController extends Controller
@@ -466,7 +471,7 @@ class TaxiController extends Controller
 
           case 'edit_taxi_details':
 
-              DB::table('rs_taxisettings')->where('location_id', session('location'))->delete();
+              rs_taxisettings::where('location_id', session('location'))->delete();
 
                $id = DB::table('rs_taxisettings')->insertGetId([
                 'location_id' => session('location'), 
@@ -557,7 +562,7 @@ class TaxiController extends Controller
                    break;
           case 'delete_taxi_request':
 
-                   DB::table('rs_taxi_requests')->where('id', $request->trip_id)->delete();                                              
+                   rs_taxi_requests::where('id', $request->trip_id)->delete();                                              
    
                   $data=1;
                  break;                
@@ -635,10 +640,10 @@ class TaxiController extends Controller
                               ->update([
                                   'status' => '2', 
                               ]);
-                  DB::table('rs_taxi_requests2schedules')->where('request_id', $each_entry->request_id)->delete();            
+                  rs_taxi_requests2schedules::where('request_id', $each_entry->request_id)->delete();            
                 }
 
-                DB::table('rs_taxi_schedules')->where('id', $request->schedule_id)->delete();                                              
+                rs_taxi_schedules::where('id', $request->schedule_id)->delete();                                              
 
                $data=1;
               break;
@@ -1026,7 +1031,7 @@ class TaxiController extends Controller
              break;
 
              case 'delete_taxi_list':
-              DB::table($request->table)->where('id', $request->id)->delete();
+              $request->table::where('id', $request->id)->delete();
               $data=1;
                 break;
 

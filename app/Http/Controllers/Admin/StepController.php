@@ -4,6 +4,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use DB;
+use App\rs_locations;
+use App\rs_holiday_calender;
+use App\rs_location2department;
+use App\rs_location2users;
+use App\rs_costcenters;
+use App\rs_reporting;
+use App\rs_cc2modules;
 
 
 
@@ -224,7 +231,7 @@ class StepController extends Controller
   public function calender_function(Request $request)
   {
   
-    DB::table('rs_holiday_calender')->where('location_id', '=', $request->location_id)->delete();
+    rs_holiday_calender::where('location_id', '=', $request->location_id)->delete();
     for($i=0;$i<sizeof($request->holiday_name);$i++)
     {
       $id = DB::table('rs_holiday_calender')->insert([
@@ -257,8 +264,8 @@ class StepController extends Controller
                  break;
 
           case 'del_location':
-                DB::table('rs_locations')->where('id', '=', $request->id)->delete();
-                DB::table('rs_location2department')->where('location', '=', $request->id)->delete();
+                rs_locations::where('id', '=', $request->id)->delete();
+                rs_location2department::where('location', '=', $request->id)->delete();
                  break;
                  
           case 'add_department':
@@ -280,8 +287,8 @@ class StepController extends Controller
                    break;
 
             case 'del_department':
-                  DB::table('rs_departments')->where('id', '=', $request->id)->delete();
-                  DB::table('rs_location2department')->where('department', '=', $request->id)->delete();
+                  rs_departments::where('id', '=', $request->id)->delete();
+                  rs_location2department::where('department', '=', $request->id)->delete();
                   break;
 
             case 'list_departments':
@@ -304,7 +311,7 @@ class StepController extends Controller
                   break;
 
             case 'delete_user':
-                  DB::table('rs_location2users')->where('user_id', $request->user_id)->delete();
+                  rs_location2users::where('user_id', $request->user_id)->delete();
                   break;
 
             case 'add_user':
@@ -391,7 +398,7 @@ class StepController extends Controller
                   break; 
           
           case 'delete_cc':
-                  DB::table('rs_costcenters')->where('id',$request->cc_id)->delete();
+                  rs_costcenters::where('id',$request->cc_id)->delete();
                   break;
 
           case 'store_levels':
@@ -427,7 +434,7 @@ class StepController extends Controller
                   //   DB::table('rs_reporting')->where('department',$request->dept_id)->where('level',$request->level+1)->where('reporter',$request->reportee)->where('reportee',$change->reportee)->delete();
                       
                   // }
-                  DB::table('rs_reporting')->where('id',$request->entry_id)->delete();
+                  rs_reporting::where('id',$request->entry_id)->delete();
                   break;
 
           case 'allocate_cc':
@@ -444,7 +451,7 @@ class StepController extends Controller
                   break;
 
           case 'del_allocate_cc':
-                  DB::table('rs_cc2modules')->where('id',$request->entry_id)->delete();
+                  rs_cc2modules::where('id',$request->entry_id)->delete();
                   break;
 
           case 'edit_budget':

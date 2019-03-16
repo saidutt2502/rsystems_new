@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Session;
 use DB;
+use App\rs_hk_stock;
 
 
 class HousekeepingController extends Controller
@@ -95,7 +96,7 @@ class HousekeepingController extends Controller
                  break;
 
           case 'delete_item':
-                DB::table('rs_hk_stock')->where('id', $request->id)->delete();
+                rs_hk_stock::where('id', $request->id)->delete();
                  break;
 
         //     default:

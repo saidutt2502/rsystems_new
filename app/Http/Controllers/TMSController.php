@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\rs_tms_users2dept;
+use App\rs_tms_workstations;
+use App\rs_tms_lines;
+use App\rs_tms_products;
+use App\rs_tms_tools;
 
 use Session;
 use DB;
@@ -22,7 +27,7 @@ class TMSController extends Controller
       if($request->dept_selected_dd != '0' ){
 
             //Deleting
-            DB::table('rs_tms_users2dept')->where('dept_id', $request->dept_selected_dd)->where('user_type', '1')->delete();
+            rs_tms_users2dept::where('dept_id', $request->dept_selected_dd)->where('user_type', '1')->delete();
           if($request->user_list)
           {
           foreach($request->user_list as $each_user){
@@ -55,7 +60,7 @@ class TMSController extends Controller
       if($request->dept_selected_dd != ''){
 
             //Deleting
-            DB::table('rs_tms_users2dept')->where('dept_id', $request->dept_selected_dd)->where('user_type', '2')->delete();
+            rs_tms_users2dept::where('dept_id', $request->dept_selected_dd)->where('user_type', '2')->delete();
           if($request->user_list)
           {
           foreach($request->user_list as $each_user){
@@ -102,9 +107,9 @@ class TMSController extends Controller
       if($request->dept_selected_dd){
 
         //Deleting
-            DB::table('rs_tms_workstations')->where('dept_id', $request->dept_selected_dd)->delete();
-            DB::table('rs_tms_lines')->where('dept_id', $request->dept_selected_dd)->delete();
-            DB::table('rs_tms_products')->where('dept_id', $request->dept_selected_dd)->delete();
+            rs_tms_workstations::where('dept_id', $request->dept_selected_dd)->delete();
+            rs_tms_lines::where('dept_id', $request->dept_selected_dd)->delete();
+            rs_tms_products::where('dept_id', $request->dept_selected_dd)->delete();
    
         if($request->wk)
         {
@@ -293,7 +298,7 @@ class TMSController extends Controller
                  $data['insert_id'] = $id;
                  break;
                case 'delete_tool':
-                 DB::table('rs_tms_tools')->where('id', $request->id)->delete();
+                 rs_tms_tools::where('id', $request->id)->delete();
                  $data=1;
                   break;
 

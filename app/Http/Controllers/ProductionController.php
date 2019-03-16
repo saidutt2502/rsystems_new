@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Traits\ApprovalTraits;
 use DB;
 use Session;
+use App\rs_production_user_list;
+use App\rs_company_production;
+use App\rs_users_production;
 
 use App\Mail\ProductionUpdated;
 
@@ -32,7 +35,7 @@ class ProductionController extends Controller
         if(is_array($request->user_list)){
 
         //Deleting
-        DB::table('rs_production_user_list')->where('location_id', session('location'))->delete();
+        rs_production_user_list::where('location_id', session('location'))->delete();
 
            if($request->user_list)
           {
@@ -44,7 +47,7 @@ class ProductionController extends Controller
       }
       }else{
         //Deleting
-        DB::table('rs_production_user_list')->where('location_id', session('location'))->delete();
+        rs_production_user_list::where('location_id', session('location'))->delete();
       }
 
       return redirect()->action('ProductionController@edit_production');
@@ -56,7 +59,7 @@ class ProductionController extends Controller
       if($request->dept_selected_dd != '0' ){
 
         //Deleting
-            DB::table('rs_company_production')->where('dept_id', $request->dept_selected_dd)->delete();
+            rs_company_production::where('dept_id', $request->dept_selected_dd)->delete();
 
         foreach($request->company as $each_company){
           if($each_company != ''){
@@ -67,7 +70,7 @@ class ProductionController extends Controller
         }
     
             //Deleting
-            DB::table('rs_users_production')->where('production_dept_id', $request->dept_selected_dd)->delete();
+            rs_users_production::where('production_dept_id', $request->dept_selected_dd)->delete();
 
           foreach($request->user_list as $each_user){
             DB::table('rs_users_production')->insert(

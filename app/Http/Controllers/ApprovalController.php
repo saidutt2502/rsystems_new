@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\rs_stationaryrequests;
+use App\rs_hkrequests;
+use App\rs_safety_requests;
 
 use Session;
 
@@ -271,20 +274,17 @@ class ApprovalController extends Controller
             break;
 
             case 'delete_request':
-            DB::table('rs_stationaryrequests')
-                        ->where('id', $request->id)
+            rs_stationaryrequests::where('id', $request->id)
                         ->delete();
             break;
 
             case 'hk_delete_request':
-            DB::table('rs_hk-requests')
-                        ->where('id', $request->id)
+            rs_hkrequests::where('id', $request->id)
                         ->delete();
             break;
 
             case 'shoes_delete_request':
-            DB::table('rs_safety_requests')
-                        ->where('id', $request->id)
+            rs_safety_requests::where('id', $request->id)
                         ->delete();
             break;
 

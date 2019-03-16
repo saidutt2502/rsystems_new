@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\rs_safety_shoes;
 
 
 use Session;
@@ -129,7 +130,7 @@ class SafetyController extends Controller
                  break;
 
           case 'delete_shoes':
-                DB::table('rs_safety_shoes')->where('id', $request->id)->delete();
+                rs_safety_shoes::where('id', $request->id)->delete();
                  break;
 
             default:
