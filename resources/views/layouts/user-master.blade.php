@@ -693,18 +693,18 @@ $depts = DB::table('rs_tms_users2dept')
 								<b class="arrow"></b>
 							</li>
 
-							<li class="">
+							<!-- <li class="">
 								<a href="/issue-tracker_serv">
 									<i class="menu-icon fa  fa-caret-right"></i>
 									Tracker
 								</a>
 
 								<b class="arrow"></b>
-							</li>
+							</li> -->
 						</ul>
 					</li>
 
-					<li class="">
+					<!-- <li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa fa-wrench"></i>
 							<span class="menu-text"> Tool Management </span>
@@ -756,7 +756,7 @@ $depts = DB::table('rs_tms_users2dept')
 
 
 						</ul>
-                    </li>
+                    </li> -->
 
                     <!-- <li class="">
                             <a href="{{ route('logout') }}" class="waves-effect"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="menu-icon fa fa-power-off"></i>

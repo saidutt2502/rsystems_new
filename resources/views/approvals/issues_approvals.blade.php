@@ -76,7 +76,7 @@
                                         Pickup Date:&nbsp;<b>{{ date("D, d F Y",strtotime($each_issues->pickup_date))}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Emp Id's:<b>{{$each_issues->emp_id}}</b>
                                         </p>
                                     <div class="search-actions text-center">
-                                    <br>
+                                    
                                         <a data-uniqueID="{{$each_issues->id}}" data-shoes_id="{{$each_issues->shoes_id}}" data-shoes_qty="{{$each_issues->quantity}}" class="btn btn-sm btn-block btn-info shoes_issue-btn">Issue</a>
                                         <a data-uniqueID="{{$each_issues->id}}" class="btn btn-sm btn-block btn-danger shoes_delete-btn">Delete</a>
                                     </div>

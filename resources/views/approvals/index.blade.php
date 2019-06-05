@@ -83,7 +83,7 @@
                                              $details_gatepass = DB::table('rs_gp_entries')
                                              ->join('users', 'users.id', '=', 'rs_gp_entries.user_id')
                                              ->join('rs_locations', 'rs_locations.id', '=', 'rs_gp_entries.location_id')
-                                             ->join('rs_gp_settings', 'rs_gp_settings.id', '=', '   .shift_id')
+                                             ->join('rs_gp_settings', 'rs_gp_settings.id', '=', 'rs_gp_entries.shift_id')
                                              ->select('users.name as name','users.emp_id as emp_id', 'rs_gp_entries.*','rs_locations.name as loc_name','rs_gp_settings.name as shift_name')
                                              ->where('rs_gp_entries.id',$each_approval->src_id)
                                              ->first();

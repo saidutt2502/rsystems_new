@@ -62,7 +62,7 @@ class ApprovalController extends Controller
         }
         else
         {
-            $issues=null;
+            $issue_requests=null;
         }    
 
         if($safety_admin)
